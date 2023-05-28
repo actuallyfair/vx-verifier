@@ -4,6 +4,7 @@
   "description": "",
   "main": "./src/index.ts",
   "scripts": {
+    "generate": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=forceLong=bigint --ts_proto_opt=fileSuffix=.generated --ts_proto_opt=esModuleInterop=true --ts_proto_out=./src/lib ./wagers.proto",
     "start": "ts-node ./src/index.ts",
     "dev": "nodemon ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -28,6 +29,9 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "pg-query-stream": "^4.2.1"
+    "@noble/curves": "^1.0.0",
+    "@noble/hashes": "^1.3.0",
+    "pg-query-stream": "^4.2.1",
+    "ts-proto": "^1.148.1"
   }
 }

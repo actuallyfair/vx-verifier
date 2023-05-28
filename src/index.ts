@@ -7,7 +7,7 @@ import {
 } from "./verifier/results";
 import verifyReveal from "./verifier/verify-reveal";
 
-console.log("Welcome to the verifier for Verified by moneypot (tm)");
+console.log("Welcome to the verifier for Verified by Provably Honest (tm)");
 
 const connectionString = "postgres://logger:verysecurepassword@localhost/ken";
 
