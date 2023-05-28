@@ -2,7 +2,8 @@
   "name": "verifier",
   "version": "1.0.0",
   "description": "",
-  "exports": "./dist",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "prepublish": "npm run generate && npm run build",
     "build": "tsc",
