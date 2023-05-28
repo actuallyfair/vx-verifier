@@ -11,7 +11,7 @@ console.log("Welcome to the verifier for Verified by Provably Honest (tm)");
 
 const connectionString = "postgres://logger:verysecurepassword@localhost/ken";
 
-async function main() {
+export async function main() {
   const revealClient = await db.connect(connectionString);
   const wagersClient = await db.connect(connectionString);
 

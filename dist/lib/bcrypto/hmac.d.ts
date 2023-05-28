@@ -3,7 +3,7 @@ interface HashType {
     update(key: Uint8Array): void;
     final(): Uint8Array;
 }
-declare type HashCtor = () => HashType;
+type HashCtor = () => HashType;
 export default class HMAC {
     hash: HashCtor;
     size: number;

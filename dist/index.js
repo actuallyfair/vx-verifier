@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -22,10 +26,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.main = void 0;
 const pg_query_stream_1 = __importDefault(require("pg-query-stream"));
 const db = __importStar(require("./lib/db"));
 const verify_reveal_1 = __importDefault(require("./verifier/verify-reveal"));
-console.log("Welcome to the verifier for Verified by moneypot (tm)");
+console.log("Welcome to the verifier for Verified by Provably Honest (tm)");
 const connectionString = "postgres://logger:verysecurepassword@localhost/ken";
 async function main() {
     const revealClient = await db.connect(connectionString);
@@ -48,4 +53,5 @@ async function main() {
     revealClient.end();
     wagersClient.end();
 }
+exports.main = main;
 main();

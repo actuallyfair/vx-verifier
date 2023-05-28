@@ -1,4 +1,4 @@
-declare type Wager = {
+type Wager = {
     target: "heads" | "tails";
     amount: number;
     currency?: string;

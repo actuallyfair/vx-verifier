@@ -1,4 +1,4 @@
-declare type CalculateFunction = (wager: any, wagerHash: Uint8Array) => {
+type CalculateFunction = (wager: any, wagerHash: Uint8Array) => {
     result: string;
     profit: number;
     currency: string;
