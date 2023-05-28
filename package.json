@@ -4,7 +4,7 @@
   "description": "",
   "main": "./src/index.ts",
   "scripts": {
-    "generate": "protoc --proto_path=./wagers_proto --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=forceLong=bigint  --ts_proto_opt=esModuleInterop=true --ts_proto_out=./wagers ./wagers_definitions/wagers.proto",
+    "generate": "protoc --proto_path=./wagers_definitions --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=forceLong=bigint  --ts_proto_opt=esModuleInterop=true --ts_proto_out=./wagers ./wagers_definitions/index.proto",
     "start": "ts-node ./src/index.ts",
     "dev": "nodemon ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

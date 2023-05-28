@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+// This is a very simple coin toss with 50/50 odds. Does not have amounts as its just for demo apps
+message DemoFairCoinToss {
+  enum Choice {
+    HEADS = 0;
+    TAILS = 1;
+  }
+
+  Choice player_choice = 1;
+}
