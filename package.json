@@ -5,8 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "prepublish": "npm run generate && npm run build",
-    "build": "tsc",
+    "build": "npm run generate && tsc",
     "generate": "protoc --proto_path=./wagers_definitions --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=forceLong=bigint  --ts_proto_opt=esModuleInterop=true --ts_proto_out=./src/wagers ./wagers_definitions/index.proto",
     "start": "ts-node ./src/index.ts",
     "dev": "nodemon ./src/index.ts",
