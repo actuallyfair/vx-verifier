@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package reveals;
+
+
+message StandardDerivation {
+  string player_seed = 1;
+}
+
+
+
+message Reveal {
+  oneof derivation_type {
+    StandardDerivation standard_derivation = 1;
+  }
+}
