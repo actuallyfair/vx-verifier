@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "demo_fair_coin_toss.proto";
+import "wagers/demo_fair_coin_toss.proto";
 
 
 package wagers;
