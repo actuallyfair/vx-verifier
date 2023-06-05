@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "npm run generate && tsc",
+    "build": "rm -rf dist && mkdir dist && npm run generate && tsc",
     "generate": "protoc --proto_path=./protobuf --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=forceLong=bigint  --ts_proto_opt=esModuleInterop=true --ts_proto_out=./src ./protobuf/wagers.proto ./protobuf/reveals.proto",
     "start": "ts-node ./src/index.ts",
     "dev": "nodemon ./src/index.ts",

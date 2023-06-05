@@ -48,7 +48,7 @@ export function getOutcomeFairCoinToss(hash: Uint8Array, w: DemoFairCoinToss) {
   };
 }
 
-export function getOutcome(hash: Uint8Array, w: Wagers.Wager) {
+export function getWagerOutcome(hash: Uint8Array, w: Wagers.Wager) {
   assert(w);
   if (w.demoFairCoinToss) {
     return getOutcomeFairCoinToss(hash, w.demoFairCoinToss);

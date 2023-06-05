@@ -17,7 +17,7 @@ export declare function getOutcomeFairCoinToss(hash: Uint8Array, w: DemoFairCoin
         currency: Currency;
     };
 };
-export declare function getOutcome(hash: Uint8Array, w: Wagers.Wager): {
+export declare function getWagerOutcome(hash: Uint8Array, w: Wagers.Wager): {
     result: number;
     profit: {
         amount: number;

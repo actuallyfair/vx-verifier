@@ -72,11 +72,16 @@ exports.DemoFairCoinToss = {
         return message;
     },
     fromJSON(object) {
-        return { playerChoice: isSet(object.playerChoice) ? demoFairCoinToss_ChoiceFromJSON(object.playerChoice) : 0 };
+        return {
+            playerChoice: isSet(object.playerChoice)
+                ? demoFairCoinToss_ChoiceFromJSON(object.playerChoice)
+                : 0,
+        };
     },
     toJSON(message) {
         const obj = {};
-        message.playerChoice !== undefined && (obj.playerChoice = demoFairCoinToss_ChoiceToJSON(message.playerChoice));
+        message.playerChoice !== undefined &&
+            (obj.playerChoice = demoFairCoinToss_ChoiceToJSON(message.playerChoice));
         return obj;
     },
     create(base) {
