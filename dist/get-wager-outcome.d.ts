@@ -1,4 +1,4 @@
-import * as Wagers from "./lib/wagers.generated";
+import * as Wagers from "./wagers";
 import { Currency } from "./wagers";
 import { DemoFairCoinToss, DemoFairCoinToss_Choice } from "./wagers/demo-fair-coin-toss";
 export type WagerOutcome = {
@@ -30,7 +30,7 @@ export declare function getOutcomeFairCoinToss(sig: Uint8Array, w: DemoFairCoinT
     };
     playerProfit: {
         amount: number;
-        currency: Currency;
+        currency: Wagers.Currency;
     };
 };
 export declare function getWagerOutcome(sig: Uint8Array, w: Wagers.Wager): WagerOutcome;

@@ -1,5 +1,5 @@
 import { assert } from "tsafe";
-import * as Wagers from "./lib/wagers.generated";
+import * as Wagers from "./wagers";
 import { sha256 } from "@noble/hashes/sha256";
 import { bytesToNumberBE } from "@noble/curves/abstract/utils";
 
