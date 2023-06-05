@@ -2,11 +2,24 @@ import { assert } from "tsafe";
 import * as Wagers from "./lib/wagers.generated";
 import { sha256 } from "@noble/hashes/sha256";
 import { bytesToNumberBE } from "@noble/curves/abstract/utils";
+
+import { Currency } from "./wagers";
 import {
   DemoFairCoinToss,
   DemoFairCoinToss_Choice,
-} from "./wagers/demo_fair_coin_toss";
-import { Currency } from "./wagers";
+  demoFairCoinToss_ChoiceToJSON,
+} from "./wagers/demo-fair-coin-toss";
+
+export type WagerOutcome = {
+  result: {
+    value: any;
+    displayName: string;
+  };
+  playerProfit: {
+    amount: number;
+    currency: Currency;
+  };
+};
 
 export function getResultRoullete(sig: Uint8Array) {
   // Normally you'd hash a signature, but since we're just mod'ing by 37 any bias is irrelevant.
@@ -24,8 +37,14 @@ export function getOutcomeRoulette(sig: Uint8Array, w: Wagers.RouletteWager) {
   const win = w.numberGuessed === result;
 
   return {
-    result,
-    profit: { amount: win ? w.amount * 2 : -w.amount, currency: w.currency },
+    result: {
+      value: result,
+      displayName: result.toString(),
+    },
+    playerProfit: {
+      amount: win ? w.amount * 2 : -w.amount,
+      currency: w.currency,
+    },
   };
 }
 
@@ -46,16 +65,26 @@ export function getOutcomeFairCoinToss(sig: Uint8Array, w: DemoFairCoinToss) {
   const win = w.playerChoice === result;
 
   return {
-    result,
-    profit: { amount: win ? 1 : -0, currency: Currency.CURRENCY_UNSPECIFIED },
+    result: {
+      value: result,
+      displayName: demoFairCoinToss_ChoiceToJSON(result),
+    },
+    playerProfit: {
+      amount: win ? 1 : -0,
+      currency: Currency.CURRENCY_UNSPECIFIED,
+    },
   };
 }
 
-export function getWagerOutcome(sig: Uint8Array, w: Wagers.Wager) {
+export function getWagerOutcome(
+  sig: Uint8Array,
+  w: Wagers.Wager
+): WagerOutcome {
   assert(w);
   if (w.demoFairCoinToss) {
     return getOutcomeFairCoinToss(sig, w.demoFairCoinToss);
   } else if (w.rockPaperScissors) {
+    throw new Error("TODO RPS");
   } else if (w.rouletteWager) {
     return getOutcomeRoulette(sig, w.rouletteWager);
   } else {

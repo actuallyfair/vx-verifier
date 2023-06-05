@@ -1,5 +1,5 @@
 import _m0 from "protobufjs/minimal";
-import { DemoFairCoinToss } from "./wagers/demo_fair_coin_toss";
+import { DemoFairCoinToss } from "./wagers/demo-fair-coin-toss";
 export declare const protobufPackage = "wagers";
 /** Define an enumeration for types of currencies. */
 export declare enum Currency {
@@ -114,7 +114,7 @@ export declare const Wager: {
             currency?: Currency | undefined;
         } | undefined;
         demoFairCoinToss?: {
-            playerChoice?: import("./wagers/demo_fair_coin_toss").DemoFairCoinToss_Choice | undefined;
+            playerChoice?: import("./wagers/demo-fair-coin-toss").DemoFairCoinToss_Choice | undefined;
         } | undefined;
     } & {
         rockPaperScissors?: ({
@@ -137,9 +137,9 @@ export declare const Wager: {
             currency?: Currency | undefined;
         } & { [K_2 in Exclude<keyof I["rouletteWager"], keyof RouletteWager>]: never; }) | undefined;
         demoFairCoinToss?: ({
-            playerChoice?: import("./wagers/demo_fair_coin_toss").DemoFairCoinToss_Choice | undefined;
+            playerChoice?: import("./wagers/demo-fair-coin-toss").DemoFairCoinToss_Choice | undefined;
         } & {
-            playerChoice?: import("./wagers/demo_fair_coin_toss").DemoFairCoinToss_Choice | undefined;
+            playerChoice?: import("./wagers/demo-fair-coin-toss").DemoFairCoinToss_Choice | undefined;
         } & { [K_3 in Exclude<keyof I["demoFairCoinToss"], "playerChoice">]: never; }) | undefined;
     } & { [K_4 in Exclude<keyof I, keyof Wager>]: never; }>(base?: I | undefined): Wager;
     fromPartial<I_1 extends {
@@ -155,7 +155,7 @@ export declare const Wager: {
             currency?: Currency | undefined;
         } | undefined;
         demoFairCoinToss?: {
-            playerChoice?: import("./wagers/demo_fair_coin_toss").DemoFairCoinToss_Choice | undefined;
+            playerChoice?: import("./wagers/demo-fair-coin-toss").DemoFairCoinToss_Choice | undefined;
         } | undefined;
     } & {
         rockPaperScissors?: ({
@@ -178,9 +178,9 @@ export declare const Wager: {
             currency?: Currency | undefined;
         } & { [K_7 in Exclude<keyof I_1["rouletteWager"], keyof RouletteWager>]: never; }) | undefined;
         demoFairCoinToss?: ({
-            playerChoice?: import("./wagers/demo_fair_coin_toss").DemoFairCoinToss_Choice | undefined;
+            playerChoice?: import("./wagers/demo-fair-coin-toss").DemoFairCoinToss_Choice | undefined;
         } & {
-            playerChoice?: import("./wagers/demo_fair_coin_toss").DemoFairCoinToss_Choice | undefined;
+            playerChoice?: import("./wagers/demo-fair-coin-toss").DemoFairCoinToss_Choice | undefined;
         } & { [K_8 in Exclude<keyof I_1["demoFairCoinToss"], "playerChoice">]: never; }) | undefined;
     } & { [K_9 in Exclude<keyof I_1, keyof Wager>]: never; }>(object: I_1): Wager;
 };

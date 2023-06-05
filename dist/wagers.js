@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Wager = exports.RouletteWager = exports.DiceWager = exports.RockPaperScissorsWager = exports.rockPaperScissorsWager_ChoiceToJSON = exports.rockPaperScissorsWager_ChoiceFromJSON = exports.RockPaperScissorsWager_Choice = exports.currencyToJSON = exports.currencyFromJSON = exports.Currency = exports.protobufPackage = void 0;
 /* eslint-disable */
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const demo_fair_coin_toss_1 = require("./wagers/demo_fair_coin_toss");
+const demo_fair_coin_toss_1 = require("./wagers/demo-fair-coin-toss");
 exports.protobufPackage = "wagers";
 /** Define an enumeration for types of currencies. */
 var Currency;

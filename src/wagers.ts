@@ -1,6 +1,6 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
-import { DemoFairCoinToss } from "./wagers/demo_fair_coin_toss";
+import { DemoFairCoinToss } from "./wagers/demo-fair-coin-toss";
 
 export const protobufPackage = "wagers";
 
