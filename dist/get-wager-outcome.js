@@ -2,18 +2,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getWagerOutcome = exports.getOutcomeFairCoinToss = exports.getResultFairCoinToss = exports.getOutcomeRoulette = exports.getResultRoullete = void 0;
 const tsafe_1 = require("tsafe");
+const sha256_1 = require("@noble/hashes/sha256");
 const utils_1 = require("@noble/curves/abstract/utils");
 const demo_fair_coin_toss_1 = require("./wagers/demo_fair_coin_toss");
 const wagers_1 = require("./wagers");
-function getResultRoullete(hash) {
-    const n = (0, utils_1.bytesToNumberBE)(hash) % 37n; // There's 37 options.
+function getResultRoullete(sig) {
+    // Normally you'd hash a signature, but since we're just mod'ing by 37 any bias is irrelevant.
+    const n = (0, utils_1.bytesToNumberBE)(sig) % 37n; // There's 37 options.
     const result = Number(n);
     (0, tsafe_1.assert)(Number.isInteger(result) && result >= 0 && result <= 36);
     return result;
 }
 exports.getResultRoullete = getResultRoullete;
-function getOutcomeRoulette(hash, w) {
-    const result = getResultRoullete(hash);
+function getOutcomeRoulette(sig, w) {
+    const result = getResultRoullete(sig);
     const win = w.numberGuessed === result;
     return {
         result,
@@ -21,7 +23,9 @@ function getOutcomeRoulette(hash, w) {
     };
 }
 exports.getOutcomeRoulette = getOutcomeRoulette;
-function getResultFairCoinToss(hash, w) {
+function getResultFairCoinToss(sig, w) {
+    // We're going to hash the signature just to really be sure its fairly distributed
+    const hash = (0, sha256_1.sha256)(sig);
     const result = hash[0] % 2;
     if (result == 0) {
         return demo_fair_coin_toss_1.DemoFairCoinToss_Choice.HEADS;
@@ -31,8 +35,8 @@ function getResultFairCoinToss(hash, w) {
     }
 }
 exports.getResultFairCoinToss = getResultFairCoinToss;
-function getOutcomeFairCoinToss(hash, w) {
-    const result = getResultFairCoinToss(hash, w);
+function getOutcomeFairCoinToss(sig, w) {
+    const result = getResultFairCoinToss(sig, w);
     const win = w.playerChoice === result;
     return {
         result,
@@ -40,15 +44,15 @@ function getOutcomeFairCoinToss(hash, w) {
     };
 }
 exports.getOutcomeFairCoinToss = getOutcomeFairCoinToss;
-function getWagerOutcome(hash, w) {
+function getWagerOutcome(sig, w) {
     (0, tsafe_1.assert)(w);
     if (w.demoFairCoinToss) {
-        return getOutcomeFairCoinToss(hash, w.demoFairCoinToss);
+        return getOutcomeFairCoinToss(sig, w.demoFairCoinToss);
     }
     else if (w.rockPaperScissors) {
     }
     else if (w.rouletteWager) {
-        return getOutcomeRoulette(hash, w.rouletteWager);
+        return getOutcomeRoulette(sig, w.rouletteWager);
     }
     else {
         throw new Error("Unknown wager :/  " + JSON.stringify(w));

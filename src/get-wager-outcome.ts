@@ -1,6 +1,6 @@
 import { assert } from "tsafe";
 import * as Wagers from "./lib/wagers.generated";
-import {} from "@noble/curves/bls12-381";
+import { sha256 } from "@noble/hashes/sha256";
 import { bytesToNumberBE } from "@noble/curves/abstract/utils";
 import {
   DemoFairCoinToss,
@@ -8,8 +8,9 @@ import {
 } from "./wagers/demo_fair_coin_toss";
 import { Currency } from "./wagers";
 
-export function getResultRoullete(hash: Uint8Array) {
-  const n = bytesToNumberBE(hash) % 37n; // There's 37 options.
+export function getResultRoullete(sig: Uint8Array) {
+  // Normally you'd hash a signature, but since we're just mod'ing by 37 any bias is irrelevant.
+  const n = bytesToNumberBE(sig) % 37n; // There's 37 options.
 
   const result = Number(n);
   assert(Number.isInteger(result) && result >= 0 && result <= 36);
@@ -17,8 +18,8 @@ export function getResultRoullete(hash: Uint8Array) {
   return result;
 }
 
-export function getOutcomeRoulette(hash: Uint8Array, w: Wagers.RouletteWager) {
-  const result = getResultRoullete(hash);
+export function getOutcomeRoulette(sig: Uint8Array, w: Wagers.RouletteWager) {
+  const result = getResultRoullete(sig);
 
   const win = w.numberGuessed === result;
 
@@ -28,7 +29,9 @@ export function getOutcomeRoulette(hash: Uint8Array, w: Wagers.RouletteWager) {
   };
 }
 
-export function getResultFairCoinToss(hash: Uint8Array, w: DemoFairCoinToss) {
+export function getResultFairCoinToss(sig: Uint8Array, w: DemoFairCoinToss) {
+  // We're going to hash the signature just to really be sure its fairly distributed
+  const hash = sha256(sig);
   const result = hash[0] % 2;
   if (result == 0) {
     return DemoFairCoinToss_Choice.HEADS;
@@ -37,8 +40,8 @@ export function getResultFairCoinToss(hash: Uint8Array, w: DemoFairCoinToss) {
   }
 }
 
-export function getOutcomeFairCoinToss(hash: Uint8Array, w: DemoFairCoinToss) {
-  const result = getResultFairCoinToss(hash, w);
+export function getOutcomeFairCoinToss(sig: Uint8Array, w: DemoFairCoinToss) {
+  const result = getResultFairCoinToss(sig, w);
 
   const win = w.playerChoice === result;
 
@@ -48,13 +51,13 @@ export function getOutcomeFairCoinToss(hash: Uint8Array, w: DemoFairCoinToss) {
   };
 }
 
-export function getWagerOutcome(hash: Uint8Array, w: Wagers.Wager) {
+export function getWagerOutcome(sig: Uint8Array, w: Wagers.Wager) {
   assert(w);
   if (w.demoFairCoinToss) {
-    return getOutcomeFairCoinToss(hash, w.demoFairCoinToss);
+    return getOutcomeFairCoinToss(sig, w.demoFairCoinToss);
   } else if (w.rockPaperScissors) {
   } else if (w.rouletteWager) {
-    return getOutcomeRoulette(hash, w.rouletteWager);
+    return getOutcomeRoulette(sig, w.rouletteWager);
   } else {
     throw new Error("Unknown wager :/  " + JSON.stringify(w));
   }
