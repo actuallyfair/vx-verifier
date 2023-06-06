@@ -16,7 +16,7 @@ export function getWagerInfo(w: Wager): WagerInfo {
       displayName: demoFairCoinToss_ChoiceToJSON(
         w.demoFairCoinToss.playerChoice
       ),
-      playerStakes: new Map([]),
+      playerStakes: new Map([[Currency.CURRENCY_UNSPECIFIED, 1]]),
     };
   } else if (w.rockPaperScissors) {
     return {
@@ -30,13 +30,15 @@ export function getWagerInfo(w: Wager): WagerInfo {
     return {
       kindDisplayName: "Dice",
       displayName: `> ${w.diceWager.numberToBeat}`,
-      playerStakes: new Map([]),
+      playerStakes: new Map([[Currency.CURRENCY_UNSPECIFIED, 1]]),
     };
   } else if (w.rouletteWager) {
     return {
       kindDisplayName: "Roulette",
       displayName: `${w.rouletteWager.numberGuessed}`,
-      playerStakes: new Map([]),
+      playerStakes: new Map([
+        [w.rouletteWager.currency, w.rouletteWager.amount],
+      ]),
     };
   } else {
     return {
