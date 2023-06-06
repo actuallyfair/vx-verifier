@@ -1,15 +1,10 @@
 syntax = "proto3";
 
 import "wagers/demo-fair-coin-toss.proto";
+import "currency.proto";
 
+package wager;
 
-package wagers;
-
-// Define an enumeration for types of currencies.
-enum Currency {
-  CURRENCY_UNSPECIFIED = 0;
-  BTC = 1;  // Bitcoin
-}
 
 message RockPaperScissorsWager {
   enum Choice {

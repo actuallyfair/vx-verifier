@@ -1,5 +1,4 @@
 import _m0 from "protobufjs/minimal";
-export declare const protobufPackage = "";
 /** This is a very simple coin toss with 50/50 odds. Does not have amounts as its just for demo apps */
 export interface DemoFairCoinToss {
     playerChoice: DemoFairCoinToss_Choice;
@@ -27,14 +26,3 @@ export declare const DemoFairCoinToss: {
         playerChoice?: DemoFairCoinToss_Choice | undefined;
     } & { [K_1 in Exclude<keyof I_1, "playerChoice">]: never; }>(object: I_1): DemoFairCoinToss;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | bigint | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
-} : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
-    [K in keyof P]: Exact<P[K], I[K]>;
-} & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
-};
-export {};

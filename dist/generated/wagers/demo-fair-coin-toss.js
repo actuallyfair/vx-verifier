@@ -3,10 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DemoFairCoinToss = exports.demoFairCoinToss_ChoiceToJSON = exports.demoFairCoinToss_ChoiceFromJSON = exports.DemoFairCoinToss_Choice = exports.protobufPackage = void 0;
+exports.DemoFairCoinToss = exports.demoFairCoinToss_ChoiceToJSON = exports.demoFairCoinToss_ChoiceFromJSON = exports.DemoFairCoinToss_Choice = void 0;
 /* eslint-disable */
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-exports.protobufPackage = "";
 var DemoFairCoinToss_Choice;
 (function (DemoFairCoinToss_Choice) {
     DemoFairCoinToss_Choice[DemoFairCoinToss_Choice["HEADS"] = 0] = "HEADS";

@@ -1,43 +1,7 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
+import { Currency, currencyFromJSON, currencyToJSON } from "./currency";
 import { DemoFairCoinToss } from "./wagers/demo-fair-coin-toss";
-
-export const protobufPackage = "wagers";
-
-/** Define an enumeration for types of currencies. */
-export enum Currency {
-  CURRENCY_UNSPECIFIED = 0,
-  /** BTC - Bitcoin */
-  BTC = 1,
-  UNRECOGNIZED = -1,
-}
-
-export function currencyFromJSON(object: any): Currency {
-  switch (object) {
-    case 0:
-    case "CURRENCY_UNSPECIFIED":
-      return Currency.CURRENCY_UNSPECIFIED;
-    case 1:
-    case "BTC":
-      return Currency.BTC;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return Currency.UNRECOGNIZED;
-  }
-}
-
-export function currencyToJSON(object: Currency): string {
-  switch (object) {
-    case Currency.CURRENCY_UNSPECIFIED:
-      return "CURRENCY_UNSPECIFIED";
-    case Currency.BTC:
-      return "BTC";
-    case Currency.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
-  }
-}
 
 export interface RockPaperScissorsWager {
   /** The player's choice. */
@@ -417,13 +381,13 @@ export const Wager = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | bigint | undefined;
 
-export type DeepPartial<T> = T extends Builtin ? T
+type DeepPartial<T> = T extends Builtin ? T
   : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
+type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {

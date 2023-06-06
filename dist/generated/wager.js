@@ -3,46 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Wager = exports.RouletteWager = exports.DiceWager = exports.RockPaperScissorsWager = exports.rockPaperScissorsWager_ChoiceToJSON = exports.rockPaperScissorsWager_ChoiceFromJSON = exports.RockPaperScissorsWager_Choice = exports.currencyToJSON = exports.currencyFromJSON = exports.Currency = exports.protobufPackage = void 0;
+exports.Wager = exports.RouletteWager = exports.DiceWager = exports.RockPaperScissorsWager = exports.rockPaperScissorsWager_ChoiceToJSON = exports.rockPaperScissorsWager_ChoiceFromJSON = exports.RockPaperScissorsWager_Choice = void 0;
 /* eslint-disable */
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const currency_1 = require("./currency");
 const demo_fair_coin_toss_1 = require("./wagers/demo-fair-coin-toss");
-exports.protobufPackage = "wagers";
-/** Define an enumeration for types of currencies. */
-var Currency;
-(function (Currency) {
-    Currency[Currency["CURRENCY_UNSPECIFIED"] = 0] = "CURRENCY_UNSPECIFIED";
-    /** BTC - Bitcoin */
-    Currency[Currency["BTC"] = 1] = "BTC";
-    Currency[Currency["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(Currency = exports.Currency || (exports.Currency = {}));
-function currencyFromJSON(object) {
-    switch (object) {
-        case 0:
-        case "CURRENCY_UNSPECIFIED":
-            return Currency.CURRENCY_UNSPECIFIED;
-        case 1:
-        case "BTC":
-            return Currency.BTC;
-        case -1:
-        case "UNRECOGNIZED":
-        default:
-            return Currency.UNRECOGNIZED;
-    }
-}
-exports.currencyFromJSON = currencyFromJSON;
-function currencyToJSON(object) {
-    switch (object) {
-        case Currency.CURRENCY_UNSPECIFIED:
-            return "CURRENCY_UNSPECIFIED";
-        case Currency.BTC:
-            return "BTC";
-        case Currency.UNRECOGNIZED:
-        default:
-            return "UNRECOGNIZED";
-    }
-}
-exports.currencyToJSON = currencyToJSON;
 var RockPaperScissorsWager_Choice;
 (function (RockPaperScissorsWager_Choice) {
     RockPaperScissorsWager_Choice[RockPaperScissorsWager_Choice["ROCK"] = 0] = "ROCK";
@@ -234,14 +199,14 @@ exports.RouletteWager = {
         return {
             numberGuessed: isSet(object.numberGuessed) ? Number(object.numberGuessed) : 0,
             amount: isSet(object.amount) ? Number(object.amount) : 0,
-            currency: isSet(object.currency) ? currencyFromJSON(object.currency) : 0,
+            currency: isSet(object.currency) ? (0, currency_1.currencyFromJSON)(object.currency) : 0,
         };
     },
     toJSON(message) {
         const obj = {};
         message.numberGuessed !== undefined && (obj.numberGuessed = Math.round(message.numberGuessed));
         message.amount !== undefined && (obj.amount = message.amount);
-        message.currency !== undefined && (obj.currency = currencyToJSON(message.currency));
+        message.currency !== undefined && (obj.currency = (0, currency_1.currencyToJSON)(message.currency));
         return obj;
     },
     create(base) {

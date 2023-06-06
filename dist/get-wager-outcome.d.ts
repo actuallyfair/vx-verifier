@@ -1,6 +1,6 @@
-import * as Wagers from "./wagers";
-import { Currency } from "./wagers";
-import { DemoFairCoinToss, DemoFairCoinToss_Choice } from "./wagers/demo-fair-coin-toss";
+import * as Wager from "./generated/wager";
+import { Currency } from "./generated/currency";
+import { DemoFairCoinToss, DemoFairCoinToss_Choice } from "./generated/wagers/demo-fair-coin-toss";
 export type WagerOutcome = {
     result: {
         value: any;
@@ -12,14 +12,14 @@ export type WagerOutcome = {
     };
 };
 export declare function getResultRoullete(sig: Uint8Array): number;
-export declare function getOutcomeRoulette(sig: Uint8Array, w: Wagers.RouletteWager): {
+export declare function getOutcomeRoulette(sig: Uint8Array, w: Wager.RouletteWager): {
     result: {
         value: number;
         displayName: string;
     };
     playerProfit: {
         amount: number;
-        currency: Wagers.Currency;
+        currency: Currency;
     };
 };
 export declare function getResultFairCoinToss(sig: Uint8Array, w: DemoFairCoinToss): DemoFairCoinToss_Choice.HEADS | DemoFairCoinToss_Choice.TAILS;
@@ -30,7 +30,7 @@ export declare function getOutcomeFairCoinToss(sig: Uint8Array, w: DemoFairCoinT
     };
     playerProfit: {
         amount: number;
-        currency: Wagers.Currency;
+        currency: Currency;
     };
 };
-export declare function getWagerOutcome(sig: Uint8Array, w: Wagers.Wager): WagerOutcome;
+export declare function getWagerOutcome(sig: Uint8Array, w: Wager.Wager): WagerOutcome;

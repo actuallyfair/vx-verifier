@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+enum Currency {
+  CURRENCY_UNSPECIFIED = 0;
+  BTC = 1;  // Bitcoin
+}

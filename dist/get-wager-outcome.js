@@ -4,8 +4,8 @@ exports.getWagerOutcome = exports.getOutcomeFairCoinToss = exports.getResultFair
 const tsafe_1 = require("tsafe");
 const sha256_1 = require("@noble/hashes/sha256");
 const utils_1 = require("@noble/curves/abstract/utils");
-const wagers_1 = require("./wagers");
-const demo_fair_coin_toss_1 = require("./wagers/demo-fair-coin-toss");
+const currency_1 = require("./generated/currency");
+const demo_fair_coin_toss_1 = require("./generated/wagers/demo-fair-coin-toss");
 function getResultRoullete(sig) {
     // Normally you'd hash a signature, but since we're just mod'ing by 37 any bias is irrelevant.
     const n = (0, utils_1.bytesToNumberBE)(sig) % 37n; // There's 37 options.
@@ -51,7 +51,7 @@ function getOutcomeFairCoinToss(sig, w) {
         },
         playerProfit: {
             amount: win ? 1 : -0,
-            currency: wagers_1.Currency.CURRENCY_UNSPECIFIED,
+            currency: currency_1.Currency.CURRENCY_UNSPECIFIED,
         },
     };
 }

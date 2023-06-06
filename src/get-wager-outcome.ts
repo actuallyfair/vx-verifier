@@ -1,14 +1,14 @@
 import { assert } from "tsafe";
-import * as Wagers from "./wagers";
+import * as Wager from "./generated/wager";
 import { sha256 } from "@noble/hashes/sha256";
 import { bytesToNumberBE } from "@noble/curves/abstract/utils";
 
-import { Currency } from "./wagers";
+import { Currency } from "./generated/currency";
 import {
   DemoFairCoinToss,
   DemoFairCoinToss_Choice,
   demoFairCoinToss_ChoiceToJSON,
-} from "./wagers/demo-fair-coin-toss";
+} from "./generated/wagers/demo-fair-coin-toss";
 
 export type WagerOutcome = {
   result: {
@@ -31,7 +31,7 @@ export function getResultRoullete(sig: Uint8Array) {
   return result;
 }
 
-export function getOutcomeRoulette(sig: Uint8Array, w: Wagers.RouletteWager) {
+export function getOutcomeRoulette(sig: Uint8Array, w: Wager.RouletteWager) {
   const result = getResultRoullete(sig);
 
   const win = w.numberGuessed === result;
@@ -76,10 +76,7 @@ export function getOutcomeFairCoinToss(sig: Uint8Array, w: DemoFairCoinToss) {
   };
 }
 
-export function getWagerOutcome(
-  sig: Uint8Array,
-  w: Wagers.Wager
-): WagerOutcome {
+export function getWagerOutcome(sig: Uint8Array, w: Wager.Wager): WagerOutcome {
   assert(w);
   if (w.demoFairCoinToss) {
     return getOutcomeFairCoinToss(sig, w.demoFairCoinToss);
