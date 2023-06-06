@@ -17,15 +17,10 @@ exports.getResultRoullete = getResultRoullete;
 function getOutcomeRoulette(sig, w) {
     const result = getResultRoullete(sig);
     const win = w.numberGuessed === result;
+    const profit = win ? w.amount * 2 : -w.amount;
     return {
-        result: {
-            value: result,
-            displayName: result.toString(),
-        },
-        playerProfit: {
-            amount: win ? w.amount * 2 : -w.amount,
-            currency: w.currency,
-        },
+        displayName: result.toString(),
+        playerProfits: new Map([[w.currency, profit]]),
     };
 }
 exports.getOutcomeRoulette = getOutcomeRoulette;
@@ -44,15 +39,13 @@ exports.getResultFairCoinToss = getResultFairCoinToss;
 function getOutcomeFairCoinToss(sig, w) {
     const result = getResultFairCoinToss(sig, w);
     const win = w.playerChoice === result;
+    const profit = win ? 1 : 0;
     return {
+        displayName: (0, demo_fair_coin_toss_1.demoFairCoinToss_ChoiceToJSON)(result),
         result: {
             value: result,
-            displayName: (0, demo_fair_coin_toss_1.demoFairCoinToss_ChoiceToJSON)(result),
         },
-        playerProfit: {
-            amount: win ? 1 : -0,
-            currency: currency_1.Currency.CURRENCY_UNSPECIFIED,
-        },
+        playerProfits: new Map([[currency_1.Currency.CURRENCY_UNSPECIFIED, profit]]),
     };
 }
 exports.getOutcomeFairCoinToss = getOutcomeFairCoinToss;

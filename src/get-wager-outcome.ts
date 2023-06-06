@@ -11,14 +11,8 @@ import {
 } from "./generated/wagers/demo-fair-coin-toss";
 
 export type WagerOutcome = {
-  result: {
-    value: any;
-    displayName: string;
-  };
-  playerProfit: {
-    amount: number;
-    currency: Currency;
-  };
+  displayName: string; // displayName of the outcome
+  playerProfits: Map<Currency, number>;
 };
 
 export function getResultRoullete(sig: Uint8Array) {
@@ -36,15 +30,11 @@ export function getOutcomeRoulette(sig: Uint8Array, w: Wager.RouletteWager) {
 
   const win = w.numberGuessed === result;
 
+  const profit = win ? w.amount * 2 : -w.amount;
+
   return {
-    result: {
-      value: result,
-      displayName: result.toString(),
-    },
-    playerProfit: {
-      amount: win ? w.amount * 2 : -w.amount,
-      currency: w.currency,
-    },
+    displayName: result.toString(),
+    playerProfits: new Map([[w.currency, profit]]),
   };
 }
 
@@ -64,15 +54,14 @@ export function getOutcomeFairCoinToss(sig: Uint8Array, w: DemoFairCoinToss) {
 
   const win = w.playerChoice === result;
 
+  const profit = win ? 1 : 0;
+
   return {
+    displayName: demoFairCoinToss_ChoiceToJSON(result),
     result: {
       value: result,
-      displayName: demoFairCoinToss_ChoiceToJSON(result),
     },
-    playerProfit: {
-      amount: win ? 1 : -0,
-      currency: Currency.CURRENCY_UNSPECIFIED,
-    },
+    playerProfits: new Map([[Currency.CURRENCY_UNSPECIFIED, profit]]),
   };
 }
 
