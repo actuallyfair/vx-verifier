@@ -8,6 +8,7 @@ exports.Wager = exports.RouletteWager = exports.DiceWager = exports.RockPaperSci
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const currency_1 = require("./currency");
 const demo_fair_coin_toss_1 = require("./wagers/demo-fair-coin-toss");
+const vhemp_crash_1 = require("./wagers/vhemp-crash");
 var RockPaperScissorsWager_Choice;
 (function (RockPaperScissorsWager_Choice) {
     RockPaperScissorsWager_Choice[RockPaperScissorsWager_Choice["ROCK"] = 0] = "ROCK";
@@ -221,7 +222,13 @@ exports.RouletteWager = {
     },
 };
 function createBaseWager() {
-    return { rockPaperScissors: undefined, diceWager: undefined, rouletteWager: undefined, demoFairCoinToss: undefined };
+    return {
+        rockPaperScissors: undefined,
+        diceWager: undefined,
+        rouletteWager: undefined,
+        demoFairCoinToss: undefined,
+        vhempCrash: undefined,
+    };
 }
 exports.Wager = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -236,6 +243,9 @@ exports.Wager = {
         }
         if (message.demoFairCoinToss !== undefined) {
             demo_fair_coin_toss_1.DemoFairCoinToss.encode(message.demoFairCoinToss, writer.uint32(34).fork()).ldelim();
+        }
+        if (message.vhempCrash !== undefined) {
+            vhemp_crash_1.VHEMPCrash.encode(message.vhempCrash, writer.uint32(42).fork()).ldelim();
         }
         return writer;
     },
@@ -270,6 +280,12 @@ exports.Wager = {
                     }
                     message.demoFairCoinToss = demo_fair_coin_toss_1.DemoFairCoinToss.decode(reader, reader.uint32());
                     continue;
+                case 5:
+                    if (tag !== 42) {
+                        break;
+                    }
+                    message.vhempCrash = vhemp_crash_1.VHEMPCrash.decode(reader, reader.uint32());
+                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -286,6 +302,7 @@ exports.Wager = {
             diceWager: isSet(object.diceWager) ? exports.DiceWager.fromJSON(object.diceWager) : undefined,
             rouletteWager: isSet(object.rouletteWager) ? exports.RouletteWager.fromJSON(object.rouletteWager) : undefined,
             demoFairCoinToss: isSet(object.demoFairCoinToss) ? demo_fair_coin_toss_1.DemoFairCoinToss.fromJSON(object.demoFairCoinToss) : undefined,
+            vhempCrash: isSet(object.vhempCrash) ? vhemp_crash_1.VHEMPCrash.fromJSON(object.vhempCrash) : undefined,
         };
     },
     toJSON(message) {
@@ -299,6 +316,8 @@ exports.Wager = {
             (obj.rouletteWager = message.rouletteWager ? exports.RouletteWager.toJSON(message.rouletteWager) : undefined);
         message.demoFairCoinToss !== undefined &&
             (obj.demoFairCoinToss = message.demoFairCoinToss ? demo_fair_coin_toss_1.DemoFairCoinToss.toJSON(message.demoFairCoinToss) : undefined);
+        message.vhempCrash !== undefined &&
+            (obj.vhempCrash = message.vhempCrash ? vhemp_crash_1.VHEMPCrash.toJSON(message.vhempCrash) : undefined);
         return obj;
     },
     create(base) {
@@ -317,6 +336,9 @@ exports.Wager = {
             : undefined;
         message.demoFairCoinToss = (object.demoFairCoinToss !== undefined && object.demoFairCoinToss !== null)
             ? demo_fair_coin_toss_1.DemoFairCoinToss.fromPartial(object.demoFairCoinToss)
+            : undefined;
+        message.vhempCrash = (object.vhempCrash !== undefined && object.vhempCrash !== null)
+            ? vhemp_crash_1.VHEMPCrash.fromPartial(object.vhempCrash)
             : undefined;
         return message;
     },

@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "wagers/demo-fair-coin-toss.proto";
+import "wagers/vhemp-crash.proto";
 import "currency.proto";
 
 package wager;
@@ -34,5 +35,6 @@ message Wager {
     DiceWager dice_wager = 2;
     RouletteWager roulette_wager = 3;
     DemoFairCoinToss demo_fair_coin_toss = 4;
+    VHEMPCrash vhemp_crash = 5;
   }
 }

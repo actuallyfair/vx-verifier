@@ -1,6 +1,7 @@
 import _m0 from "protobufjs/minimal";
 import { Currency } from "./currency";
 import { DemoFairCoinToss } from "./wagers/demo-fair-coin-toss";
+import { VHEMPCrash } from "./wagers/vhemp-crash";
 export interface RockPaperScissorsWager {
     /** The player's choice. */
     playerChoice: RockPaperScissorsWager_Choice;
@@ -30,6 +31,7 @@ export interface Wager {
     diceWager?: DiceWager | undefined;
     rouletteWager?: RouletteWager | undefined;
     demoFairCoinToss?: DemoFairCoinToss | undefined;
+    vhempCrash?: VHEMPCrash | undefined;
 }
 export declare const RockPaperScissorsWager: {
     encode(message: RockPaperScissorsWager, writer?: _m0.Writer): _m0.Writer;
@@ -107,6 +109,9 @@ export declare const Wager: {
         demoFairCoinToss?: {
             playerChoice?: import("./wagers/demo-fair-coin-toss").DemoFairCoinToss_Choice | undefined;
         } | undefined;
+        vhempCrash?: {
+            gameId?: number | undefined;
+        } | undefined;
     } & {
         rockPaperScissors?: ({
             playerChoice?: RockPaperScissorsWager_Choice | undefined;
@@ -132,7 +137,12 @@ export declare const Wager: {
         } & {
             playerChoice?: import("./wagers/demo-fair-coin-toss").DemoFairCoinToss_Choice | undefined;
         } & { [K_3 in Exclude<keyof I["demoFairCoinToss"], "playerChoice">]: never; }) | undefined;
-    } & { [K_4 in Exclude<keyof I, keyof Wager>]: never; }>(base?: I | undefined): Wager;
+        vhempCrash?: ({
+            gameId?: number | undefined;
+        } & {
+            gameId?: number | undefined;
+        } & { [K_4 in Exclude<keyof I["vhempCrash"], "gameId">]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I, keyof Wager>]: never; }>(base?: I | undefined): Wager;
     fromPartial<I_1 extends {
         rockPaperScissors?: {
             playerChoice?: RockPaperScissorsWager_Choice | undefined;
@@ -148,17 +158,20 @@ export declare const Wager: {
         demoFairCoinToss?: {
             playerChoice?: import("./wagers/demo-fair-coin-toss").DemoFairCoinToss_Choice | undefined;
         } | undefined;
+        vhempCrash?: {
+            gameId?: number | undefined;
+        } | undefined;
     } & {
         rockPaperScissors?: ({
             playerChoice?: RockPaperScissorsWager_Choice | undefined;
         } & {
             playerChoice?: RockPaperScissorsWager_Choice | undefined;
-        } & { [K_5 in Exclude<keyof I_1["rockPaperScissors"], "playerChoice">]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I_1["rockPaperScissors"], "playerChoice">]: never; }) | undefined;
         diceWager?: ({
             numberToBeat?: number | undefined;
         } & {
             numberToBeat?: number | undefined;
-        } & { [K_6 in Exclude<keyof I_1["diceWager"], "numberToBeat">]: never; }) | undefined;
+        } & { [K_7 in Exclude<keyof I_1["diceWager"], "numberToBeat">]: never; }) | undefined;
         rouletteWager?: ({
             numberGuessed?: number | undefined;
             amount?: number | undefined;
@@ -167,11 +180,16 @@ export declare const Wager: {
             numberGuessed?: number | undefined;
             amount?: number | undefined;
             currency?: Currency | undefined;
-        } & { [K_7 in Exclude<keyof I_1["rouletteWager"], keyof RouletteWager>]: never; }) | undefined;
+        } & { [K_8 in Exclude<keyof I_1["rouletteWager"], keyof RouletteWager>]: never; }) | undefined;
         demoFairCoinToss?: ({
             playerChoice?: import("./wagers/demo-fair-coin-toss").DemoFairCoinToss_Choice | undefined;
         } & {
             playerChoice?: import("./wagers/demo-fair-coin-toss").DemoFairCoinToss_Choice | undefined;
-        } & { [K_8 in Exclude<keyof I_1["demoFairCoinToss"], "playerChoice">]: never; }) | undefined;
-    } & { [K_9 in Exclude<keyof I_1, keyof Wager>]: never; }>(object: I_1): Wager;
+        } & { [K_9 in Exclude<keyof I_1["demoFairCoinToss"], "playerChoice">]: never; }) | undefined;
+        vhempCrash?: ({
+            gameId?: number | undefined;
+        } & {
+            gameId?: number | undefined;
+        } & { [K_10 in Exclude<keyof I_1["vhempCrash"], "gameId">]: never; }) | undefined;
+    } & { [K_11 in Exclude<keyof I_1, keyof Wager>]: never; }>(object: I_1): Wager;
 };

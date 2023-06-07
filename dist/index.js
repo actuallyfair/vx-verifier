@@ -16,6 +16,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./generated/wager"), exports);
 __exportStar(require("./generated/wagers/demo-fair-coin-toss"), exports);
+__exportStar(require("./generated/wagers/vhemp-crash"), exports);
 __exportStar(require("./generated/currency"), exports);
 __exportStar(require("./generated/reveal"), exports);
 __exportStar(require("./amount"), exports);
