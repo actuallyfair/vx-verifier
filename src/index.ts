@@ -6,5 +6,4 @@ export * from "./generated/currency";
 export * from "./generated/reveal";
 
 export * from "./amount";
-export * from "./get-wager-info";
-export * from "./get-wager-outcome";
+export * from "./compute-wager";

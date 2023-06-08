@@ -20,5 +20,4 @@ __exportStar(require("./generated/wagers/vhemp-crash"), exports);
 __exportStar(require("./generated/currency"), exports);
 __exportStar(require("./generated/reveal"), exports);
 __exportStar(require("./amount"), exports);
-__exportStar(require("./get-wager-info"), exports);
-__exportStar(require("./get-wager-outcome"), exports);
+__exportStar(require("./compute-wager"), exports);
