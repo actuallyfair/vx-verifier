@@ -2,6 +2,7 @@ import _m0 from "protobufjs/minimal";
 /** This is a very simple coin toss with 50/50 odds. Does not have amounts as its just for demo apps */
 export interface FairCoinToss {
     playerChoice: FairCoinToss_Choice;
+    nonce: number;
 }
 export declare enum FairCoinToss_Choice {
     HEADS = 0,
@@ -17,12 +18,16 @@ export declare const FairCoinToss: {
     toJSON(message: FairCoinToss): unknown;
     create<I extends {
         playerChoice?: FairCoinToss_Choice | undefined;
+        nonce?: number | undefined;
     } & {
         playerChoice?: FairCoinToss_Choice | undefined;
-    } & { [K in Exclude<keyof I, "playerChoice">]: never; }>(base?: I | undefined): FairCoinToss;
+        nonce?: number | undefined;
+    } & { [K in Exclude<keyof I, keyof FairCoinToss>]: never; }>(base?: I | undefined): FairCoinToss;
     fromPartial<I_1 extends {
         playerChoice?: FairCoinToss_Choice | undefined;
+        nonce?: number | undefined;
     } & {
         playerChoice?: FairCoinToss_Choice | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "playerChoice">]: never; }>(object: I_1): FairCoinToss;
+        nonce?: number | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof FairCoinToss>]: never; }>(object: I_1): FairCoinToss;
 };

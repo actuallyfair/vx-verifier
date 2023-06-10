@@ -13,6 +13,7 @@ export declare const MessageContext: {
     create<I extends {
         fairCoinToss?: {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
+            nonce?: number | undefined;
         } | undefined;
         vhempCrash?: {
             gameId?: number | undefined;
@@ -20,9 +21,11 @@ export declare const MessageContext: {
     } & {
         fairCoinToss?: ({
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
+            nonce?: number | undefined;
         } & {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
-        } & { [K in Exclude<keyof I["fairCoinToss"], "playerChoice">]: never; }) | undefined;
+            nonce?: number | undefined;
+        } & { [K in Exclude<keyof I["fairCoinToss"], keyof FairCoinToss>]: never; }) | undefined;
         vhempCrash?: ({
             gameId?: number | undefined;
         } & {
@@ -32,6 +35,7 @@ export declare const MessageContext: {
     fromPartial<I_1 extends {
         fairCoinToss?: {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
+            nonce?: number | undefined;
         } | undefined;
         vhempCrash?: {
             gameId?: number | undefined;
@@ -39,9 +43,11 @@ export declare const MessageContext: {
     } & {
         fairCoinToss?: ({
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
+            nonce?: number | undefined;
         } & {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
-        } & { [K_3 in Exclude<keyof I_1["fairCoinToss"], "playerChoice">]: never; }) | undefined;
+            nonce?: number | undefined;
+        } & { [K_3 in Exclude<keyof I_1["fairCoinToss"], keyof FairCoinToss>]: never; }) | undefined;
         vhempCrash?: ({
             gameId?: number | undefined;
         } & {
