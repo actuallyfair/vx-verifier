@@ -2,59 +2,59 @@
 import _m0 from "protobufjs/minimal";
 
 /** This is a very simple coin toss with 50/50 odds. Does not have amounts as its just for demo apps */
-export interface DemoFairCoinToss {
-  playerChoice: DemoFairCoinToss_Choice;
+export interface FairCoinToss {
+  playerChoice: FairCoinToss_Choice;
 }
 
-export enum DemoFairCoinToss_Choice {
+export enum FairCoinToss_Choice {
   HEADS = 0,
   TAILS = 1,
   UNRECOGNIZED = -1,
 }
 
-export function demoFairCoinToss_ChoiceFromJSON(object: any): DemoFairCoinToss_Choice {
+export function fairCoinToss_ChoiceFromJSON(object: any): FairCoinToss_Choice {
   switch (object) {
     case 0:
     case "HEADS":
-      return DemoFairCoinToss_Choice.HEADS;
+      return FairCoinToss_Choice.HEADS;
     case 1:
     case "TAILS":
-      return DemoFairCoinToss_Choice.TAILS;
+      return FairCoinToss_Choice.TAILS;
     case -1:
     case "UNRECOGNIZED":
     default:
-      return DemoFairCoinToss_Choice.UNRECOGNIZED;
+      return FairCoinToss_Choice.UNRECOGNIZED;
   }
 }
 
-export function demoFairCoinToss_ChoiceToJSON(object: DemoFairCoinToss_Choice): string {
+export function fairCoinToss_ChoiceToJSON(object: FairCoinToss_Choice): string {
   switch (object) {
-    case DemoFairCoinToss_Choice.HEADS:
+    case FairCoinToss_Choice.HEADS:
       return "HEADS";
-    case DemoFairCoinToss_Choice.TAILS:
+    case FairCoinToss_Choice.TAILS:
       return "TAILS";
-    case DemoFairCoinToss_Choice.UNRECOGNIZED:
+    case FairCoinToss_Choice.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
 }
 
-function createBaseDemoFairCoinToss(): DemoFairCoinToss {
+function createBaseFairCoinToss(): FairCoinToss {
   return { playerChoice: 0 };
 }
 
-export const DemoFairCoinToss = {
-  encode(message: DemoFairCoinToss, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const FairCoinToss = {
+  encode(message: FairCoinToss, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.playerChoice !== 0) {
       writer.uint32(8).int32(message.playerChoice);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): DemoFairCoinToss {
+  decode(input: _m0.Reader | Uint8Array, length?: number): FairCoinToss {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseDemoFairCoinToss();
+    const message = createBaseFairCoinToss();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -74,22 +74,22 @@ export const DemoFairCoinToss = {
     return message;
   },
 
-  fromJSON(object: any): DemoFairCoinToss {
-    return { playerChoice: isSet(object.playerChoice) ? demoFairCoinToss_ChoiceFromJSON(object.playerChoice) : 0 };
+  fromJSON(object: any): FairCoinToss {
+    return { playerChoice: isSet(object.playerChoice) ? fairCoinToss_ChoiceFromJSON(object.playerChoice) : 0 };
   },
 
-  toJSON(message: DemoFairCoinToss): unknown {
+  toJSON(message: FairCoinToss): unknown {
     const obj: any = {};
-    message.playerChoice !== undefined && (obj.playerChoice = demoFairCoinToss_ChoiceToJSON(message.playerChoice));
+    message.playerChoice !== undefined && (obj.playerChoice = fairCoinToss_ChoiceToJSON(message.playerChoice));
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<DemoFairCoinToss>, I>>(base?: I): DemoFairCoinToss {
-    return DemoFairCoinToss.fromPartial(base ?? {});
+  create<I extends Exact<DeepPartial<FairCoinToss>, I>>(base?: I): FairCoinToss {
+    return FairCoinToss.fromPartial(base ?? {});
   },
 
-  fromPartial<I extends Exact<DeepPartial<DemoFairCoinToss>, I>>(object: I): DemoFairCoinToss {
-    const message = createBaseDemoFairCoinToss();
+  fromPartial<I extends Exact<DeepPartial<FairCoinToss>, I>>(object: I): FairCoinToss {
+    const message = createBaseFairCoinToss();
     message.playerChoice = object.playerChoice ?? 0;
     return message;
   },

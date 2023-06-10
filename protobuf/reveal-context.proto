@@ -4,12 +4,13 @@ package reveal;
 
 
 message StandardDerivation {
-  string player_seed = 1;
+  bytes commitment_preimage = 1;
+  string player_seed = 2;
 }
 
 
 
-message Reveal {
+message RevealContext {
   oneof derivation_type {
     StandardDerivation standard_derivation = 1;
   }

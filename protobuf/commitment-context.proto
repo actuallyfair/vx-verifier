@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+
+// this is a pretty standard
+message Sha256Commitment {
+}
+
+// for multiplayer games like crash
+message Sha256Chain {
+}
+
+
+message CommitmentContext {
+  oneof derivation_type {
+    Sha256Commitment sha256_commitment = 1;
+    Sha256Chain sha256_chain = 2;
+  }
+}

@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rm -rf dist && mkdir dist && rm -rf src/generated && mkdir src/generated",
     "build": "npm run clean && npm run generate && tsc",
-    "generate": "protoc --proto_path=./protobuf --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=forceLong=bigint  --ts_proto_opt=esModuleInterop=true --ts_proto_opt=exportCommonSymbols=false --ts_proto_out=./src/generated ./protobuf/wager.proto ./protobuf/reveal.proto",
+    "generate": "protoc --proto_path=./protobuf --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=forceLong=bigint  --ts_proto_opt=esModuleInterop=true --ts_proto_opt=exportCommonSymbols=false --ts_proto_out=./src/generated ./protobuf/commitment-context.proto ./protobuf/message-context.proto ./protobuf/reveal-context.proto ./protobuf/currency.proto",
     "start": "ts-node ./src/index.ts",
     "dev": "nodemon ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

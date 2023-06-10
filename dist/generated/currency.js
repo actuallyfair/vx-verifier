@@ -8,7 +8,7 @@ var Currency;
     /** BTC - Bitcoin */
     Currency[Currency["BTC"] = 1] = "BTC";
     Currency[Currency["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(Currency = exports.Currency || (exports.Currency = {}));
+})(Currency || (exports.Currency = Currency = {}));
 function currencyFromJSON(object) {
     switch (object) {
         case 0:
