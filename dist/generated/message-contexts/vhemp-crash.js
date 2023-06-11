@@ -7,13 +7,10 @@ exports.VHEMPCrash = void 0;
 /* eslint-disable */
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 function createBaseVHEMPCrash() {
-    return { gameId: 0 };
+    return {};
 }
 exports.VHEMPCrash = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.gameId !== 0) {
-            writer.uint32(8).uint32(message.gameId);
-        }
+    encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
     decode(input, length) {
@@ -23,12 +20,6 @@ exports.VHEMPCrash = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                case 1:
-                    if (tag !== 8) {
-                        break;
-                    }
-                    message.gameId = reader.uint32();
-                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -37,23 +28,18 @@ exports.VHEMPCrash = {
         }
         return message;
     },
-    fromJSON(object) {
-        return { gameId: isSet(object.gameId) ? Number(object.gameId) : 0 };
+    fromJSON(_) {
+        return {};
     },
-    toJSON(message) {
+    toJSON(_) {
         const obj = {};
-        message.gameId !== undefined && (obj.gameId = Math.round(message.gameId));
         return obj;
     },
     create(base) {
         return exports.VHEMPCrash.fromPartial(base ?? {});
     },
-    fromPartial(object) {
+    fromPartial(_) {
         const message = createBaseVHEMPCrash();
-        message.gameId = object.gameId ?? 0;
         return message;
     },
 };
-function isSet(value) {
-    return value !== null && value !== undefined;
-}

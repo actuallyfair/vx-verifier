@@ -4,8 +4,10 @@ package reveal;
 
 
 message StandardDerivation {
-  bytes commitment_preimage = 1;
-  string player_seed = 2;
+  string player_seed = 1;
+}
+message HashChainDerivation {
+
 }
 
 
@@ -13,5 +15,6 @@ message StandardDerivation {
 message RevealContext {
   oneof derivation_type {
     StandardDerivation standard_derivation = 1;
+    HashChainDerivation hash_chain_derivation = 2;
   }
 }

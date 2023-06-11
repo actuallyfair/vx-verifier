@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+import "currency.proto";
+
+message Amount {
+  Currency currency = 1;
+  int64    value = 2;
+}

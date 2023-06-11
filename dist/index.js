@@ -19,5 +19,6 @@ __exportStar(require("./generated/message-context"), exports);
 __exportStar(require("./generated/reveal-context"), exports);
 __exportStar(require("./generated/message-contexts/fair-coin-toss"), exports);
 __exportStar(require("./generated/message-contexts/vhemp-crash"), exports);
+__exportStar(require("./generated/message-contexts/hilo"), exports);
 __exportStar(require("./amount"), exports);
 __exportStar(require("./compute-wager"), exports);

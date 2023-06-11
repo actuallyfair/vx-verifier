@@ -7,9 +7,10 @@ exports.MessageContext = void 0;
 /* eslint-disable */
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const fair_coin_toss_1 = require("./message-contexts/fair-coin-toss");
+const hilo_1 = require("./message-contexts/hilo");
 const vhemp_crash_1 = require("./message-contexts/vhemp-crash");
 function createBaseMessageContext() {
-    return { fairCoinToss: undefined, vhempCrash: undefined };
+    return { fairCoinToss: undefined, vhempCrash: undefined, hilo: undefined };
 }
 exports.MessageContext = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -18,6 +19,9 @@ exports.MessageContext = {
         }
         if (message.vhempCrash !== undefined) {
             vhemp_crash_1.VHEMPCrash.encode(message.vhempCrash, writer.uint32(18).fork()).ldelim();
+        }
+        if (message.hilo !== undefined) {
+            hilo_1.HiLo.encode(message.hilo, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -40,6 +44,12 @@ exports.MessageContext = {
                     }
                     message.vhempCrash = vhemp_crash_1.VHEMPCrash.decode(reader, reader.uint32());
                     continue;
+                case 3:
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.hilo = hilo_1.HiLo.decode(reader, reader.uint32());
+                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -52,6 +62,7 @@ exports.MessageContext = {
         return {
             fairCoinToss: isSet(object.fairCoinToss) ? fair_coin_toss_1.FairCoinToss.fromJSON(object.fairCoinToss) : undefined,
             vhempCrash: isSet(object.vhempCrash) ? vhemp_crash_1.VHEMPCrash.fromJSON(object.vhempCrash) : undefined,
+            hilo: isSet(object.hilo) ? hilo_1.HiLo.fromJSON(object.hilo) : undefined,
         };
     },
     toJSON(message) {
@@ -60,6 +71,7 @@ exports.MessageContext = {
             (obj.fairCoinToss = message.fairCoinToss ? fair_coin_toss_1.FairCoinToss.toJSON(message.fairCoinToss) : undefined);
         message.vhempCrash !== undefined &&
             (obj.vhempCrash = message.vhempCrash ? vhemp_crash_1.VHEMPCrash.toJSON(message.vhempCrash) : undefined);
+        message.hilo !== undefined && (obj.hilo = message.hilo ? hilo_1.HiLo.toJSON(message.hilo) : undefined);
         return obj;
     },
     create(base) {
@@ -73,6 +85,7 @@ exports.MessageContext = {
         message.vhempCrash = (object.vhempCrash !== undefined && object.vhempCrash !== null)
             ? vhemp_crash_1.VHEMPCrash.fromPartial(object.vhempCrash)
             : undefined;
+        message.hilo = (object.hilo !== undefined && object.hilo !== null) ? hilo_1.HiLo.fromPartial(object.hilo) : undefined;
         return message;
     },
 };

@@ -40,15 +40,12 @@ function fairCoinToss_ChoiceToJSON(object) {
 }
 exports.fairCoinToss_ChoiceToJSON = fairCoinToss_ChoiceToJSON;
 function createBaseFairCoinToss() {
-    return { playerChoice: 0, nonce: 0 };
+    return { playerChoice: 0 };
 }
 exports.FairCoinToss = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.playerChoice !== 0) {
             writer.uint32(8).int32(message.playerChoice);
-        }
-        if (message.nonce !== 0) {
-            writer.uint32(16).int32(message.nonce);
         }
         return writer;
     },
@@ -65,12 +62,6 @@ exports.FairCoinToss = {
                     }
                     message.playerChoice = reader.int32();
                     continue;
-                case 2:
-                    if (tag !== 16) {
-                        break;
-                    }
-                    message.nonce = reader.int32();
-                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -80,15 +71,11 @@ exports.FairCoinToss = {
         return message;
     },
     fromJSON(object) {
-        return {
-            playerChoice: isSet(object.playerChoice) ? fairCoinToss_ChoiceFromJSON(object.playerChoice) : 0,
-            nonce: isSet(object.nonce) ? Number(object.nonce) : 0,
-        };
+        return { playerChoice: isSet(object.playerChoice) ? fairCoinToss_ChoiceFromJSON(object.playerChoice) : 0 };
     },
     toJSON(message) {
         const obj = {};
         message.playerChoice !== undefined && (obj.playerChoice = fairCoinToss_ChoiceToJSON(message.playerChoice));
-        message.nonce !== undefined && (obj.nonce = Math.round(message.nonce));
         return obj;
     },
     create(base) {
@@ -97,7 +84,6 @@ exports.FairCoinToss = {
     fromPartial(object) {
         const message = createBaseFairCoinToss();
         message.playerChoice = object.playerChoice ?? 0;
-        message.nonce = object.nonce ?? 0;
         return message;
     },
 };

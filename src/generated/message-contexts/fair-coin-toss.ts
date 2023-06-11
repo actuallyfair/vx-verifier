@@ -4,7 +4,6 @@ import _m0 from "protobufjs/minimal";
 /** This is a very simple coin toss with 50/50 odds. Does not have amounts as its just for demo apps */
 export interface FairCoinToss {
   playerChoice: FairCoinToss_Choice;
-  nonce: number;
 }
 
 export enum FairCoinToss_Choice {
@@ -41,16 +40,13 @@ export function fairCoinToss_ChoiceToJSON(object: FairCoinToss_Choice): string {
 }
 
 function createBaseFairCoinToss(): FairCoinToss {
-  return { playerChoice: 0, nonce: 0 };
+  return { playerChoice: 0 };
 }
 
 export const FairCoinToss = {
   encode(message: FairCoinToss, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.playerChoice !== 0) {
       writer.uint32(8).int32(message.playerChoice);
-    }
-    if (message.nonce !== 0) {
-      writer.uint32(16).int32(message.nonce);
     }
     return writer;
   },
@@ -69,13 +65,6 @@ export const FairCoinToss = {
 
           message.playerChoice = reader.int32() as any;
           continue;
-        case 2:
-          if (tag !== 16) {
-            break;
-          }
-
-          message.nonce = reader.int32();
-          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -86,16 +75,12 @@ export const FairCoinToss = {
   },
 
   fromJSON(object: any): FairCoinToss {
-    return {
-      playerChoice: isSet(object.playerChoice) ? fairCoinToss_ChoiceFromJSON(object.playerChoice) : 0,
-      nonce: isSet(object.nonce) ? Number(object.nonce) : 0,
-    };
+    return { playerChoice: isSet(object.playerChoice) ? fairCoinToss_ChoiceFromJSON(object.playerChoice) : 0 };
   },
 
   toJSON(message: FairCoinToss): unknown {
     const obj: any = {};
     message.playerChoice !== undefined && (obj.playerChoice = fairCoinToss_ChoiceToJSON(message.playerChoice));
-    message.nonce !== undefined && (obj.nonce = Math.round(message.nonce));
     return obj;
   },
 
@@ -106,7 +91,6 @@ export const FairCoinToss = {
   fromPartial<I extends Exact<DeepPartial<FairCoinToss>, I>>(object: I): FairCoinToss {
     const message = createBaseFairCoinToss();
     message.playerChoice = object.playerChoice ?? 0;
-    message.nonce = object.nonce ?? 0;
     return message;
   },
 };

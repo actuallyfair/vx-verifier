@@ -1,0 +1,38 @@
+syntax = "proto3";
+import "amount.proto";
+
+
+enum Card {
+  Ace = 0;
+  Two = 1;
+  Three = 2;
+  Four = 3;
+  Five = 4;
+  Six = 5;
+  Seven = 6;
+  Eight = 7;
+  Nine = 8;
+  Ten = 9;
+  Jack = 10;
+  Queen = 11;
+  King = 12;
+}
+
+message HiLo {
+  Amount amount = 1;
+  Card starting_card = 2;
+}
+
+
+// This is based on stakes hilo game
+message HiLoMove {
+  enum Choice {
+    Hi = 0;
+    Lo = 1;
+    Skip = 2;
+    Cashout = 3;
+  }
+
+  Choice player_choice = 1;
+  int32 move_index = 2;
+}

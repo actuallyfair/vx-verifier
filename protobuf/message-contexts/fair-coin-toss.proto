@@ -8,5 +8,4 @@ message FairCoinToss {
   }
 
   Choice player_choice = 1;
-  int32 nonce = 2;
 }
