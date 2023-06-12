@@ -107,7 +107,7 @@ export function cardToJSON(object: Card): string {
   }
 }
 
-export interface HiLo {
+export interface HiLoStart {
   amount: Amount | undefined;
   startingCard: Card;
 }
@@ -163,12 +163,17 @@ export function hiLoMove_ChoiceToJSON(object: HiLoMove_Choice): string {
   }
 }
 
-function createBaseHiLo(): HiLo {
+export interface HiLo {
+  start?: HiLoStart | undefined;
+  move?: HiLoMove | undefined;
+}
+
+function createBaseHiLoStart(): HiLoStart {
   return { amount: undefined, startingCard: 0 };
 }
 
-export const HiLo = {
-  encode(message: HiLo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const HiLoStart = {
+  encode(message: HiLoStart, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.amount !== undefined) {
       Amount.encode(message.amount, writer.uint32(10).fork()).ldelim();
     }
@@ -178,10 +183,10 @@ export const HiLo = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): HiLo {
+  decode(input: _m0.Reader | Uint8Array, length?: number): HiLoStart {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseHiLo();
+    const message = createBaseHiLoStart();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -208,26 +213,26 @@ export const HiLo = {
     return message;
   },
 
-  fromJSON(object: any): HiLo {
+  fromJSON(object: any): HiLoStart {
     return {
       amount: isSet(object.amount) ? Amount.fromJSON(object.amount) : undefined,
       startingCard: isSet(object.startingCard) ? cardFromJSON(object.startingCard) : 0,
     };
   },
 
-  toJSON(message: HiLo): unknown {
+  toJSON(message: HiLoStart): unknown {
     const obj: any = {};
     message.amount !== undefined && (obj.amount = message.amount ? Amount.toJSON(message.amount) : undefined);
     message.startingCard !== undefined && (obj.startingCard = cardToJSON(message.startingCard));
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<HiLo>, I>>(base?: I): HiLo {
-    return HiLo.fromPartial(base ?? {});
+  create<I extends Exact<DeepPartial<HiLoStart>, I>>(base?: I): HiLoStart {
+    return HiLoStart.fromPartial(base ?? {});
   },
 
-  fromPartial<I extends Exact<DeepPartial<HiLo>, I>>(object: I): HiLo {
-    const message = createBaseHiLo();
+  fromPartial<I extends Exact<DeepPartial<HiLoStart>, I>>(object: I): HiLoStart {
+    const message = createBaseHiLoStart();
     message.amount = (object.amount !== undefined && object.amount !== null)
       ? Amount.fromPartial(object.amount)
       : undefined;
@@ -303,6 +308,79 @@ export const HiLoMove = {
     const message = createBaseHiLoMove();
     message.playerChoice = object.playerChoice ?? 0;
     message.moveIndex = object.moveIndex ?? 0;
+    return message;
+  },
+};
+
+function createBaseHiLo(): HiLo {
+  return { start: undefined, move: undefined };
+}
+
+export const HiLo = {
+  encode(message: HiLo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.start !== undefined) {
+      HiLoStart.encode(message.start, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.move !== undefined) {
+      HiLoMove.encode(message.move, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): HiLo {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseHiLo();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.start = HiLoStart.decode(reader, reader.uint32());
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.move = HiLoMove.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): HiLo {
+    return {
+      start: isSet(object.start) ? HiLoStart.fromJSON(object.start) : undefined,
+      move: isSet(object.move) ? HiLoMove.fromJSON(object.move) : undefined,
+    };
+  },
+
+  toJSON(message: HiLo): unknown {
+    const obj: any = {};
+    message.start !== undefined && (obj.start = message.start ? HiLoStart.toJSON(message.start) : undefined);
+    message.move !== undefined && (obj.move = message.move ? HiLoMove.toJSON(message.move) : undefined);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<HiLo>, I>>(base?: I): HiLo {
+    return HiLo.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<HiLo>, I>>(object: I): HiLo {
+    const message = createBaseHiLo();
+    message.start = (object.start !== undefined && object.start !== null)
+      ? HiLoStart.fromPartial(object.start)
+      : undefined;
+    message.move = (object.move !== undefined && object.move !== null) ? HiLoMove.fromPartial(object.move) : undefined;
     return message;
   },
 };

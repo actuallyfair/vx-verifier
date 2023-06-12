@@ -19,7 +19,7 @@ enum Card {
   King = 13;
 }
 
-message HiLo {
+message HiLoStart {
   Amount amount = 1;
   Card starting_card = 2;
 }
@@ -36,4 +36,11 @@ message HiLoMove {
 
   Choice player_choice = 1;
   int32 move_index = 2;
+}
+
+message HiLo {
+  oneof choice {
+    HiLoStart start = 1;
+    HiLoMove move = 2;
+  }
 }

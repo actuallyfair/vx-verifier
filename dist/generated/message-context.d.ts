@@ -18,11 +18,17 @@ export declare const MessageContext: {
         } | undefined;
         vhempCrash?: {} | undefined;
         hilo?: {
-            amount?: {
-                currency?: import("./currency").Currency | undefined;
-                value?: number | undefined;
+            start?: {
+                amount?: {
+                    currency?: import("./currency").Currency | undefined;
+                    value?: number | undefined;
+                } | undefined;
+                startingCard?: import("./message-contexts/hilo").Card | undefined;
             } | undefined;
-            startingCard?: import("./message-contexts/hilo").Card | undefined;
+            move?: {
+                playerChoice?: import("./message-contexts/hilo").HiLoMove_Choice | undefined;
+                moveIndex?: number | undefined;
+            } | undefined;
         } | undefined;
     } & {
         fairCoinToss?: ({
@@ -32,56 +38,104 @@ export declare const MessageContext: {
         } & { [K in Exclude<keyof I["fairCoinToss"], "playerChoice">]: never; }) | undefined;
         vhempCrash?: ({} & {} & { [K_1 in Exclude<keyof I["vhempCrash"], never>]: never; }) | undefined;
         hilo?: ({
-            amount?: {
-                currency?: import("./currency").Currency | undefined;
-                value?: number | undefined;
+            start?: {
+                amount?: {
+                    currency?: import("./currency").Currency | undefined;
+                    value?: number | undefined;
+                } | undefined;
+                startingCard?: import("./message-contexts/hilo").Card | undefined;
             } | undefined;
-            startingCard?: import("./message-contexts/hilo").Card | undefined;
+            move?: {
+                playerChoice?: import("./message-contexts/hilo").HiLoMove_Choice | undefined;
+                moveIndex?: number | undefined;
+            } | undefined;
         } & {
-            amount?: ({
-                currency?: import("./currency").Currency | undefined;
-                value?: number | undefined;
+            start?: ({
+                amount?: {
+                    currency?: import("./currency").Currency | undefined;
+                    value?: number | undefined;
+                } | undefined;
+                startingCard?: import("./message-contexts/hilo").Card | undefined;
             } & {
-                currency?: import("./currency").Currency | undefined;
-                value?: number | undefined;
-            } & { [K_2 in Exclude<keyof I["hilo"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
-            startingCard?: import("./message-contexts/hilo").Card | undefined;
-        } & { [K_3 in Exclude<keyof I["hilo"], keyof HiLo>]: never; }) | undefined;
-    } & { [K_4 in Exclude<keyof I, keyof MessageContext>]: never; }>(base?: I | undefined): MessageContext;
+                amount?: ({
+                    currency?: import("./currency").Currency | undefined;
+                    value?: number | undefined;
+                } & {
+                    currency?: import("./currency").Currency | undefined;
+                    value?: number | undefined;
+                } & { [K_2 in Exclude<keyof I["hilo"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
+                startingCard?: import("./message-contexts/hilo").Card | undefined;
+            } & { [K_3 in Exclude<keyof I["hilo"]["start"], keyof import("./message-contexts/hilo").HiLoStart>]: never; }) | undefined;
+            move?: ({
+                playerChoice?: import("./message-contexts/hilo").HiLoMove_Choice | undefined;
+                moveIndex?: number | undefined;
+            } & {
+                playerChoice?: import("./message-contexts/hilo").HiLoMove_Choice | undefined;
+                moveIndex?: number | undefined;
+            } & { [K_4 in Exclude<keyof I["hilo"]["move"], keyof import("./message-contexts/hilo").HiLoMove>]: never; }) | undefined;
+        } & { [K_5 in Exclude<keyof I["hilo"], keyof HiLo>]: never; }) | undefined;
+    } & { [K_6 in Exclude<keyof I, keyof MessageContext>]: never; }>(base?: I | undefined): MessageContext;
     fromPartial<I_1 extends {
         fairCoinToss?: {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
         } | undefined;
         vhempCrash?: {} | undefined;
         hilo?: {
-            amount?: {
-                currency?: import("./currency").Currency | undefined;
-                value?: number | undefined;
+            start?: {
+                amount?: {
+                    currency?: import("./currency").Currency | undefined;
+                    value?: number | undefined;
+                } | undefined;
+                startingCard?: import("./message-contexts/hilo").Card | undefined;
             } | undefined;
-            startingCard?: import("./message-contexts/hilo").Card | undefined;
+            move?: {
+                playerChoice?: import("./message-contexts/hilo").HiLoMove_Choice | undefined;
+                moveIndex?: number | undefined;
+            } | undefined;
         } | undefined;
     } & {
         fairCoinToss?: ({
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
         } & {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
-        } & { [K_5 in Exclude<keyof I_1["fairCoinToss"], "playerChoice">]: never; }) | undefined;
-        vhempCrash?: ({} & {} & { [K_6 in Exclude<keyof I_1["vhempCrash"], never>]: never; }) | undefined;
+        } & { [K_7 in Exclude<keyof I_1["fairCoinToss"], "playerChoice">]: never; }) | undefined;
+        vhempCrash?: ({} & {} & { [K_8 in Exclude<keyof I_1["vhempCrash"], never>]: never; }) | undefined;
         hilo?: ({
-            amount?: {
-                currency?: import("./currency").Currency | undefined;
-                value?: number | undefined;
+            start?: {
+                amount?: {
+                    currency?: import("./currency").Currency | undefined;
+                    value?: number | undefined;
+                } | undefined;
+                startingCard?: import("./message-contexts/hilo").Card | undefined;
             } | undefined;
-            startingCard?: import("./message-contexts/hilo").Card | undefined;
+            move?: {
+                playerChoice?: import("./message-contexts/hilo").HiLoMove_Choice | undefined;
+                moveIndex?: number | undefined;
+            } | undefined;
         } & {
-            amount?: ({
-                currency?: import("./currency").Currency | undefined;
-                value?: number | undefined;
+            start?: ({
+                amount?: {
+                    currency?: import("./currency").Currency | undefined;
+                    value?: number | undefined;
+                } | undefined;
+                startingCard?: import("./message-contexts/hilo").Card | undefined;
             } & {
-                currency?: import("./currency").Currency | undefined;
-                value?: number | undefined;
-            } & { [K_7 in Exclude<keyof I_1["hilo"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
-            startingCard?: import("./message-contexts/hilo").Card | undefined;
-        } & { [K_8 in Exclude<keyof I_1["hilo"], keyof HiLo>]: never; }) | undefined;
-    } & { [K_9 in Exclude<keyof I_1, keyof MessageContext>]: never; }>(object: I_1): MessageContext;
+                amount?: ({
+                    currency?: import("./currency").Currency | undefined;
+                    value?: number | undefined;
+                } & {
+                    currency?: import("./currency").Currency | undefined;
+                    value?: number | undefined;
+                } & { [K_9 in Exclude<keyof I_1["hilo"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
+                startingCard?: import("./message-contexts/hilo").Card | undefined;
+            } & { [K_10 in Exclude<keyof I_1["hilo"]["start"], keyof import("./message-contexts/hilo").HiLoStart>]: never; }) | undefined;
+            move?: ({
+                playerChoice?: import("./message-contexts/hilo").HiLoMove_Choice | undefined;
+                moveIndex?: number | undefined;
+            } & {
+                playerChoice?: import("./message-contexts/hilo").HiLoMove_Choice | undefined;
+                moveIndex?: number | undefined;
+            } & { [K_11 in Exclude<keyof I_1["hilo"]["move"], keyof import("./message-contexts/hilo").HiLoMove>]: never; }) | undefined;
+        } & { [K_12 in Exclude<keyof I_1["hilo"], keyof HiLo>]: never; }) | undefined;
+    } & { [K_13 in Exclude<keyof I_1, keyof MessageContext>]: never; }>(object: I_1): MessageContext;
 };

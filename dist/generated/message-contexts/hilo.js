@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HiLoMove = exports.HiLo = exports.hiLoMove_ChoiceToJSON = exports.hiLoMove_ChoiceFromJSON = exports.HiLoMove_Choice = exports.cardToJSON = exports.cardFromJSON = exports.Card = void 0;
+exports.HiLo = exports.HiLoMove = exports.HiLoStart = exports.hiLoMove_ChoiceToJSON = exports.hiLoMove_ChoiceFromJSON = exports.HiLoMove_Choice = exports.cardToJSON = exports.cardFromJSON = exports.Card = void 0;
 /* eslint-disable */
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const amount_1 = require("../amount");
@@ -157,10 +157,10 @@ function hiLoMove_ChoiceToJSON(object) {
     }
 }
 exports.hiLoMove_ChoiceToJSON = hiLoMove_ChoiceToJSON;
-function createBaseHiLo() {
+function createBaseHiLoStart() {
     return { amount: undefined, startingCard: 0 };
 }
-exports.HiLo = {
+exports.HiLoStart = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.amount !== undefined) {
             amount_1.Amount.encode(message.amount, writer.uint32(10).fork()).ldelim();
@@ -173,7 +173,7 @@ exports.HiLo = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseHiLo();
+        const message = createBaseHiLoStart();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -210,10 +210,10 @@ exports.HiLo = {
         return obj;
     },
     create(base) {
-        return exports.HiLo.fromPartial(base ?? {});
+        return exports.HiLoStart.fromPartial(base ?? {});
     },
     fromPartial(object) {
-        const message = createBaseHiLo();
+        const message = createBaseHiLoStart();
         message.amount = (object.amount !== undefined && object.amount !== null)
             ? amount_1.Amount.fromPartial(object.amount)
             : undefined;
@@ -280,6 +280,70 @@ exports.HiLoMove = {
         const message = createBaseHiLoMove();
         message.playerChoice = object.playerChoice ?? 0;
         message.moveIndex = object.moveIndex ?? 0;
+        return message;
+    },
+};
+function createBaseHiLo() {
+    return { start: undefined, move: undefined };
+}
+exports.HiLo = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.start !== undefined) {
+            exports.HiLoStart.encode(message.start, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.move !== undefined) {
+            exports.HiLoMove.encode(message.move, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseHiLo();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.start = exports.HiLoStart.decode(reader, reader.uint32());
+                    continue;
+                case 2:
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.move = exports.HiLoMove.decode(reader, reader.uint32());
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            start: isSet(object.start) ? exports.HiLoStart.fromJSON(object.start) : undefined,
+            move: isSet(object.move) ? exports.HiLoMove.fromJSON(object.move) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.start !== undefined && (obj.start = message.start ? exports.HiLoStart.toJSON(message.start) : undefined);
+        message.move !== undefined && (obj.move = message.move ? exports.HiLoMove.toJSON(message.move) : undefined);
+        return obj;
+    },
+    create(base) {
+        return exports.HiLo.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseHiLo();
+        message.start = (object.start !== undefined && object.start !== null)
+            ? exports.HiLoStart.fromPartial(object.start)
+            : undefined;
+        message.move = (object.move !== undefined && object.move !== null) ? exports.HiLoMove.fromPartial(object.move) : undefined;
         return message;
     },
 };
