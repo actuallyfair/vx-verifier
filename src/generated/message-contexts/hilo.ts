@@ -3,61 +3,65 @@ import _m0 from "protobufjs/minimal";
 import { Amount } from "../amount";
 
 export enum Card {
-  Ace = 0,
-  Two = 1,
-  Three = 2,
-  Four = 3,
-  Five = 4,
-  Six = 5,
-  Seven = 6,
-  Eight = 7,
-  Nine = 8,
-  Ten = 9,
-  Jack = 10,
-  Queen = 11,
-  King = 12,
+  Unknown = 0,
+  Ace = 1,
+  Two = 2,
+  Three = 3,
+  Four = 4,
+  Five = 5,
+  Six = 6,
+  Seven = 7,
+  Eight = 8,
+  Nine = 9,
+  Ten = 10,
+  Jack = 11,
+  Queen = 12,
+  King = 13,
   UNRECOGNIZED = -1,
 }
 
 export function cardFromJSON(object: any): Card {
   switch (object) {
     case 0:
+    case "Unknown":
+      return Card.Unknown;
+    case 1:
     case "Ace":
       return Card.Ace;
-    case 1:
+    case 2:
     case "Two":
       return Card.Two;
-    case 2:
+    case 3:
     case "Three":
       return Card.Three;
-    case 3:
+    case 4:
     case "Four":
       return Card.Four;
-    case 4:
+    case 5:
     case "Five":
       return Card.Five;
-    case 5:
+    case 6:
     case "Six":
       return Card.Six;
-    case 6:
+    case 7:
     case "Seven":
       return Card.Seven;
-    case 7:
+    case 8:
     case "Eight":
       return Card.Eight;
-    case 8:
+    case 9:
     case "Nine":
       return Card.Nine;
-    case 9:
+    case 10:
     case "Ten":
       return Card.Ten;
-    case 10:
+    case 11:
     case "Jack":
       return Card.Jack;
-    case 11:
+    case 12:
     case "Queen":
       return Card.Queen;
-    case 12:
+    case 13:
     case "King":
       return Card.King;
     case -1:
@@ -69,6 +73,8 @@ export function cardFromJSON(object: any): Card {
 
 export function cardToJSON(object: Card): string {
   switch (object) {
+    case Card.Unknown:
+      return "Unknown";
     case Card.Ace:
       return "Ace";
     case Card.Two:
@@ -301,7 +307,7 @@ export const HiLoMove = {
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | bigint | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 type DeepPartial<T> = T extends Builtin ? T
   : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>

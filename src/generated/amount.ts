@@ -5,11 +5,11 @@ import { Currency, currencyFromJSON, currencyToJSON } from "./currency";
 
 export interface Amount {
   currency: Currency;
-  value: bigint;
+  value: number;
 }
 
 function createBaseAmount(): Amount {
-  return { currency: 0, value: BigInt("0") };
+  return { currency: 0, value: 0 };
 }
 
 export const Amount = {
@@ -17,8 +17,8 @@ export const Amount = {
     if (message.currency !== 0) {
       writer.uint32(8).int32(message.currency);
     }
-    if (message.value !== BigInt("0")) {
-      writer.uint32(16).int64(message.value.toString());
+    if (message.value !== 0) {
+      writer.uint32(16).int64(message.value);
     }
     return writer;
   },
@@ -42,7 +42,7 @@ export const Amount = {
             break;
           }
 
-          message.value = longToBigint(reader.int64() as Long);
+          message.value = longToNumber(reader.int64() as Long);
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -56,14 +56,14 @@ export const Amount = {
   fromJSON(object: any): Amount {
     return {
       currency: isSet(object.currency) ? currencyFromJSON(object.currency) : 0,
-      value: isSet(object.value) ? BigInt(object.value) : BigInt("0"),
+      value: isSet(object.value) ? Number(object.value) : 0,
     };
   },
 
   toJSON(message: Amount): unknown {
     const obj: any = {};
     message.currency !== undefined && (obj.currency = currencyToJSON(message.currency));
-    message.value !== undefined && (obj.value = message.value.toString());
+    message.value !== undefined && (obj.value = Math.round(message.value));
     return obj;
   },
 
@@ -74,12 +74,31 @@ export const Amount = {
   fromPartial<I extends Exact<DeepPartial<Amount>, I>>(object: I): Amount {
     const message = createBaseAmount();
     message.currency = object.currency ?? 0;
-    message.value = object.value ?? BigInt("0");
+    message.value = object.value ?? 0;
     return message;
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | bigint | undefined;
+declare var self: any | undefined;
+declare var window: any | undefined;
+declare var global: any | undefined;
+var tsProtoGlobalThis: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 type DeepPartial<T> = T extends Builtin ? T
   : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
@@ -90,8 +109,11 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToBigint(long: Long) {
-  return BigInt(long.toString());
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  return long.toNumber();
 }
 
 if (_m0.util.Long !== Long) {

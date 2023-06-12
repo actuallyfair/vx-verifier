@@ -9,60 +9,64 @@ const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const amount_1 = require("../amount");
 var Card;
 (function (Card) {
-    Card[Card["Ace"] = 0] = "Ace";
-    Card[Card["Two"] = 1] = "Two";
-    Card[Card["Three"] = 2] = "Three";
-    Card[Card["Four"] = 3] = "Four";
-    Card[Card["Five"] = 4] = "Five";
-    Card[Card["Six"] = 5] = "Six";
-    Card[Card["Seven"] = 6] = "Seven";
-    Card[Card["Eight"] = 7] = "Eight";
-    Card[Card["Nine"] = 8] = "Nine";
-    Card[Card["Ten"] = 9] = "Ten";
-    Card[Card["Jack"] = 10] = "Jack";
-    Card[Card["Queen"] = 11] = "Queen";
-    Card[Card["King"] = 12] = "King";
+    Card[Card["Unknown"] = 0] = "Unknown";
+    Card[Card["Ace"] = 1] = "Ace";
+    Card[Card["Two"] = 2] = "Two";
+    Card[Card["Three"] = 3] = "Three";
+    Card[Card["Four"] = 4] = "Four";
+    Card[Card["Five"] = 5] = "Five";
+    Card[Card["Six"] = 6] = "Six";
+    Card[Card["Seven"] = 7] = "Seven";
+    Card[Card["Eight"] = 8] = "Eight";
+    Card[Card["Nine"] = 9] = "Nine";
+    Card[Card["Ten"] = 10] = "Ten";
+    Card[Card["Jack"] = 11] = "Jack";
+    Card[Card["Queen"] = 12] = "Queen";
+    Card[Card["King"] = 13] = "King";
     Card[Card["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
 })(Card || (exports.Card = Card = {}));
 function cardFromJSON(object) {
     switch (object) {
         case 0:
+        case "Unknown":
+            return Card.Unknown;
+        case 1:
         case "Ace":
             return Card.Ace;
-        case 1:
+        case 2:
         case "Two":
             return Card.Two;
-        case 2:
+        case 3:
         case "Three":
             return Card.Three;
-        case 3:
+        case 4:
         case "Four":
             return Card.Four;
-        case 4:
+        case 5:
         case "Five":
             return Card.Five;
-        case 5:
+        case 6:
         case "Six":
             return Card.Six;
-        case 6:
+        case 7:
         case "Seven":
             return Card.Seven;
-        case 7:
+        case 8:
         case "Eight":
             return Card.Eight;
-        case 8:
+        case 9:
         case "Nine":
             return Card.Nine;
-        case 9:
+        case 10:
         case "Ten":
             return Card.Ten;
-        case 10:
+        case 11:
         case "Jack":
             return Card.Jack;
-        case 11:
+        case 12:
         case "Queen":
             return Card.Queen;
-        case 12:
+        case 13:
         case "King":
             return Card.King;
         case -1:
@@ -74,6 +78,8 @@ function cardFromJSON(object) {
 exports.cardFromJSON = cardFromJSON;
 function cardToJSON(object) {
     switch (object) {
+        case Card.Unknown:
+            return "Unknown";
         case Card.Ace:
             return "Ace";
         case Card.Two:

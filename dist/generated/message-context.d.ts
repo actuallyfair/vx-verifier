@@ -20,7 +20,7 @@ export declare const MessageContext: {
         hilo?: {
             amount?: {
                 currency?: import("./currency").Currency | undefined;
-                value?: bigint | undefined;
+                value?: number | undefined;
             } | undefined;
             startingCard?: import("./message-contexts/hilo").Card | undefined;
         } | undefined;
@@ -34,16 +34,16 @@ export declare const MessageContext: {
         hilo?: ({
             amount?: {
                 currency?: import("./currency").Currency | undefined;
-                value?: bigint | undefined;
+                value?: number | undefined;
             } | undefined;
             startingCard?: import("./message-contexts/hilo").Card | undefined;
         } & {
             amount?: ({
                 currency?: import("./currency").Currency | undefined;
-                value?: bigint | undefined;
+                value?: number | undefined;
             } & {
                 currency?: import("./currency").Currency | undefined;
-                value?: bigint | undefined;
+                value?: number | undefined;
             } & { [K_2 in Exclude<keyof I["hilo"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
             startingCard?: import("./message-contexts/hilo").Card | undefined;
         } & { [K_3 in Exclude<keyof I["hilo"], keyof HiLo>]: never; }) | undefined;
@@ -56,7 +56,7 @@ export declare const MessageContext: {
         hilo?: {
             amount?: {
                 currency?: import("./currency").Currency | undefined;
-                value?: bigint | undefined;
+                value?: number | undefined;
             } | undefined;
             startingCard?: import("./message-contexts/hilo").Card | undefined;
         } | undefined;
@@ -70,16 +70,16 @@ export declare const MessageContext: {
         hilo?: ({
             amount?: {
                 currency?: import("./currency").Currency | undefined;
-                value?: bigint | undefined;
+                value?: number | undefined;
             } | undefined;
             startingCard?: import("./message-contexts/hilo").Card | undefined;
         } & {
             amount?: ({
                 currency?: import("./currency").Currency | undefined;
-                value?: bigint | undefined;
+                value?: number | undefined;
             } & {
                 currency?: import("./currency").Currency | undefined;
-                value?: bigint | undefined;
+                value?: number | undefined;
             } & { [K_7 in Exclude<keyof I_1["hilo"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
             startingCard?: import("./message-contexts/hilo").Card | undefined;
         } & { [K_8 in Exclude<keyof I_1["hilo"], keyof HiLo>]: never; }) | undefined;

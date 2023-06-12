@@ -1,19 +1,20 @@
 import _m0 from "protobufjs/minimal";
 import { Amount } from "../amount";
 export declare enum Card {
-    Ace = 0,
-    Two = 1,
-    Three = 2,
-    Four = 3,
-    Five = 4,
-    Six = 5,
-    Seven = 6,
-    Eight = 7,
-    Nine = 8,
-    Ten = 9,
-    Jack = 10,
-    Queen = 11,
-    King = 12,
+    Unknown = 0,
+    Ace = 1,
+    Two = 2,
+    Three = 3,
+    Four = 4,
+    Five = 5,
+    Six = 6,
+    Seven = 7,
+    Eight = 8,
+    Nine = 9,
+    Ten = 10,
+    Jack = 11,
+    Queen = 12,
+    King = 13,
     UNRECOGNIZED = -1
 }
 export declare function cardFromJSON(object: any): Card;
@@ -44,32 +45,32 @@ export declare const HiLo: {
     create<I extends {
         amount?: {
             currency?: import("../currency").Currency | undefined;
-            value?: bigint | undefined;
+            value?: number | undefined;
         } | undefined;
         startingCard?: Card | undefined;
     } & {
         amount?: ({
             currency?: import("../currency").Currency | undefined;
-            value?: bigint | undefined;
+            value?: number | undefined;
         } & {
             currency?: import("../currency").Currency | undefined;
-            value?: bigint | undefined;
+            value?: number | undefined;
         } & { [K in Exclude<keyof I["amount"], keyof Amount>]: never; }) | undefined;
         startingCard?: Card | undefined;
     } & { [K_1 in Exclude<keyof I, keyof HiLo>]: never; }>(base?: I | undefined): HiLo;
     fromPartial<I_1 extends {
         amount?: {
             currency?: import("../currency").Currency | undefined;
-            value?: bigint | undefined;
+            value?: number | undefined;
         } | undefined;
         startingCard?: Card | undefined;
     } & {
         amount?: ({
             currency?: import("../currency").Currency | undefined;
-            value?: bigint | undefined;
+            value?: number | undefined;
         } & {
             currency?: import("../currency").Currency | undefined;
-            value?: bigint | undefined;
+            value?: number | undefined;
         } & { [K_2 in Exclude<keyof I_1["amount"], keyof Amount>]: never; }) | undefined;
         startingCard?: Card | undefined;
     } & { [K_3 in Exclude<keyof I_1, keyof HiLo>]: never; }>(object: I_1): HiLo;
