@@ -8,6 +8,7 @@ import {
   FairCoinToss,
   FairCoinToss_Choice,
 } from "./generated/message-contexts/fair-coin-toss";
+import { bytesToHex } from "@noble/hashes/utils";
 
 export function computeFairCoinTossResult(sig: Uint8Array) {
   // We're going to hash the signature just to really be sure its fairly distributed
@@ -37,10 +38,13 @@ export function computeVhempCrashResult(
   sig: Uint8Array,
   nextGameHash: Uint8Array
 ) {
-  const outcomeBytes = hmac(sha256, sig, nextGameHash);
+  const nBits = 52;
+  const bytes = hmac(sha256, sig, nextGameHash);
 
-  const n = Number(bytesToNumberBE(outcomeBytes));
-  const X = n / 2 ** 256; // uniform distribution between 0 and 1
+  const seed = bytes.slice(0, nBits / 8);
+  const r = Number.parseInt(bytesToHex(seed), 16);
+
+  let X = r / 2 ** nBits; // uniformly distributed in [0; 1)
 
   return 1 / X;
 }

@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.computeVhempCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
 const sha256_1 = require("@noble/hashes/sha256");
 const hmac_1 = require("@noble/hashes/hmac");
-const utils_1 = require("@noble/curves/abstract/utils");
 const currency_1 = require("./generated/currency");
 const fair_coin_toss_1 = require("./generated/message-contexts/fair-coin-toss");
+const utils_1 = require("@noble/hashes/utils");
 function computeFairCoinTossResult(sig) {
     // We're going to hash the signature just to really be sure its fairly distributed
     const hash = (0, sha256_1.sha256)(sig);
@@ -29,9 +29,11 @@ function computeFairCoinTossOutcome(sig, w) {
 }
 exports.computeFairCoinTossOutcome = computeFairCoinTossOutcome;
 function computeVhempCrashResult(sig, nextGameHash) {
-    const outcomeBytes = (0, hmac_1.hmac)(sha256_1.sha256, sig, nextGameHash);
-    const n = Number((0, utils_1.bytesToNumberBE)(outcomeBytes));
-    const X = n / 2 ** 256; // uniform distribution between 0 and 1
+    const nBits = 52;
+    const bytes = (0, hmac_1.hmac)(sha256_1.sha256, sig, nextGameHash);
+    const seed = bytes.slice(0, nBits / 8);
+    const r = Number.parseInt((0, utils_1.bytesToHex)(seed), 16);
+    let X = r / 2 ** nBits; // uniformly distributed in [0; 1)
     return 1 / X;
 }
 exports.computeVhempCrashResult = computeVhempCrashResult;
