@@ -30,9 +30,9 @@ function computeFairCoinTossOutcome(sig, w) {
 exports.computeFairCoinTossOutcome = computeFairCoinTossOutcome;
 function computeVhempCrashResult(sig, nextGameHash) {
     const nBits = 52;
-    const bytes = (0, hmac_1.hmac)(sha256_1.sha256, sig, nextGameHash);
-    const seed = bytes.slice(0, nBits / 8);
-    const r = Number.parseInt((0, utils_1.bytesToHex)(seed), 16);
+    const hash = (0, utils_1.bytesToHex)((0, hmac_1.hmac)(sha256_1.sha256, sig, nextGameHash));
+    const seed = hash.slice(0, nBits / 4);
+    const r = Number.parseInt(seed, 16);
     let X = r / 2 ** nBits; // uniformly distributed in [0; 1)
     return 1 / X;
 }

@@ -39,10 +39,10 @@ export function computeVhempCrashResult(
   nextGameHash: Uint8Array
 ) {
   const nBits = 52;
-  const bytes = hmac(sha256, sig, nextGameHash);
+  const hash = bytesToHex(hmac(sha256, sig, nextGameHash));
 
-  const seed = bytes.slice(0, nBits / 8);
-  const r = Number.parseInt(bytesToHex(seed), 16);
+  const seed = hash.slice(0, nBits / 4);
+  const r = Number.parseInt(seed, 16);
 
   let X = r / 2 ** nBits; // uniformly distributed in [0; 1)
 
