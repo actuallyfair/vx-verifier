@@ -46,5 +46,5 @@ export function computeVhempCrashResult(
 
   let X = r / 2 ** nBits; // uniformly distributed in [0; 1)
 
-  return 1 / X;
+  return 1 / (1 - X); // 1-X so there's no chance of div-by-zero
 }

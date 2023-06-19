@@ -34,6 +34,6 @@ function computeVhempCrashResult(sig, nextGameHash) {
     const seed = hash.slice(0, nBits / 4);
     const r = Number.parseInt(seed, 16);
     let X = r / 2 ** nBits; // uniformly distributed in [0; 1)
-    return 1 / X;
+    return 1 / (1 - X); // 1-X so there's no chance of div-by-zero
 }
 exports.computeVhempCrashResult = computeVhempCrashResult;
