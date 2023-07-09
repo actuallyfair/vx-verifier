@@ -1,5 +1,6 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
+import { CrashDice } from "./message-contexts/crash-dice";
 import { FairCoinToss } from "./message-contexts/fair-coin-toss";
 import { HiLo } from "./message-contexts/hilo";
 import { VHEMPCrash } from "./message-contexts/vhemp-crash";
@@ -8,10 +9,11 @@ export interface MessageContext {
   fairCoinToss?: FairCoinToss | undefined;
   vhempCrash?: VHEMPCrash | undefined;
   hilo?: HiLo | undefined;
+  crashDice?: CrashDice | undefined;
 }
 
 function createBaseMessageContext(): MessageContext {
-  return { fairCoinToss: undefined, vhempCrash: undefined, hilo: undefined };
+  return { fairCoinToss: undefined, vhempCrash: undefined, hilo: undefined, crashDice: undefined };
 }
 
 export const MessageContext = {
@@ -24,6 +26,9 @@ export const MessageContext = {
     }
     if (message.hilo !== undefined) {
       HiLo.encode(message.hilo, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.crashDice !== undefined) {
+      CrashDice.encode(message.crashDice, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -56,6 +61,13 @@ export const MessageContext = {
 
           message.hilo = HiLo.decode(reader, reader.uint32());
           continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.crashDice = CrashDice.decode(reader, reader.uint32());
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -70,6 +82,7 @@ export const MessageContext = {
       fairCoinToss: isSet(object.fairCoinToss) ? FairCoinToss.fromJSON(object.fairCoinToss) : undefined,
       vhempCrash: isSet(object.vhempCrash) ? VHEMPCrash.fromJSON(object.vhempCrash) : undefined,
       hilo: isSet(object.hilo) ? HiLo.fromJSON(object.hilo) : undefined,
+      crashDice: isSet(object.crashDice) ? CrashDice.fromJSON(object.crashDice) : undefined,
     };
   },
 
@@ -80,6 +93,8 @@ export const MessageContext = {
     message.vhempCrash !== undefined &&
       (obj.vhempCrash = message.vhempCrash ? VHEMPCrash.toJSON(message.vhempCrash) : undefined);
     message.hilo !== undefined && (obj.hilo = message.hilo ? HiLo.toJSON(message.hilo) : undefined);
+    message.crashDice !== undefined &&
+      (obj.crashDice = message.crashDice ? CrashDice.toJSON(message.crashDice) : undefined);
     return obj;
   },
 
@@ -96,6 +111,9 @@ export const MessageContext = {
       ? VHEMPCrash.fromPartial(object.vhempCrash)
       : undefined;
     message.hilo = (object.hilo !== undefined && object.hilo !== null) ? HiLo.fromPartial(object.hilo) : undefined;
+    message.crashDice = (object.crashDice !== undefined && object.crashDice !== null)
+      ? CrashDice.fromPartial(object.crashDice)
+      : undefined;
     return message;
   },
 };

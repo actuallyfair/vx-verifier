@@ -34,17 +34,33 @@ export function computeFairCoinTossOutcome(sig: Uint8Array, w: FairCoinToss) {
   };
 }
 
-export function computeVhempCrashResult(
-  sig: Uint8Array,
-  nextGameHash: Uint8Array
-) {
+function computeCrashResult(hash: Uint8Array, houseEdge: number) {
   const nBits = 52;
-  const hash = bytesToHex(hmac(sha256, sig, nextGameHash));
+  const hashHex = bytesToHex(hash);
 
-  const seed = hash.slice(0, nBits / 4);
+  const seed = hashHex.slice(0, nBits / 4);
   const r = Number.parseInt(seed, 16);
 
   let X = r / 2 ** nBits; // uniformly distributed in [0; 1)
+  let Y = 1 - X; // Now it's uniformly distributed in (0; 1], so it's safe to divide by it
 
-  return 1 / (1 - X); // 1-X so there's no chance of div-by-zero
+  let result = (1 - houseEdge) / Y;
+
+  result = Math.floor(result * 100) / 100;
+
+  result = Math.max(1, result);
+
+  return result;
+}
+
+export function computeVhempCrashResult(
+  sig: Uint8Array,
+  gameHash: Uint8Array, // This is the hash of the message
+  houseEdge: number = 0
+) {
+  return computeCrashResult(hmac(sha256, sig, gameHash), houseEdge);
+}
+
+export function computeCrashDiceResult(sig: Uint8Array, houseEdge: number) {
+  return computeCrashResult(sha256(sig), houseEdge);
 }

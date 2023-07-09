@@ -1,0 +1,8 @@
+syntax = "proto3";
+import "amount.proto";
+
+message CrashDice {
+  Amount amount = 1;
+  double target = 2;
+  double houseEdge = 3;
+}

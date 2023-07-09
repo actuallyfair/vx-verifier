@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.computeVhempCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
+exports.computeCrashDiceResult = exports.computeVhempCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
 const sha256_1 = require("@noble/hashes/sha256");
 const hmac_1 = require("@noble/hashes/hmac");
 const currency_1 = require("./generated/currency");
@@ -28,12 +28,24 @@ function computeFairCoinTossOutcome(sig, w) {
     };
 }
 exports.computeFairCoinTossOutcome = computeFairCoinTossOutcome;
-function computeVhempCrashResult(sig, nextGameHash) {
+function computeCrashResult(hash, houseEdge) {
     const nBits = 52;
-    const hash = (0, utils_1.bytesToHex)((0, hmac_1.hmac)(sha256_1.sha256, sig, nextGameHash));
-    const seed = hash.slice(0, nBits / 4);
+    const hashHex = (0, utils_1.bytesToHex)(hash);
+    const seed = hashHex.slice(0, nBits / 4);
     const r = Number.parseInt(seed, 16);
     let X = r / 2 ** nBits; // uniformly distributed in [0; 1)
-    return 1 / (1 - X); // 1-X so there's no chance of div-by-zero
+    let Y = 1 - X; // Now it's uniformly distributed in (0; 1], so it's safe to divide by it
+    let result = (1 - houseEdge) / Y;
+    result = Math.floor(result * 100) / 100;
+    result = Math.max(1, result);
+    return result;
+}
+function computeVhempCrashResult(sig, gameHash, // This is the hash of the message
+houseEdge = 0) {
+    return computeCrashResult((0, hmac_1.hmac)(sha256_1.sha256, sig, gameHash), houseEdge);
 }
 exports.computeVhempCrashResult = computeVhempCrashResult;
+function computeCrashDiceResult(sig, houseEdge) {
+    return computeCrashResult((0, sha256_1.sha256)(sig), houseEdge);
+}
+exports.computeCrashDiceResult = computeCrashDiceResult;
