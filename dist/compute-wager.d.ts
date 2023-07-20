@@ -11,3 +11,4 @@ export declare function computeFairCoinTossOutcome(sig: Uint8Array, w: FairCoinT
 export declare function computeVhempCrashResult(sig: Uint8Array, gameHash: Uint8Array, // This is the hash of the message
 houseEdge?: number): number;
 export declare function computeCrashDiceResult(sig: Uint8Array, houseEdge: number): number;
+export declare function computeBOBRouletteResult(sig: Uint8Array): "black" | "orange" | "bonus";

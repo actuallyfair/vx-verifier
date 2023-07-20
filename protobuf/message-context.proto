@@ -4,6 +4,7 @@ import "message-contexts/fair-coin-toss.proto";
 import "message-contexts/vhemp-crash.proto";
 import "message-contexts/hilo.proto";
 import "message-contexts/crash-dice.proto";
+import "message-contexts/bob-roulette.proto";
 
 message MessageContext {
   oneof message_type {
@@ -11,5 +12,6 @@ message MessageContext {
     VHEMPCrash vhemp_crash = 2;
     HiLo hilo = 3;
     CrashDice crash_dice = 4;
+    BOBRoulette bob_roulette = 5;
   }
 }

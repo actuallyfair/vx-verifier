@@ -6,12 +6,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageContext = void 0;
 /* eslint-disable */
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const bob_roulette_1 = require("./message-contexts/bob-roulette");
 const crash_dice_1 = require("./message-contexts/crash-dice");
 const fair_coin_toss_1 = require("./message-contexts/fair-coin-toss");
 const hilo_1 = require("./message-contexts/hilo");
 const vhemp_crash_1 = require("./message-contexts/vhemp-crash");
 function createBaseMessageContext() {
-    return { fairCoinToss: undefined, vhempCrash: undefined, hilo: undefined, crashDice: undefined };
+    return {
+        fairCoinToss: undefined,
+        vhempCrash: undefined,
+        hilo: undefined,
+        crashDice: undefined,
+        bobRoulette: undefined,
+    };
 }
 exports.MessageContext = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -26,6 +33,9 @@ exports.MessageContext = {
         }
         if (message.crashDice !== undefined) {
             crash_dice_1.CrashDice.encode(message.crashDice, writer.uint32(34).fork()).ldelim();
+        }
+        if (message.bobRoulette !== undefined) {
+            bob_roulette_1.BOBRoulette.encode(message.bobRoulette, writer.uint32(42).fork()).ldelim();
         }
         return writer;
     },
@@ -60,6 +70,12 @@ exports.MessageContext = {
                     }
                     message.crashDice = crash_dice_1.CrashDice.decode(reader, reader.uint32());
                     continue;
+                case 5:
+                    if (tag !== 42) {
+                        break;
+                    }
+                    message.bobRoulette = bob_roulette_1.BOBRoulette.decode(reader, reader.uint32());
+                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -74,6 +90,7 @@ exports.MessageContext = {
             vhempCrash: isSet(object.vhempCrash) ? vhemp_crash_1.VHEMPCrash.fromJSON(object.vhempCrash) : undefined,
             hilo: isSet(object.hilo) ? hilo_1.HiLo.fromJSON(object.hilo) : undefined,
             crashDice: isSet(object.crashDice) ? crash_dice_1.CrashDice.fromJSON(object.crashDice) : undefined,
+            bobRoulette: isSet(object.bobRoulette) ? bob_roulette_1.BOBRoulette.fromJSON(object.bobRoulette) : undefined,
         };
     },
     toJSON(message) {
@@ -85,6 +102,8 @@ exports.MessageContext = {
         message.hilo !== undefined && (obj.hilo = message.hilo ? hilo_1.HiLo.toJSON(message.hilo) : undefined);
         message.crashDice !== undefined &&
             (obj.crashDice = message.crashDice ? crash_dice_1.CrashDice.toJSON(message.crashDice) : undefined);
+        message.bobRoulette !== undefined &&
+            (obj.bobRoulette = message.bobRoulette ? bob_roulette_1.BOBRoulette.toJSON(message.bobRoulette) : undefined);
         return obj;
     },
     create(base) {
@@ -101,6 +120,9 @@ exports.MessageContext = {
         message.hilo = (object.hilo !== undefined && object.hilo !== null) ? hilo_1.HiLo.fromPartial(object.hilo) : undefined;
         message.crashDice = (object.crashDice !== undefined && object.crashDice !== null)
             ? crash_dice_1.CrashDice.fromPartial(object.crashDice)
+            : undefined;
+        message.bobRoulette = (object.bobRoulette !== undefined && object.bobRoulette !== null)
+            ? bob_roulette_1.BOBRoulette.fromPartial(object.bobRoulette)
             : undefined;
         return message;
     },

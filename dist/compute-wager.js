@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.computeCrashDiceResult = exports.computeVhempCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
+exports.computeBOBRouletteResult = exports.computeCrashDiceResult = exports.computeVhempCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
 const sha256_1 = require("@noble/hashes/sha256");
 const hmac_1 = require("@noble/hashes/hmac");
 const currency_1 = require("./generated/currency");
@@ -49,3 +49,20 @@ function computeCrashDiceResult(sig, houseEdge) {
     return computeCrashResult((0, sha256_1.sha256)(sig), houseEdge);
 }
 exports.computeCrashDiceResult = computeCrashDiceResult;
+function computeBOBRouletteResult(sig) {
+    const hash = (0, sha256_1.sha256)(sig);
+    const nBits = 52;
+    const hashHex = (0, utils_1.bytesToHex)(hash);
+    const seed = hashHex.slice(0, nBits / 4);
+    const n = Number.parseInt(seed, 16) % 15; // number between [0, 14] evenly distributed
+    if (n == 0) {
+        return "bonus";
+    }
+    else if (n <= 7) {
+        return "orange";
+    }
+    else {
+        return "black";
+    }
+}
+exports.computeBOBRouletteResult = computeBOBRouletteResult;

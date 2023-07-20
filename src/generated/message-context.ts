@@ -1,5 +1,6 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
+import { BOBRoulette } from "./message-contexts/bob-roulette";
 import { CrashDice } from "./message-contexts/crash-dice";
 import { FairCoinToss } from "./message-contexts/fair-coin-toss";
 import { HiLo } from "./message-contexts/hilo";
@@ -10,10 +11,17 @@ export interface MessageContext {
   vhempCrash?: VHEMPCrash | undefined;
   hilo?: HiLo | undefined;
   crashDice?: CrashDice | undefined;
+  bobRoulette?: BOBRoulette | undefined;
 }
 
 function createBaseMessageContext(): MessageContext {
-  return { fairCoinToss: undefined, vhempCrash: undefined, hilo: undefined, crashDice: undefined };
+  return {
+    fairCoinToss: undefined,
+    vhempCrash: undefined,
+    hilo: undefined,
+    crashDice: undefined,
+    bobRoulette: undefined,
+  };
 }
 
 export const MessageContext = {
@@ -29,6 +37,9 @@ export const MessageContext = {
     }
     if (message.crashDice !== undefined) {
       CrashDice.encode(message.crashDice, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.bobRoulette !== undefined) {
+      BOBRoulette.encode(message.bobRoulette, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -68,6 +79,13 @@ export const MessageContext = {
 
           message.crashDice = CrashDice.decode(reader, reader.uint32());
           continue;
+        case 5:
+          if (tag !== 42) {
+            break;
+          }
+
+          message.bobRoulette = BOBRoulette.decode(reader, reader.uint32());
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -83,6 +101,7 @@ export const MessageContext = {
       vhempCrash: isSet(object.vhempCrash) ? VHEMPCrash.fromJSON(object.vhempCrash) : undefined,
       hilo: isSet(object.hilo) ? HiLo.fromJSON(object.hilo) : undefined,
       crashDice: isSet(object.crashDice) ? CrashDice.fromJSON(object.crashDice) : undefined,
+      bobRoulette: isSet(object.bobRoulette) ? BOBRoulette.fromJSON(object.bobRoulette) : undefined,
     };
   },
 
@@ -95,6 +114,8 @@ export const MessageContext = {
     message.hilo !== undefined && (obj.hilo = message.hilo ? HiLo.toJSON(message.hilo) : undefined);
     message.crashDice !== undefined &&
       (obj.crashDice = message.crashDice ? CrashDice.toJSON(message.crashDice) : undefined);
+    message.bobRoulette !== undefined &&
+      (obj.bobRoulette = message.bobRoulette ? BOBRoulette.toJSON(message.bobRoulette) : undefined);
     return obj;
   },
 
@@ -113,6 +134,9 @@ export const MessageContext = {
     message.hilo = (object.hilo !== undefined && object.hilo !== null) ? HiLo.fromPartial(object.hilo) : undefined;
     message.crashDice = (object.crashDice !== undefined && object.crashDice !== null)
       ? CrashDice.fromPartial(object.crashDice)
+      : undefined;
+    message.bobRoulette = (object.bobRoulette !== undefined && object.bobRoulette !== null)
+      ? BOBRoulette.fromPartial(object.bobRoulette)
       : undefined;
     return message;
   },

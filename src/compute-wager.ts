@@ -64,3 +64,22 @@ export function computeVhempCrashResult(
 export function computeCrashDiceResult(sig: Uint8Array, houseEdge: number) {
   return computeCrashResult(sha256(sig), houseEdge);
 }
+
+export function computeBOBRouletteResult(
+  sig: Uint8Array
+): "black" | "orange" | "bonus" {
+  const hash = sha256(sig);
+
+  const nBits = 52;
+  const hashHex = bytesToHex(hash);
+
+  const seed = hashHex.slice(0, nBits / 4);
+  const n = Number.parseInt(seed, 16) % 15; // number between [0, 14] evenly distributed
+  if (n == 0) {
+    return "bonus";
+  } else if (n <= 7) {
+    return "orange";
+  } else {
+    return "black";
+  }
+}
