@@ -51,13 +51,17 @@ exports.Amount = {
     fromJSON(object) {
         return {
             currency: isSet(object.currency) ? (0, currency_1.currencyFromJSON)(object.currency) : 0,
-            value: isSet(object.value) ? Number(object.value) : 0,
+            value: isSet(object.value) ? globalThis.Number(object.value) : 0,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.currency !== undefined && (obj.currency = (0, currency_1.currencyToJSON)(message.currency));
-        message.value !== undefined && (obj.value = Math.round(message.value));
+        if (message.currency !== 0) {
+            obj.currency = (0, currency_1.currencyToJSON)(message.currency);
+        }
+        if (message.value !== 0) {
+            obj.value = Math.round(message.value);
+        }
         return obj;
     },
     create(base) {
@@ -70,24 +74,9 @@ exports.Amount = {
         return message;
     },
 };
-var tsProtoGlobalThis = (() => {
-    if (typeof globalThis !== "undefined") {
-        return globalThis;
-    }
-    if (typeof self !== "undefined") {
-        return self;
-    }
-    if (typeof window !== "undefined") {
-        return window;
-    }
-    if (typeof global !== "undefined") {
-        return global;
-    }
-    throw "Unable to locate global object";
-})();
 function longToNumber(long) {
-    if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+    if (long.gt(globalThis.Number.MAX_SAFE_INTEGER)) {
+        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
     }
     return long.toNumber();
 }

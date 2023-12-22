@@ -38,11 +38,13 @@ exports.StandardDerivation = {
         return message;
     },
     fromJSON(object) {
-        return { playerSeed: isSet(object.playerSeed) ? String(object.playerSeed) : "" };
+        return { playerSeed: isSet(object.playerSeed) ? globalThis.String(object.playerSeed) : "" };
     },
     toJSON(message) {
         const obj = {};
-        message.playerSeed !== undefined && (obj.playerSeed = message.playerSeed);
+        if (message.playerSeed !== "") {
+            obj.playerSeed = message.playerSeed;
+        }
         return obj;
     },
     create(base) {
@@ -143,12 +145,12 @@ exports.RevealContext = {
     },
     toJSON(message) {
         const obj = {};
-        message.standardDerivation !== undefined && (obj.standardDerivation = message.standardDerivation
-            ? exports.StandardDerivation.toJSON(message.standardDerivation)
-            : undefined);
-        message.hashChainDerivation !== undefined && (obj.hashChainDerivation = message.hashChainDerivation
-            ? exports.HashChainDerivation.toJSON(message.hashChainDerivation)
-            : undefined);
+        if (message.standardDerivation !== undefined) {
+            obj.standardDerivation = exports.StandardDerivation.toJSON(message.standardDerivation);
+        }
+        if (message.hashChainDerivation !== undefined) {
+            obj.hashChainDerivation = exports.HashChainDerivation.toJSON(message.hashChainDerivation);
+        }
         return obj;
     },
     create(base) {

@@ -40,9 +40,8 @@ export const VHEMPCrash = {
   },
 
   create<I extends Exact<DeepPartial<VHEMPCrash>, I>>(base?: I): VHEMPCrash {
-    return VHEMPCrash.fromPartial(base ?? {});
+    return VHEMPCrash.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<VHEMPCrash>, I>>(_: I): VHEMPCrash {
     const message = createBaseVHEMPCrash();
     return message;
@@ -52,7 +51,8 @@ export const VHEMPCrash = {
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 

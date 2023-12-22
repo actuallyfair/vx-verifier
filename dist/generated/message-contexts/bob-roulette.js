@@ -58,32 +58,27 @@ exports.BOBRoulette = {
     },
     fromJSON(object) {
         return {
-            blackBets: Array.isArray(object?.blackBets) ? object.blackBets.map((e) => exports.BOBRoulette_Bet.fromJSON(e)) : [],
-            orangeBets: Array.isArray(object?.orangeBets)
+            blackBets: globalThis.Array.isArray(object?.blackBets)
+                ? object.blackBets.map((e) => exports.BOBRoulette_Bet.fromJSON(e))
+                : [],
+            orangeBets: globalThis.Array.isArray(object?.orangeBets)
                 ? object.orangeBets.map((e) => exports.BOBRoulette_Bet.fromJSON(e))
                 : [],
-            bonusBets: Array.isArray(object?.bonusBets) ? object.bonusBets.map((e) => exports.BOBRoulette_Bet.fromJSON(e)) : [],
+            bonusBets: globalThis.Array.isArray(object?.bonusBets)
+                ? object.bonusBets.map((e) => exports.BOBRoulette_Bet.fromJSON(e))
+                : [],
         };
     },
     toJSON(message) {
         const obj = {};
-        if (message.blackBets) {
-            obj.blackBets = message.blackBets.map((e) => e ? exports.BOBRoulette_Bet.toJSON(e) : undefined);
+        if (message.blackBets?.length) {
+            obj.blackBets = message.blackBets.map((e) => exports.BOBRoulette_Bet.toJSON(e));
         }
-        else {
-            obj.blackBets = [];
+        if (message.orangeBets?.length) {
+            obj.orangeBets = message.orangeBets.map((e) => exports.BOBRoulette_Bet.toJSON(e));
         }
-        if (message.orangeBets) {
-            obj.orangeBets = message.orangeBets.map((e) => e ? exports.BOBRoulette_Bet.toJSON(e) : undefined);
-        }
-        else {
-            obj.orangeBets = [];
-        }
-        if (message.bonusBets) {
-            obj.bonusBets = message.bonusBets.map((e) => e ? exports.BOBRoulette_Bet.toJSON(e) : undefined);
-        }
-        else {
-            obj.bonusBets = [];
+        if (message.bonusBets?.length) {
+            obj.bonusBets = message.bonusBets.map((e) => exports.BOBRoulette_Bet.toJSON(e));
         }
         return obj;
     },
@@ -140,14 +135,18 @@ exports.BOBRoulette_Bet = {
     },
     fromJSON(object) {
         return {
-            uname: isSet(object.uname) ? String(object.uname) : "",
+            uname: isSet(object.uname) ? globalThis.String(object.uname) : "",
             amount: isSet(object.amount) ? amount_1.Amount.fromJSON(object.amount) : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.uname !== undefined && (obj.uname = message.uname);
-        message.amount !== undefined && (obj.amount = message.amount ? amount_1.Amount.toJSON(message.amount) : undefined);
+        if (message.uname !== "") {
+            obj.uname = message.uname;
+        }
+        if (message.amount !== undefined) {
+            obj.amount = amount_1.Amount.toJSON(message.amount);
+        }
         return obj;
     },
     create(base) {

@@ -49,19 +49,20 @@ export const StandardDerivation = {
   },
 
   fromJSON(object: any): StandardDerivation {
-    return { playerSeed: isSet(object.playerSeed) ? String(object.playerSeed) : "" };
+    return { playerSeed: isSet(object.playerSeed) ? globalThis.String(object.playerSeed) : "" };
   },
 
   toJSON(message: StandardDerivation): unknown {
     const obj: any = {};
-    message.playerSeed !== undefined && (obj.playerSeed = message.playerSeed);
+    if (message.playerSeed !== "") {
+      obj.playerSeed = message.playerSeed;
+    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<StandardDerivation>, I>>(base?: I): StandardDerivation {
-    return StandardDerivation.fromPartial(base ?? {});
+    return StandardDerivation.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<StandardDerivation>, I>>(object: I): StandardDerivation {
     const message = createBaseStandardDerivation();
     message.playerSeed = object.playerSeed ?? "";
@@ -104,9 +105,8 @@ export const HashChainDerivation = {
   },
 
   create<I extends Exact<DeepPartial<HashChainDerivation>, I>>(base?: I): HashChainDerivation {
-    return HashChainDerivation.fromPartial(base ?? {});
+    return HashChainDerivation.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<HashChainDerivation>, I>>(_: I): HashChainDerivation {
     const message = createBaseHashChainDerivation();
     return message;
@@ -171,19 +171,18 @@ export const RevealContext = {
 
   toJSON(message: RevealContext): unknown {
     const obj: any = {};
-    message.standardDerivation !== undefined && (obj.standardDerivation = message.standardDerivation
-      ? StandardDerivation.toJSON(message.standardDerivation)
-      : undefined);
-    message.hashChainDerivation !== undefined && (obj.hashChainDerivation = message.hashChainDerivation
-      ? HashChainDerivation.toJSON(message.hashChainDerivation)
-      : undefined);
+    if (message.standardDerivation !== undefined) {
+      obj.standardDerivation = StandardDerivation.toJSON(message.standardDerivation);
+    }
+    if (message.hashChainDerivation !== undefined) {
+      obj.hashChainDerivation = HashChainDerivation.toJSON(message.hashChainDerivation);
+    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<RevealContext>, I>>(base?: I): RevealContext {
-    return RevealContext.fromPartial(base ?? {});
+    return RevealContext.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<RevealContext>, I>>(object: I): RevealContext {
     const message = createBaseRevealContext();
     message.standardDerivation = (object.standardDerivation !== undefined && object.standardDerivation !== null)
@@ -199,7 +198,8 @@ export const RevealContext = {
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 

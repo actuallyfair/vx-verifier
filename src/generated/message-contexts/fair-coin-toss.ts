@@ -80,14 +80,15 @@ export const FairCoinToss = {
 
   toJSON(message: FairCoinToss): unknown {
     const obj: any = {};
-    message.playerChoice !== undefined && (obj.playerChoice = fairCoinToss_ChoiceToJSON(message.playerChoice));
+    if (message.playerChoice !== 0) {
+      obj.playerChoice = fairCoinToss_ChoiceToJSON(message.playerChoice);
+    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<FairCoinToss>, I>>(base?: I): FairCoinToss {
-    return FairCoinToss.fromPartial(base ?? {});
+    return FairCoinToss.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<FairCoinToss>, I>>(object: I): FairCoinToss {
     const message = createBaseFairCoinToss();
     message.playerChoice = object.playerChoice ?? 0;
@@ -98,7 +99,8 @@ export const FairCoinToss = {
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 

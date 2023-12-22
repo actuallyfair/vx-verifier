@@ -128,10 +128,12 @@ exports.CommitmentContext = {
     },
     toJSON(message) {
         const obj = {};
-        message.sha256Commitment !== undefined &&
-            (obj.sha256Commitment = message.sha256Commitment ? exports.Sha256Commitment.toJSON(message.sha256Commitment) : undefined);
-        message.sha256Chain !== undefined &&
-            (obj.sha256Chain = message.sha256Chain ? exports.Sha256Chain.toJSON(message.sha256Chain) : undefined);
+        if (message.sha256Commitment !== undefined) {
+            obj.sha256Commitment = exports.Sha256Commitment.toJSON(message.sha256Commitment);
+        }
+        if (message.sha256Chain !== undefined) {
+            obj.sha256Chain = exports.Sha256Chain.toJSON(message.sha256Chain);
+        }
         return obj;
     },
     create(base) {

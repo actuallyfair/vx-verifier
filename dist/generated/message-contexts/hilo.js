@@ -205,8 +205,12 @@ exports.HiLoStart = {
     },
     toJSON(message) {
         const obj = {};
-        message.amount !== undefined && (obj.amount = message.amount ? amount_1.Amount.toJSON(message.amount) : undefined);
-        message.startingCard !== undefined && (obj.startingCard = cardToJSON(message.startingCard));
+        if (message.amount !== undefined) {
+            obj.amount = amount_1.Amount.toJSON(message.amount);
+        }
+        if (message.startingCard !== 0) {
+            obj.startingCard = cardToJSON(message.startingCard);
+        }
         return obj;
     },
     create(base) {
@@ -264,13 +268,17 @@ exports.HiLoMove = {
     fromJSON(object) {
         return {
             playerChoice: isSet(object.playerChoice) ? hiLoMove_ChoiceFromJSON(object.playerChoice) : 0,
-            moveIndex: isSet(object.moveIndex) ? Number(object.moveIndex) : 0,
+            moveIndex: isSet(object.moveIndex) ? globalThis.Number(object.moveIndex) : 0,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.playerChoice !== undefined && (obj.playerChoice = hiLoMove_ChoiceToJSON(message.playerChoice));
-        message.moveIndex !== undefined && (obj.moveIndex = Math.round(message.moveIndex));
+        if (message.playerChoice !== 0) {
+            obj.playerChoice = hiLoMove_ChoiceToJSON(message.playerChoice);
+        }
+        if (message.moveIndex !== 0) {
+            obj.moveIndex = Math.round(message.moveIndex);
+        }
         return obj;
     },
     create(base) {
@@ -331,8 +339,12 @@ exports.HiLo = {
     },
     toJSON(message) {
         const obj = {};
-        message.start !== undefined && (obj.start = message.start ? exports.HiLoStart.toJSON(message.start) : undefined);
-        message.move !== undefined && (obj.move = message.move ? exports.HiLoMove.toJSON(message.move) : undefined);
+        if (message.start !== undefined) {
+            obj.start = exports.HiLoStart.toJSON(message.start);
+        }
+        if (message.move !== undefined) {
+            obj.move = exports.HiLoMove.toJSON(message.move);
+        }
         return obj;
     },
     create(base) {

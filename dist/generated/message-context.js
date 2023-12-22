@@ -10,6 +10,7 @@ const bob_roulette_1 = require("./message-contexts/bob-roulette");
 const crash_dice_1 = require("./message-contexts/crash-dice");
 const fair_coin_toss_1 = require("./message-contexts/fair-coin-toss");
 const hilo_1 = require("./message-contexts/hilo");
+const mines_1 = require("./message-contexts/mines");
 const vhemp_crash_1 = require("./message-contexts/vhemp-crash");
 function createBaseMessageContext() {
     return {
@@ -18,6 +19,7 @@ function createBaseMessageContext() {
         hilo: undefined,
         crashDice: undefined,
         bobRoulette: undefined,
+        mines: undefined,
     };
 }
 exports.MessageContext = {
@@ -36,6 +38,9 @@ exports.MessageContext = {
         }
         if (message.bobRoulette !== undefined) {
             bob_roulette_1.BOBRoulette.encode(message.bobRoulette, writer.uint32(42).fork()).ldelim();
+        }
+        if (message.mines !== undefined) {
+            mines_1.Mines.encode(message.mines, writer.uint32(50).fork()).ldelim();
         }
         return writer;
     },
@@ -76,6 +81,12 @@ exports.MessageContext = {
                     }
                     message.bobRoulette = bob_roulette_1.BOBRoulette.decode(reader, reader.uint32());
                     continue;
+                case 6:
+                    if (tag !== 50) {
+                        break;
+                    }
+                    message.mines = mines_1.Mines.decode(reader, reader.uint32());
+                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -91,19 +102,29 @@ exports.MessageContext = {
             hilo: isSet(object.hilo) ? hilo_1.HiLo.fromJSON(object.hilo) : undefined,
             crashDice: isSet(object.crashDice) ? crash_dice_1.CrashDice.fromJSON(object.crashDice) : undefined,
             bobRoulette: isSet(object.bobRoulette) ? bob_roulette_1.BOBRoulette.fromJSON(object.bobRoulette) : undefined,
+            mines: isSet(object.mines) ? mines_1.Mines.fromJSON(object.mines) : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.fairCoinToss !== undefined &&
-            (obj.fairCoinToss = message.fairCoinToss ? fair_coin_toss_1.FairCoinToss.toJSON(message.fairCoinToss) : undefined);
-        message.vhempCrash !== undefined &&
-            (obj.vhempCrash = message.vhempCrash ? vhemp_crash_1.VHEMPCrash.toJSON(message.vhempCrash) : undefined);
-        message.hilo !== undefined && (obj.hilo = message.hilo ? hilo_1.HiLo.toJSON(message.hilo) : undefined);
-        message.crashDice !== undefined &&
-            (obj.crashDice = message.crashDice ? crash_dice_1.CrashDice.toJSON(message.crashDice) : undefined);
-        message.bobRoulette !== undefined &&
-            (obj.bobRoulette = message.bobRoulette ? bob_roulette_1.BOBRoulette.toJSON(message.bobRoulette) : undefined);
+        if (message.fairCoinToss !== undefined) {
+            obj.fairCoinToss = fair_coin_toss_1.FairCoinToss.toJSON(message.fairCoinToss);
+        }
+        if (message.vhempCrash !== undefined) {
+            obj.vhempCrash = vhemp_crash_1.VHEMPCrash.toJSON(message.vhempCrash);
+        }
+        if (message.hilo !== undefined) {
+            obj.hilo = hilo_1.HiLo.toJSON(message.hilo);
+        }
+        if (message.crashDice !== undefined) {
+            obj.crashDice = crash_dice_1.CrashDice.toJSON(message.crashDice);
+        }
+        if (message.bobRoulette !== undefined) {
+            obj.bobRoulette = bob_roulette_1.BOBRoulette.toJSON(message.bobRoulette);
+        }
+        if (message.mines !== undefined) {
+            obj.mines = mines_1.Mines.toJSON(message.mines);
+        }
         return obj;
     },
     create(base) {
@@ -124,6 +145,7 @@ exports.MessageContext = {
         message.bobRoulette = (object.bobRoulette !== undefined && object.bobRoulette !== null)
             ? bob_roulette_1.BOBRoulette.fromPartial(object.bobRoulette)
             : undefined;
+        message.mines = (object.mines !== undefined && object.mines !== null) ? mines_1.Mines.fromPartial(object.mines) : undefined;
         return message;
     },
 };

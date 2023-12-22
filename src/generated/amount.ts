@@ -56,21 +56,24 @@ export const Amount = {
   fromJSON(object: any): Amount {
     return {
       currency: isSet(object.currency) ? currencyFromJSON(object.currency) : 0,
-      value: isSet(object.value) ? Number(object.value) : 0,
+      value: isSet(object.value) ? globalThis.Number(object.value) : 0,
     };
   },
 
   toJSON(message: Amount): unknown {
     const obj: any = {};
-    message.currency !== undefined && (obj.currency = currencyToJSON(message.currency));
-    message.value !== undefined && (obj.value = Math.round(message.value));
+    if (message.currency !== 0) {
+      obj.currency = currencyToJSON(message.currency);
+    }
+    if (message.value !== 0) {
+      obj.value = Math.round(message.value);
+    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<Amount>, I>>(base?: I): Amount {
-    return Amount.fromPartial(base ?? {});
+    return Amount.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<Amount>, I>>(object: I): Amount {
     const message = createBaseAmount();
     message.currency = object.currency ?? 0;
@@ -79,29 +82,11 @@ export const Amount = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
@@ -110,8 +95,8 @@ type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  if (long.gt(globalThis.Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
   }
   return long.toNumber();
 }

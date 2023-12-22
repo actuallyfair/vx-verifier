@@ -75,7 +75,9 @@ exports.FairCoinToss = {
     },
     toJSON(message) {
         const obj = {};
-        message.playerChoice !== undefined && (obj.playerChoice = fairCoinToss_ChoiceToJSON(message.playerChoice));
+        if (message.playerChoice !== 0) {
+            obj.playerChoice = fairCoinToss_ChoiceToJSON(message.playerChoice);
+        }
         return obj;
     },
     create(base) {

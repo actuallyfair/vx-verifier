@@ -71,38 +71,35 @@ export const BOBRoulette = {
 
   fromJSON(object: any): BOBRoulette {
     return {
-      blackBets: Array.isArray(object?.blackBets) ? object.blackBets.map((e: any) => BOBRoulette_Bet.fromJSON(e)) : [],
-      orangeBets: Array.isArray(object?.orangeBets)
+      blackBets: globalThis.Array.isArray(object?.blackBets)
+        ? object.blackBets.map((e: any) => BOBRoulette_Bet.fromJSON(e))
+        : [],
+      orangeBets: globalThis.Array.isArray(object?.orangeBets)
         ? object.orangeBets.map((e: any) => BOBRoulette_Bet.fromJSON(e))
         : [],
-      bonusBets: Array.isArray(object?.bonusBets) ? object.bonusBets.map((e: any) => BOBRoulette_Bet.fromJSON(e)) : [],
+      bonusBets: globalThis.Array.isArray(object?.bonusBets)
+        ? object.bonusBets.map((e: any) => BOBRoulette_Bet.fromJSON(e))
+        : [],
     };
   },
 
   toJSON(message: BOBRoulette): unknown {
     const obj: any = {};
-    if (message.blackBets) {
-      obj.blackBets = message.blackBets.map((e) => e ? BOBRoulette_Bet.toJSON(e) : undefined);
-    } else {
-      obj.blackBets = [];
+    if (message.blackBets?.length) {
+      obj.blackBets = message.blackBets.map((e) => BOBRoulette_Bet.toJSON(e));
     }
-    if (message.orangeBets) {
-      obj.orangeBets = message.orangeBets.map((e) => e ? BOBRoulette_Bet.toJSON(e) : undefined);
-    } else {
-      obj.orangeBets = [];
+    if (message.orangeBets?.length) {
+      obj.orangeBets = message.orangeBets.map((e) => BOBRoulette_Bet.toJSON(e));
     }
-    if (message.bonusBets) {
-      obj.bonusBets = message.bonusBets.map((e) => e ? BOBRoulette_Bet.toJSON(e) : undefined);
-    } else {
-      obj.bonusBets = [];
+    if (message.bonusBets?.length) {
+      obj.bonusBets = message.bonusBets.map((e) => BOBRoulette_Bet.toJSON(e));
     }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<BOBRoulette>, I>>(base?: I): BOBRoulette {
-    return BOBRoulette.fromPartial(base ?? {});
+    return BOBRoulette.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<BOBRoulette>, I>>(object: I): BOBRoulette {
     const message = createBaseBOBRoulette();
     message.blackBets = object.blackBets?.map((e) => BOBRoulette_Bet.fromPartial(e)) || [];
@@ -159,22 +156,25 @@ export const BOBRoulette_Bet = {
 
   fromJSON(object: any): BOBRoulette_Bet {
     return {
-      uname: isSet(object.uname) ? String(object.uname) : "",
+      uname: isSet(object.uname) ? globalThis.String(object.uname) : "",
       amount: isSet(object.amount) ? Amount.fromJSON(object.amount) : undefined,
     };
   },
 
   toJSON(message: BOBRoulette_Bet): unknown {
     const obj: any = {};
-    message.uname !== undefined && (obj.uname = message.uname);
-    message.amount !== undefined && (obj.amount = message.amount ? Amount.toJSON(message.amount) : undefined);
+    if (message.uname !== "") {
+      obj.uname = message.uname;
+    }
+    if (message.amount !== undefined) {
+      obj.amount = Amount.toJSON(message.amount);
+    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<BOBRoulette_Bet>, I>>(base?: I): BOBRoulette_Bet {
-    return BOBRoulette_Bet.fromPartial(base ?? {});
+    return BOBRoulette_Bet.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<BOBRoulette_Bet>, I>>(object: I): BOBRoulette_Bet {
     const message = createBaseBOBRoulette_Bet();
     message.uname = object.uname ?? "";
@@ -188,7 +188,8 @@ export const BOBRoulette_Bet = {
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 

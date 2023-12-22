@@ -49,9 +49,8 @@ export const Sha256Commitment = {
   },
 
   create<I extends Exact<DeepPartial<Sha256Commitment>, I>>(base?: I): Sha256Commitment {
-    return Sha256Commitment.fromPartial(base ?? {});
+    return Sha256Commitment.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<Sha256Commitment>, I>>(_: I): Sha256Commitment {
     const message = createBaseSha256Commitment();
     return message;
@@ -93,9 +92,8 @@ export const Sha256Chain = {
   },
 
   create<I extends Exact<DeepPartial<Sha256Chain>, I>>(base?: I): Sha256Chain {
-    return Sha256Chain.fromPartial(base ?? {});
+    return Sha256Chain.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<Sha256Chain>, I>>(_: I): Sha256Chain {
     const message = createBaseSha256Chain();
     return message;
@@ -156,17 +154,18 @@ export const CommitmentContext = {
 
   toJSON(message: CommitmentContext): unknown {
     const obj: any = {};
-    message.sha256Commitment !== undefined &&
-      (obj.sha256Commitment = message.sha256Commitment ? Sha256Commitment.toJSON(message.sha256Commitment) : undefined);
-    message.sha256Chain !== undefined &&
-      (obj.sha256Chain = message.sha256Chain ? Sha256Chain.toJSON(message.sha256Chain) : undefined);
+    if (message.sha256Commitment !== undefined) {
+      obj.sha256Commitment = Sha256Commitment.toJSON(message.sha256Commitment);
+    }
+    if (message.sha256Chain !== undefined) {
+      obj.sha256Chain = Sha256Chain.toJSON(message.sha256Chain);
+    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<CommitmentContext>, I>>(base?: I): CommitmentContext {
-    return CommitmentContext.fromPartial(base ?? {});
+    return CommitmentContext.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<CommitmentContext>, I>>(object: I): CommitmentContext {
     const message = createBaseCommitmentContext();
     message.sha256Commitment = (object.sha256Commitment !== undefined && object.sha256Commitment !== null)
@@ -182,7 +181,8 @@ export const CommitmentContext = {
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 

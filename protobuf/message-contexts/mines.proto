@@ -1,0 +1,23 @@
+syntax = "proto3";
+import "amount.proto";
+
+
+message MinesStart {
+  Amount amount = 1;
+  int32 cells = 2;
+  int32 mines = 3;
+  int32 cellLineBreak = 4; // this is simply how to display the game in rows/comlumns, but has no effect on the game results 
+
+}
+
+message MinesMove {
+  int32 cell = 1; // Note, this is 0 index'd
+}
+
+message Mines {
+  oneof choice {
+    MinesStart start = 1;
+    MinesMove move = 2;
+    bool cashout = 3; 
+  }
+}

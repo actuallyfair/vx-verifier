@@ -59,15 +59,21 @@ exports.CrashDice = {
     fromJSON(object) {
         return {
             amount: isSet(object.amount) ? amount_1.Amount.fromJSON(object.amount) : undefined,
-            target: isSet(object.target) ? Number(object.target) : 0,
-            houseEdge: isSet(object.houseEdge) ? Number(object.houseEdge) : 0,
+            target: isSet(object.target) ? globalThis.Number(object.target) : 0,
+            houseEdge: isSet(object.houseEdge) ? globalThis.Number(object.houseEdge) : 0,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.amount !== undefined && (obj.amount = message.amount ? amount_1.Amount.toJSON(message.amount) : undefined);
-        message.target !== undefined && (obj.target = message.target);
-        message.houseEdge !== undefined && (obj.houseEdge = message.houseEdge);
+        if (message.amount !== undefined) {
+            obj.amount = amount_1.Amount.toJSON(message.amount);
+        }
+        if (message.target !== 0) {
+            obj.target = message.target;
+        }
+        if (message.houseEdge !== 0) {
+            obj.houseEdge = message.houseEdge;
+        }
         return obj;
     },
     create(base) {

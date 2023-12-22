@@ -1,7 +1,5 @@
-import { assert } from "tsafe";
 import { sha256 } from "@noble/hashes/sha256";
 import { hmac } from "@noble/hashes/hmac";
-import { bytesToNumberBE } from "@noble/curves/abstract/utils";
 
 import { Currency } from "./generated/currency";
 import {

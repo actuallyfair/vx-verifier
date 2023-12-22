@@ -5,6 +5,7 @@ import "message-contexts/vhemp-crash.proto";
 import "message-contexts/hilo.proto";
 import "message-contexts/crash-dice.proto";
 import "message-contexts/bob-roulette.proto";
+import "message-contexts/mines.proto";
 
 message MessageContext {
   oneof message_type {
@@ -13,5 +14,6 @@ message MessageContext {
     HiLo hilo = 3;
     CrashDice crash_dice = 4;
     BOBRoulette bob_roulette = 5;
+    Mines mines = 6;
   }
 }

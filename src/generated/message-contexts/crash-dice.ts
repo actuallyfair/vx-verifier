@@ -66,23 +66,28 @@ export const CrashDice = {
   fromJSON(object: any): CrashDice {
     return {
       amount: isSet(object.amount) ? Amount.fromJSON(object.amount) : undefined,
-      target: isSet(object.target) ? Number(object.target) : 0,
-      houseEdge: isSet(object.houseEdge) ? Number(object.houseEdge) : 0,
+      target: isSet(object.target) ? globalThis.Number(object.target) : 0,
+      houseEdge: isSet(object.houseEdge) ? globalThis.Number(object.houseEdge) : 0,
     };
   },
 
   toJSON(message: CrashDice): unknown {
     const obj: any = {};
-    message.amount !== undefined && (obj.amount = message.amount ? Amount.toJSON(message.amount) : undefined);
-    message.target !== undefined && (obj.target = message.target);
-    message.houseEdge !== undefined && (obj.houseEdge = message.houseEdge);
+    if (message.amount !== undefined) {
+      obj.amount = Amount.toJSON(message.amount);
+    }
+    if (message.target !== 0) {
+      obj.target = message.target;
+    }
+    if (message.houseEdge !== 0) {
+      obj.houseEdge = message.houseEdge;
+    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<CrashDice>, I>>(base?: I): CrashDice {
-    return CrashDice.fromPartial(base ?? {});
+    return CrashDice.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<CrashDice>, I>>(object: I): CrashDice {
     const message = createBaseCrashDice();
     message.amount = (object.amount !== undefined && object.amount !== null)
@@ -97,7 +102,8 @@ export const CrashDice = {
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 

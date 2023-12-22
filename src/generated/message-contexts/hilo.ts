@@ -222,15 +222,18 @@ export const HiLoStart = {
 
   toJSON(message: HiLoStart): unknown {
     const obj: any = {};
-    message.amount !== undefined && (obj.amount = message.amount ? Amount.toJSON(message.amount) : undefined);
-    message.startingCard !== undefined && (obj.startingCard = cardToJSON(message.startingCard));
+    if (message.amount !== undefined) {
+      obj.amount = Amount.toJSON(message.amount);
+    }
+    if (message.startingCard !== 0) {
+      obj.startingCard = cardToJSON(message.startingCard);
+    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<HiLoStart>, I>>(base?: I): HiLoStart {
-    return HiLoStart.fromPartial(base ?? {});
+    return HiLoStart.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<HiLoStart>, I>>(object: I): HiLoStart {
     const message = createBaseHiLoStart();
     message.amount = (object.amount !== undefined && object.amount !== null)
@@ -289,21 +292,24 @@ export const HiLoMove = {
   fromJSON(object: any): HiLoMove {
     return {
       playerChoice: isSet(object.playerChoice) ? hiLoMove_ChoiceFromJSON(object.playerChoice) : 0,
-      moveIndex: isSet(object.moveIndex) ? Number(object.moveIndex) : 0,
+      moveIndex: isSet(object.moveIndex) ? globalThis.Number(object.moveIndex) : 0,
     };
   },
 
   toJSON(message: HiLoMove): unknown {
     const obj: any = {};
-    message.playerChoice !== undefined && (obj.playerChoice = hiLoMove_ChoiceToJSON(message.playerChoice));
-    message.moveIndex !== undefined && (obj.moveIndex = Math.round(message.moveIndex));
+    if (message.playerChoice !== 0) {
+      obj.playerChoice = hiLoMove_ChoiceToJSON(message.playerChoice);
+    }
+    if (message.moveIndex !== 0) {
+      obj.moveIndex = Math.round(message.moveIndex);
+    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<HiLoMove>, I>>(base?: I): HiLoMove {
-    return HiLoMove.fromPartial(base ?? {});
+    return HiLoMove.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<HiLoMove>, I>>(object: I): HiLoMove {
     const message = createBaseHiLoMove();
     message.playerChoice = object.playerChoice ?? 0;
@@ -366,15 +372,18 @@ export const HiLo = {
 
   toJSON(message: HiLo): unknown {
     const obj: any = {};
-    message.start !== undefined && (obj.start = message.start ? HiLoStart.toJSON(message.start) : undefined);
-    message.move !== undefined && (obj.move = message.move ? HiLoMove.toJSON(message.move) : undefined);
+    if (message.start !== undefined) {
+      obj.start = HiLoStart.toJSON(message.start);
+    }
+    if (message.move !== undefined) {
+      obj.move = HiLoMove.toJSON(message.move);
+    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<HiLo>, I>>(base?: I): HiLo {
-    return HiLo.fromPartial(base ?? {});
+    return HiLo.fromPartial(base ?? ({} as any));
   },
-
   fromPartial<I extends Exact<DeepPartial<HiLo>, I>>(object: I): HiLo {
     const message = createBaseHiLo();
     message.start = (object.start !== undefined && object.start !== null)
@@ -388,7 +397,8 @@ export const HiLo = {
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
