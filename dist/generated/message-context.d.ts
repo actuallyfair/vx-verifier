@@ -1,13 +1,13 @@
 import _m0 from "protobufjs/minimal";
 import { BOBRoulette } from "./message-contexts/bob-roulette";
+import { Crash } from "./message-contexts/crash";
 import { CrashDice } from "./message-contexts/crash-dice";
 import { FairCoinToss } from "./message-contexts/fair-coin-toss";
 import { HiLo } from "./message-contexts/hilo";
 import { Mines } from "./message-contexts/mines";
-import { VHEMPCrash } from "./message-contexts/vhemp-crash";
 export interface MessageContext {
     fairCoinToss?: FairCoinToss | undefined;
-    vhempCrash?: VHEMPCrash | undefined;
+    crash?: Crash | undefined;
     hilo?: HiLo | undefined;
     crashDice?: CrashDice | undefined;
     bobRoulette?: BOBRoulette | undefined;
@@ -22,7 +22,9 @@ export declare const MessageContext: {
         fairCoinToss?: {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
         } | undefined;
-        vhempCrash?: {} | undefined;
+        crash?: {
+            houseEdge?: number | undefined;
+        } | undefined;
         hilo?: {
             start?: {
                 amount?: {
@@ -88,7 +90,11 @@ export declare const MessageContext: {
         } & {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
         } & { [K in Exclude<keyof I["fairCoinToss"], "playerChoice">]: never; }) | undefined;
-        vhempCrash?: ({} & {} & { [K_1 in Exclude<keyof I["vhempCrash"], never>]: never; }) | undefined;
+        crash?: ({
+            houseEdge?: number | undefined;
+        } & {
+            houseEdge?: number | undefined;
+        } & { [K_1 in Exclude<keyof I["crash"], "houseEdge">]: never; }) | undefined;
         hilo?: ({
             start?: {
                 amount?: {
@@ -299,7 +305,9 @@ export declare const MessageContext: {
         fairCoinToss?: {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
         } | undefined;
-        vhempCrash?: {} | undefined;
+        crash?: {
+            houseEdge?: number | undefined;
+        } | undefined;
         hilo?: {
             start?: {
                 amount?: {
@@ -365,7 +373,11 @@ export declare const MessageContext: {
         } & {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
         } & { [K_23 in Exclude<keyof I_1["fairCoinToss"], "playerChoice">]: never; }) | undefined;
-        vhempCrash?: ({} & {} & { [K_24 in Exclude<keyof I_1["vhempCrash"], never>]: never; }) | undefined;
+        crash?: ({
+            houseEdge?: number | undefined;
+        } & {
+            houseEdge?: number | undefined;
+        } & { [K_24 in Exclude<keyof I_1["crash"], "houseEdge">]: never; }) | undefined;
         hilo?: ({
             start?: {
                 amount?: {

@@ -32,7 +32,7 @@ export function computeFairCoinTossOutcome(sig: Uint8Array, w: FairCoinToss) {
   };
 }
 
-function computeCrashResult(hash: Uint8Array, houseEdge: number) {
+function doComputeCrashResult(hash: Uint8Array, houseEdge: number) {
   const nBits = 52;
   const hashHex = bytesToHex(hash);
 
@@ -51,16 +51,16 @@ function computeCrashResult(hash: Uint8Array, houseEdge: number) {
   return result;
 }
 
-export function computeVhempCrashResult(
+export function computeCrashResult(
   sig: Uint8Array,
   gameHash: Uint8Array, // This is the hash of the message
   houseEdge: number = 0
 ) {
-  return computeCrashResult(hmac(sha256, sig, gameHash), houseEdge);
+  return doComputeCrashResult(hmac(sha256, sig, gameHash), houseEdge);
 }
 
 export function computeCrashDiceResult(sig: Uint8Array, houseEdge: number) {
-  return computeCrashResult(sha256(sig), houseEdge);
+  return doComputeCrashResult(sha256(sig), houseEdge);
 }
 
 export function computeBOBRouletteResult(

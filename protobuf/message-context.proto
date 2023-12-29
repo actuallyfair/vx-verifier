@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 import "message-contexts/fair-coin-toss.proto";
-import "message-contexts/vhemp-crash.proto";
+import "message-contexts/crash.proto";
 import "message-contexts/hilo.proto";
 import "message-contexts/crash-dice.proto";
 import "message-contexts/bob-roulette.proto";
@@ -10,7 +10,7 @@ import "message-contexts/mines.proto";
 message MessageContext {
   oneof message_type {
     FairCoinToss fair_coin_toss = 1;
-    VHEMPCrash vhemp_crash = 2;
+    Crash crash = 2;
     HiLo hilo = 3;
     CrashDice crash_dice = 4;
     BOBRoulette bob_roulette = 5;

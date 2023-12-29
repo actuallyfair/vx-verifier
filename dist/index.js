@@ -18,7 +18,7 @@ __exportStar(require("./generated/commitment-context"), exports);
 __exportStar(require("./generated/message-context"), exports);
 __exportStar(require("./generated/reveal-context"), exports);
 __exportStar(require("./generated/message-contexts/fair-coin-toss"), exports);
-__exportStar(require("./generated/message-contexts/vhemp-crash"), exports);
+__exportStar(require("./generated/message-contexts/crash"), exports);
 __exportStar(require("./generated/message-contexts/hilo"), exports);
 __exportStar(require("./generated/message-contexts/mines"), exports);
 __exportStar(require("./format-amount"), exports);

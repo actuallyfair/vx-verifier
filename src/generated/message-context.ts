@@ -1,15 +1,15 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 import { BOBRoulette } from "./message-contexts/bob-roulette";
+import { Crash } from "./message-contexts/crash";
 import { CrashDice } from "./message-contexts/crash-dice";
 import { FairCoinToss } from "./message-contexts/fair-coin-toss";
 import { HiLo } from "./message-contexts/hilo";
 import { Mines } from "./message-contexts/mines";
-import { VHEMPCrash } from "./message-contexts/vhemp-crash";
 
 export interface MessageContext {
   fairCoinToss?: FairCoinToss | undefined;
-  vhempCrash?: VHEMPCrash | undefined;
+  crash?: Crash | undefined;
   hilo?: HiLo | undefined;
   crashDice?: CrashDice | undefined;
   bobRoulette?: BOBRoulette | undefined;
@@ -19,7 +19,7 @@ export interface MessageContext {
 function createBaseMessageContext(): MessageContext {
   return {
     fairCoinToss: undefined,
-    vhempCrash: undefined,
+    crash: undefined,
     hilo: undefined,
     crashDice: undefined,
     bobRoulette: undefined,
@@ -32,8 +32,8 @@ export const MessageContext = {
     if (message.fairCoinToss !== undefined) {
       FairCoinToss.encode(message.fairCoinToss, writer.uint32(10).fork()).ldelim();
     }
-    if (message.vhempCrash !== undefined) {
-      VHEMPCrash.encode(message.vhempCrash, writer.uint32(18).fork()).ldelim();
+    if (message.crash !== undefined) {
+      Crash.encode(message.crash, writer.uint32(18).fork()).ldelim();
     }
     if (message.hilo !== undefined) {
       HiLo.encode(message.hilo, writer.uint32(26).fork()).ldelim();
@@ -69,7 +69,7 @@ export const MessageContext = {
             break;
           }
 
-          message.vhempCrash = VHEMPCrash.decode(reader, reader.uint32());
+          message.crash = Crash.decode(reader, reader.uint32());
           continue;
         case 3:
           if (tag !== 26) {
@@ -111,7 +111,7 @@ export const MessageContext = {
   fromJSON(object: any): MessageContext {
     return {
       fairCoinToss: isSet(object.fairCoinToss) ? FairCoinToss.fromJSON(object.fairCoinToss) : undefined,
-      vhempCrash: isSet(object.vhempCrash) ? VHEMPCrash.fromJSON(object.vhempCrash) : undefined,
+      crash: isSet(object.crash) ? Crash.fromJSON(object.crash) : undefined,
       hilo: isSet(object.hilo) ? HiLo.fromJSON(object.hilo) : undefined,
       crashDice: isSet(object.crashDice) ? CrashDice.fromJSON(object.crashDice) : undefined,
       bobRoulette: isSet(object.bobRoulette) ? BOBRoulette.fromJSON(object.bobRoulette) : undefined,
@@ -124,8 +124,8 @@ export const MessageContext = {
     if (message.fairCoinToss !== undefined) {
       obj.fairCoinToss = FairCoinToss.toJSON(message.fairCoinToss);
     }
-    if (message.vhempCrash !== undefined) {
-      obj.vhempCrash = VHEMPCrash.toJSON(message.vhempCrash);
+    if (message.crash !== undefined) {
+      obj.crash = Crash.toJSON(message.crash);
     }
     if (message.hilo !== undefined) {
       obj.hilo = HiLo.toJSON(message.hilo);
@@ -150,9 +150,7 @@ export const MessageContext = {
     message.fairCoinToss = (object.fairCoinToss !== undefined && object.fairCoinToss !== null)
       ? FairCoinToss.fromPartial(object.fairCoinToss)
       : undefined;
-    message.vhempCrash = (object.vhempCrash !== undefined && object.vhempCrash !== null)
-      ? VHEMPCrash.fromPartial(object.vhempCrash)
-      : undefined;
+    message.crash = (object.crash !== undefined && object.crash !== null) ? Crash.fromPartial(object.crash) : undefined;
     message.hilo = (object.hilo !== undefined && object.hilo !== null) ? HiLo.fromPartial(object.hilo) : undefined;
     message.crashDice = (object.crashDice !== undefined && object.crashDice !== null)
       ? CrashDice.fromPartial(object.crashDice)

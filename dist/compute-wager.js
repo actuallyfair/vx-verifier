@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.computeBOBRouletteResult = exports.computeCrashDiceResult = exports.computeVhempCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
+exports.computeBOBRouletteResult = exports.computeCrashDiceResult = exports.computeCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
 const sha256_1 = require("@noble/hashes/sha256");
 const hmac_1 = require("@noble/hashes/hmac");
 const currency_1 = require("./generated/currency");
@@ -28,7 +28,7 @@ function computeFairCoinTossOutcome(sig, w) {
     };
 }
 exports.computeFairCoinTossOutcome = computeFairCoinTossOutcome;
-function computeCrashResult(hash, houseEdge) {
+function doComputeCrashResult(hash, houseEdge) {
     const nBits = 52;
     const hashHex = (0, utils_1.bytesToHex)(hash);
     const seed = hashHex.slice(0, nBits / 4);
@@ -40,13 +40,13 @@ function computeCrashResult(hash, houseEdge) {
     result = Math.max(1, result);
     return result;
 }
-function computeVhempCrashResult(sig, gameHash, // This is the hash of the message
+function computeCrashResult(sig, gameHash, // This is the hash of the message
 houseEdge = 0) {
-    return computeCrashResult((0, hmac_1.hmac)(sha256_1.sha256, sig, gameHash), houseEdge);
+    return doComputeCrashResult((0, hmac_1.hmac)(sha256_1.sha256, sig, gameHash), houseEdge);
 }
-exports.computeVhempCrashResult = computeVhempCrashResult;
+exports.computeCrashResult = computeCrashResult;
 function computeCrashDiceResult(sig, houseEdge) {
-    return computeCrashResult((0, sha256_1.sha256)(sig), houseEdge);
+    return doComputeCrashResult((0, sha256_1.sha256)(sig), houseEdge);
 }
 exports.computeCrashDiceResult = computeCrashDiceResult;
 function computeBOBRouletteResult(sig) {
