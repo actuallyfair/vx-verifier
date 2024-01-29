@@ -9,15 +9,18 @@ const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const currency_1 = require("./currency");
 function createBaseAmount() {
-    return { currency: 0, value: 0 };
+    return { currency: 0, oldValue: 0, value: 0 };
 }
 exports.Amount = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.currency !== 0) {
             writer.uint32(8).int32(message.currency);
         }
+        if (message.oldValue !== 0) {
+            writer.uint32(16).int64(message.oldValue);
+        }
         if (message.value !== 0) {
-            writer.uint32(16).int64(message.value);
+            writer.uint32(25).double(message.value);
         }
         return writer;
     },
@@ -38,7 +41,13 @@ exports.Amount = {
                     if (tag !== 16) {
                         break;
                     }
-                    message.value = longToNumber(reader.int64());
+                    message.oldValue = longToNumber(reader.int64());
+                    continue;
+                case 3:
+                    if (tag !== 25) {
+                        break;
+                    }
+                    message.value = reader.double();
                     continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
@@ -51,6 +60,7 @@ exports.Amount = {
     fromJSON(object) {
         return {
             currency: isSet(object.currency) ? (0, currency_1.currencyFromJSON)(object.currency) : 0,
+            oldValue: isSet(object.oldValue) ? globalThis.Number(object.oldValue) : 0,
             value: isSet(object.value) ? globalThis.Number(object.value) : 0,
         };
     },
@@ -59,8 +69,11 @@ exports.Amount = {
         if (message.currency !== 0) {
             obj.currency = (0, currency_1.currencyToJSON)(message.currency);
         }
+        if (message.oldValue !== 0) {
+            obj.oldValue = Math.round(message.oldValue);
+        }
         if (message.value !== 0) {
-            obj.value = Math.round(message.value);
+            obj.value = message.value;
         }
         return obj;
     },
@@ -70,6 +83,7 @@ exports.Amount = {
     fromPartial(object) {
         const message = createBaseAmount();
         message.currency = object.currency ?? 0;
+        message.oldValue = object.oldValue ?? 0;
         message.value = object.value ?? 0;
         return message;
     },

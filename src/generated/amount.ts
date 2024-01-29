@@ -5,11 +5,13 @@ import { Currency, currencyFromJSON, currencyToJSON } from "./currency";
 
 export interface Amount {
   currency: Currency;
+  /** @deprecated */
+  oldValue: number;
   value: number;
 }
 
 function createBaseAmount(): Amount {
-  return { currency: 0, value: 0 };
+  return { currency: 0, oldValue: 0, value: 0 };
 }
 
 export const Amount = {
@@ -17,8 +19,11 @@ export const Amount = {
     if (message.currency !== 0) {
       writer.uint32(8).int32(message.currency);
     }
+    if (message.oldValue !== 0) {
+      writer.uint32(16).int64(message.oldValue);
+    }
     if (message.value !== 0) {
-      writer.uint32(16).int64(message.value);
+      writer.uint32(25).double(message.value);
     }
     return writer;
   },
@@ -42,7 +47,14 @@ export const Amount = {
             break;
           }
 
-          message.value = longToNumber(reader.int64() as Long);
+          message.oldValue = longToNumber(reader.int64() as Long);
+          continue;
+        case 3:
+          if (tag !== 25) {
+            break;
+          }
+
+          message.value = reader.double();
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -56,6 +68,7 @@ export const Amount = {
   fromJSON(object: any): Amount {
     return {
       currency: isSet(object.currency) ? currencyFromJSON(object.currency) : 0,
+      oldValue: isSet(object.oldValue) ? globalThis.Number(object.oldValue) : 0,
       value: isSet(object.value) ? globalThis.Number(object.value) : 0,
     };
   },
@@ -65,8 +78,11 @@ export const Amount = {
     if (message.currency !== 0) {
       obj.currency = currencyToJSON(message.currency);
     }
+    if (message.oldValue !== 0) {
+      obj.oldValue = Math.round(message.oldValue);
+    }
     if (message.value !== 0) {
-      obj.value = Math.round(message.value);
+      obj.value = message.value;
     }
     return obj;
   },
@@ -77,6 +93,7 @@ export const Amount = {
   fromPartial<I extends Exact<DeepPartial<Amount>, I>>(object: I): Amount {
     const message = createBaseAmount();
     message.currency = object.currency ?? 0;
+    message.oldValue = object.oldValue ?? 0;
     message.value = object.value ?? 0;
     return message;
   },

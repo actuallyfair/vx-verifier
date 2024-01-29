@@ -29,6 +29,7 @@ export declare const MessageContext: {
             start?: {
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 startingCard?: import("./message-contexts/hilo").Card | undefined;
@@ -41,6 +42,7 @@ export declare const MessageContext: {
         crashDice?: {
             amount?: {
                 currency?: import("./currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             target?: number | undefined;
@@ -51,6 +53,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -58,6 +61,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -65,6 +69,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -73,6 +78,7 @@ export declare const MessageContext: {
             start?: {
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 cells?: number | undefined;
@@ -99,6 +105,7 @@ export declare const MessageContext: {
             start?: {
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 startingCard?: import("./message-contexts/hilo").Card | undefined;
@@ -111,15 +118,18 @@ export declare const MessageContext: {
             start?: ({
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 startingCard?: import("./message-contexts/hilo").Card | undefined;
             } & {
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & { [K_2 in Exclude<keyof I["hilo"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
                 startingCard?: import("./message-contexts/hilo").Card | undefined;
@@ -135,6 +145,7 @@ export declare const MessageContext: {
         crashDice?: ({
             amount?: {
                 currency?: import("./currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             target?: number | undefined;
@@ -142,9 +153,11 @@ export declare const MessageContext: {
         } & {
             amount?: ({
                 currency?: import("./currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & {
                 currency?: import("./currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & { [K_6 in Exclude<keyof I["crashDice"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
             target?: number | undefined;
@@ -155,6 +168,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -162,6 +176,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -169,6 +184,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -177,27 +193,32 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] & ({
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             } & {
                 uname?: string | undefined;
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & { [K_8 in Exclude<keyof I["bobRoulette"]["blackBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
             } & { [K_9 in Exclude<keyof I["bobRoulette"]["blackBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_10 in Exclude<keyof I["bobRoulette"]["blackBets"], keyof {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[]>]: never; }) | undefined;
@@ -205,27 +226,32 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] & ({
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             } & {
                 uname?: string | undefined;
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & { [K_11 in Exclude<keyof I["bobRoulette"]["orangeBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
             } & { [K_12 in Exclude<keyof I["bobRoulette"]["orangeBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_13 in Exclude<keyof I["bobRoulette"]["orangeBets"], keyof {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[]>]: never; }) | undefined;
@@ -233,27 +259,32 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] & ({
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             } & {
                 uname?: string | undefined;
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & { [K_14 in Exclude<keyof I["bobRoulette"]["bonusBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
             } & { [K_15 in Exclude<keyof I["bobRoulette"]["bonusBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_16 in Exclude<keyof I["bobRoulette"]["bonusBets"], keyof {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[]>]: never; }) | undefined;
@@ -262,6 +293,7 @@ export declare const MessageContext: {
             start?: {
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 cells?: number | undefined;
@@ -276,6 +308,7 @@ export declare const MessageContext: {
             start?: ({
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 cells?: number | undefined;
@@ -284,9 +317,11 @@ export declare const MessageContext: {
             } & {
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & { [K_18 in Exclude<keyof I["mines"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
                 cells?: number | undefined;
@@ -312,6 +347,7 @@ export declare const MessageContext: {
             start?: {
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 startingCard?: import("./message-contexts/hilo").Card | undefined;
@@ -324,6 +360,7 @@ export declare const MessageContext: {
         crashDice?: {
             amount?: {
                 currency?: import("./currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             target?: number | undefined;
@@ -334,6 +371,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -341,6 +379,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -348,6 +387,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -356,6 +396,7 @@ export declare const MessageContext: {
             start?: {
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 cells?: number | undefined;
@@ -382,6 +423,7 @@ export declare const MessageContext: {
             start?: {
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 startingCard?: import("./message-contexts/hilo").Card | undefined;
@@ -394,15 +436,18 @@ export declare const MessageContext: {
             start?: ({
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 startingCard?: import("./message-contexts/hilo").Card | undefined;
             } & {
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & { [K_25 in Exclude<keyof I_1["hilo"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
                 startingCard?: import("./message-contexts/hilo").Card | undefined;
@@ -418,6 +463,7 @@ export declare const MessageContext: {
         crashDice?: ({
             amount?: {
                 currency?: import("./currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             target?: number | undefined;
@@ -425,9 +471,11 @@ export declare const MessageContext: {
         } & {
             amount?: ({
                 currency?: import("./currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & {
                 currency?: import("./currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & { [K_29 in Exclude<keyof I_1["crashDice"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
             target?: number | undefined;
@@ -438,6 +486,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -445,6 +494,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -452,6 +502,7 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
@@ -460,27 +511,32 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] & ({
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             } & {
                 uname?: string | undefined;
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & { [K_31 in Exclude<keyof I_1["bobRoulette"]["blackBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
             } & { [K_32 in Exclude<keyof I_1["bobRoulette"]["blackBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_33 in Exclude<keyof I_1["bobRoulette"]["blackBets"], keyof {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[]>]: never; }) | undefined;
@@ -488,27 +544,32 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] & ({
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             } & {
                 uname?: string | undefined;
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & { [K_34 in Exclude<keyof I_1["bobRoulette"]["orangeBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
             } & { [K_35 in Exclude<keyof I_1["bobRoulette"]["orangeBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_36 in Exclude<keyof I_1["bobRoulette"]["orangeBets"], keyof {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[]>]: never; }) | undefined;
@@ -516,27 +577,32 @@ export declare const MessageContext: {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[] & ({
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             } & {
                 uname?: string | undefined;
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & { [K_37 in Exclude<keyof I_1["bobRoulette"]["bonusBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
             } & { [K_38 in Exclude<keyof I_1["bobRoulette"]["bonusBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_39 in Exclude<keyof I_1["bobRoulette"]["bonusBets"], keyof {
                 uname?: string | undefined;
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
             }[]>]: never; }) | undefined;
@@ -545,6 +611,7 @@ export declare const MessageContext: {
             start?: {
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 cells?: number | undefined;
@@ -559,6 +626,7 @@ export declare const MessageContext: {
             start?: ({
                 amount?: {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } | undefined;
                 cells?: number | undefined;
@@ -567,9 +635,11 @@ export declare const MessageContext: {
             } & {
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & {
                     currency?: import("./currency").Currency | undefined;
+                    oldValue?: number | undefined;
                     value?: number | undefined;
                 } & { [K_41 in Exclude<keyof I_1["mines"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
                 cells?: number | undefined;

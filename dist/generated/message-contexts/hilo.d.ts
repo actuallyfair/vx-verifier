@@ -49,15 +49,18 @@ export declare const HiLoStart: {
     create<I extends {
         amount?: {
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } | undefined;
         startingCard?: Card | undefined;
     } & {
         amount?: ({
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } & {
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } & { [K in Exclude<keyof I["amount"], keyof Amount>]: never; }) | undefined;
         startingCard?: Card | undefined;
@@ -65,15 +68,18 @@ export declare const HiLoStart: {
     fromPartial<I_1 extends {
         amount?: {
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } | undefined;
         startingCard?: Card | undefined;
     } & {
         amount?: ({
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } & {
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } & { [K_2 in Exclude<keyof I_1["amount"], keyof Amount>]: never; }) | undefined;
         startingCard?: Card | undefined;
@@ -108,6 +114,7 @@ export declare const HiLo: {
         start?: {
             amount?: {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             startingCard?: Card | undefined;
@@ -120,15 +127,18 @@ export declare const HiLo: {
         start?: ({
             amount?: {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             startingCard?: Card | undefined;
         } & {
             amount?: ({
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & { [K in Exclude<keyof I["start"]["amount"], keyof Amount>]: never; }) | undefined;
             startingCard?: Card | undefined;
@@ -145,6 +155,7 @@ export declare const HiLo: {
         start?: {
             amount?: {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             startingCard?: Card | undefined;
@@ -157,15 +168,18 @@ export declare const HiLo: {
         start?: ({
             amount?: {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             startingCard?: Card | undefined;
         } & {
             amount?: ({
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & { [K_4 in Exclude<keyof I_1["start"]["amount"], keyof Amount>]: never; }) | undefined;
             startingCard?: Card | undefined;

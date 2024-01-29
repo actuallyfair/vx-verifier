@@ -24,6 +24,7 @@ export declare const MinesStart: {
     create<I extends {
         amount?: {
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } | undefined;
         cells?: number | undefined;
@@ -32,9 +33,11 @@ export declare const MinesStart: {
     } & {
         amount?: ({
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } & {
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } & { [K in Exclude<keyof I["amount"], keyof Amount>]: never; }) | undefined;
         cells?: number | undefined;
@@ -44,6 +47,7 @@ export declare const MinesStart: {
     fromPartial<I_1 extends {
         amount?: {
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } | undefined;
         cells?: number | undefined;
@@ -52,9 +56,11 @@ export declare const MinesStart: {
     } & {
         amount?: ({
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } & {
             currency?: import("../currency").Currency | undefined;
+            oldValue?: number | undefined;
             value?: number | undefined;
         } & { [K_2 in Exclude<keyof I_1["amount"], keyof Amount>]: never; }) | undefined;
         cells?: number | undefined;
@@ -87,6 +93,7 @@ export declare const Mines: {
         start?: {
             amount?: {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             cells?: number | undefined;
@@ -101,6 +108,7 @@ export declare const Mines: {
         start?: ({
             amount?: {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             cells?: number | undefined;
@@ -109,9 +117,11 @@ export declare const Mines: {
         } & {
             amount?: ({
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & { [K in Exclude<keyof I["start"]["amount"], keyof Amount>]: never; }) | undefined;
             cells?: number | undefined;
@@ -129,6 +139,7 @@ export declare const Mines: {
         start?: {
             amount?: {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             cells?: number | undefined;
@@ -143,6 +154,7 @@ export declare const Mines: {
         start?: ({
             amount?: {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } | undefined;
             cells?: number | undefined;
@@ -151,9 +163,11 @@ export declare const Mines: {
         } & {
             amount?: ({
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & {
                 currency?: import("../currency").Currency | undefined;
+                oldValue?: number | undefined;
                 value?: number | undefined;
             } & { [K_4 in Exclude<keyof I_1["start"]["amount"], keyof Amount>]: never; }) | undefined;
             cells?: number | undefined;
