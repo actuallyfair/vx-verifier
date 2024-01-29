@@ -13,7 +13,6 @@ export declare const CrashDice: {
     create<I extends {
         amount?: {
             currency?: import("../currency").Currency | undefined;
-            oldValue?: number | undefined;
             value?: number | undefined;
         } | undefined;
         target?: number | undefined;
@@ -21,11 +20,9 @@ export declare const CrashDice: {
     } & {
         amount?: ({
             currency?: import("../currency").Currency | undefined;
-            oldValue?: number | undefined;
             value?: number | undefined;
         } & {
             currency?: import("../currency").Currency | undefined;
-            oldValue?: number | undefined;
             value?: number | undefined;
         } & { [K in Exclude<keyof I["amount"], keyof Amount>]: never; }) | undefined;
         target?: number | undefined;
@@ -34,7 +31,6 @@ export declare const CrashDice: {
     fromPartial<I_1 extends {
         amount?: {
             currency?: import("../currency").Currency | undefined;
-            oldValue?: number | undefined;
             value?: number | undefined;
         } | undefined;
         target?: number | undefined;
@@ -42,11 +38,9 @@ export declare const CrashDice: {
     } & {
         amount?: ({
             currency?: import("../currency").Currency | undefined;
-            oldValue?: number | undefined;
             value?: number | undefined;
         } & {
             currency?: import("../currency").Currency | undefined;
-            oldValue?: number | undefined;
             value?: number | undefined;
         } & { [K_2 in Exclude<keyof I_1["amount"], keyof Amount>]: never; }) | undefined;
         target?: number | undefined;
