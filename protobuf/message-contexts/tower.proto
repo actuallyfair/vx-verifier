@@ -1,0 +1,23 @@
+syntax = "proto3";
+import "amount.proto";
+
+
+message TowerStart {
+  Amount amount = 1;
+  int32 levels = 2; // how "deep" the game is
+  int32 choicesPerLevel = 3;
+  int32 minesPerLevel = 4;
+  double houseEdge = 5; 
+}
+
+message TowerMove {
+  int32 choice = 1; // Note, this is 0 index'd
+}
+
+message Tower {
+  oneof choice {
+    TowerStart start = 1;
+    TowerMove move = 2;
+    bool cashout = 3; 
+  }
+}

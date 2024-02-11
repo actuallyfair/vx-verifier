@@ -12,6 +12,7 @@ const crash_dice_1 = require("./message-contexts/crash-dice");
 const fair_coin_toss_1 = require("./message-contexts/fair-coin-toss");
 const hilo_1 = require("./message-contexts/hilo");
 const mines_1 = require("./message-contexts/mines");
+const tower_1 = require("./message-contexts/tower");
 function createBaseMessageContext() {
     return {
         fairCoinToss: undefined,
@@ -20,6 +21,7 @@ function createBaseMessageContext() {
         crashDice: undefined,
         bobRoulette: undefined,
         mines: undefined,
+        tower: undefined,
     };
 }
 exports.MessageContext = {
@@ -41,6 +43,9 @@ exports.MessageContext = {
         }
         if (message.mines !== undefined) {
             mines_1.Mines.encode(message.mines, writer.uint32(50).fork()).ldelim();
+        }
+        if (message.tower !== undefined) {
+            tower_1.Tower.encode(message.tower, writer.uint32(58).fork()).ldelim();
         }
         return writer;
     },
@@ -87,6 +92,12 @@ exports.MessageContext = {
                     }
                     message.mines = mines_1.Mines.decode(reader, reader.uint32());
                     continue;
+                case 7:
+                    if (tag !== 58) {
+                        break;
+                    }
+                    message.tower = tower_1.Tower.decode(reader, reader.uint32());
+                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -103,6 +114,7 @@ exports.MessageContext = {
             crashDice: isSet(object.crashDice) ? crash_dice_1.CrashDice.fromJSON(object.crashDice) : undefined,
             bobRoulette: isSet(object.bobRoulette) ? bob_roulette_1.BOBRoulette.fromJSON(object.bobRoulette) : undefined,
             mines: isSet(object.mines) ? mines_1.Mines.fromJSON(object.mines) : undefined,
+            tower: isSet(object.tower) ? tower_1.Tower.fromJSON(object.tower) : undefined,
         };
     },
     toJSON(message) {
@@ -125,6 +137,9 @@ exports.MessageContext = {
         if (message.mines !== undefined) {
             obj.mines = mines_1.Mines.toJSON(message.mines);
         }
+        if (message.tower !== undefined) {
+            obj.tower = tower_1.Tower.toJSON(message.tower);
+        }
         return obj;
     },
     create(base) {
@@ -144,6 +159,7 @@ exports.MessageContext = {
             ? bob_roulette_1.BOBRoulette.fromPartial(object.bobRoulette)
             : undefined;
         message.mines = (object.mines !== undefined && object.mines !== null) ? mines_1.Mines.fromPartial(object.mines) : undefined;
+        message.tower = (object.tower !== undefined && object.tower !== null) ? tower_1.Tower.fromPartial(object.tower) : undefined;
         return message;
     },
 };
