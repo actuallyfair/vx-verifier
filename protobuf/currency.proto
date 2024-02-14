@@ -2,7 +2,7 @@ syntax = "proto3";
 
 enum Currency {
   CURRENCY_UNSPECIFIED = 0;
-  BTC = 1;  // Bitcoin. Provide the value in full bitcoin, not satoshis.
-  TBTC = 2; // Test bitcoin. Provide the value in full bitcoin, not satoshis.
-  ETH = 3; // Ethereum. Provide the value in full Ethereum
+  BTC = 1;  // Bitcoin. The base unit of bitcoin is satoshis. All amounts must be provided in this
+  TBTC = 2; // Test bitcoin. he base unit of bitcoin is satoshis.
+  ETH = 3; // Ethereum. The base unit is gwei. All amounts must be provided in gwei
 }

@@ -6,5 +6,5 @@ message Amount {
   Currency currency = 1;
   // value used to be a int64, but it has been removed in favor of a double version
   // int64    value = 2;
-  double   value = 3;
+  double   value = 3; // all amounts must be provided in the currencys base unit (e.g. satoshis for bitcoin, cents for dollars, etc.)
 }
