@@ -2,11 +2,11 @@
 
 export enum Currency {
   CURRENCY_UNSPECIFIED = 0,
-  /** BTC - Bitcoin. Provide the value in full bitcoin, not satoshis. */
+  /** BTC - Bitcoin. The base unit of bitcoin is satoshis. All amounts must be provided in this */
   BTC = 1,
-  /** TBTC - Test bitcoin. Provide the value in full bitcoin, not satoshis. */
+  /** TBTC - Test bitcoin. he base unit of bitcoin is satoshis. */
   TBTC = 2,
-  /** ETH - Ethereum. Provide the value in full Ethereum */
+  /** ETH - Ethereum. The base unit is gwei. All amounts must be provided in gwei */
   ETH = 3,
   UNRECOGNIZED = -1,
 }

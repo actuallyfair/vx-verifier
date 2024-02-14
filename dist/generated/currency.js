@@ -5,11 +5,11 @@ exports.currencyToJSON = exports.currencyFromJSON = exports.Currency = void 0;
 var Currency;
 (function (Currency) {
     Currency[Currency["CURRENCY_UNSPECIFIED"] = 0] = "CURRENCY_UNSPECIFIED";
-    /** BTC - Bitcoin. Provide the value in full bitcoin, not satoshis. */
+    /** BTC - Bitcoin. The base unit of bitcoin is satoshis. All amounts must be provided in this */
     Currency[Currency["BTC"] = 1] = "BTC";
-    /** TBTC - Test bitcoin. Provide the value in full bitcoin, not satoshis. */
+    /** TBTC - Test bitcoin. he base unit of bitcoin is satoshis. */
     Currency[Currency["TBTC"] = 2] = "TBTC";
-    /** ETH - Ethereum. Provide the value in full Ethereum */
+    /** ETH - Ethereum. The base unit is gwei. All amounts must be provided in gwei */
     Currency[Currency["ETH"] = 3] = "ETH";
     Currency[Currency["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
 })(Currency || (exports.Currency = Currency = {}));
