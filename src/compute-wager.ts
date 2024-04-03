@@ -1,5 +1,6 @@
 import { sha256 } from "@noble/hashes/sha256";
 import { hmac } from "@noble/hashes/hmac";
+import { bytesToNumberBE } from "@noble/curves/abstract/utils";
 
 import { Currency } from "./generated/currency";
 import {
@@ -80,4 +81,39 @@ export function computeBOBRouletteResult(
   } else {
     return "black";
   }
+}
+
+export function computeMineLocations(
+  vxSignature: Uint8Array,
+  revealedCells: Set<number>, // tiles we know are safe
+  cells: number, // how many cells in total
+  mines: number // how many mines there are going to be in total
+) {
+  let mineLocations = new Set<number>();
+
+  for (let m = 0; m < mines; m++) {
+    const cellsLeft = cells - revealedCells.size - m;
+
+    if (cellsLeft == 0) {
+      console.warn(
+        "hmm trying to get mine locations when there's no locations left?"
+      );
+      break;
+    }
+
+    let mineIndex = Number(bytesToNumberBE(vxSignature) % BigInt(cellsLeft));
+
+    for (let i = 0; i < cells; i++) {
+      if (revealedCells.has(i)) {
+        mineIndex++;
+        continue;
+      }
+      if (mineIndex == i) {
+        mineLocations.add(i);
+        break;
+      }
+    }
+  }
+
+  return mineLocations;
 }

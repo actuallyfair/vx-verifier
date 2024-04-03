@@ -12,3 +12,6 @@ export declare function computeCrashResult(sig: Uint8Array, gameHash: Uint8Array
 houseEdge?: number): number;
 export declare function computeCrashDiceResult(sig: Uint8Array, houseEdge: number): number;
 export declare function computeBOBRouletteResult(sig: Uint8Array): "black" | "orange" | "bonus";
+export declare function computeMineLocations(vxSignature: Uint8Array, revealedCells: Set<number>, // tiles we know are safe
+cells: number, // how many cells in total
+mines: number): Set<number>;

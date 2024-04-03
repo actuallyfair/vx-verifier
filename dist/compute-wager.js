@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.computeBOBRouletteResult = exports.computeCrashDiceResult = exports.computeCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
+exports.computeMineLocations = exports.computeBOBRouletteResult = exports.computeCrashDiceResult = exports.computeCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
 const sha256_1 = require("@noble/hashes/sha256");
 const hmac_1 = require("@noble/hashes/hmac");
+const utils_1 = require("@noble/curves/abstract/utils");
 const currency_1 = require("./generated/currency");
 const fair_coin_toss_1 = require("./generated/message-contexts/fair-coin-toss");
-const utils_1 = require("@noble/hashes/utils");
+const utils_2 = require("@noble/hashes/utils");
 function computeFairCoinTossResult(sig) {
     // We're going to hash the signature just to really be sure its fairly distributed
     const hash = (0, sha256_1.sha256)(sig);
@@ -30,7 +31,7 @@ function computeFairCoinTossOutcome(sig, w) {
 exports.computeFairCoinTossOutcome = computeFairCoinTossOutcome;
 function doComputeCrashResult(hash, houseEdge) {
     const nBits = 52;
-    const hashHex = (0, utils_1.bytesToHex)(hash);
+    const hashHex = (0, utils_2.bytesToHex)(hash);
     const seed = hashHex.slice(0, nBits / 4);
     const r = Number.parseInt(seed, 16);
     let X = r / 2 ** nBits; // uniformly distributed in [0; 1)
@@ -52,7 +53,7 @@ exports.computeCrashDiceResult = computeCrashDiceResult;
 function computeBOBRouletteResult(sig) {
     const hash = (0, sha256_1.sha256)(sig);
     const nBits = 52;
-    const hashHex = (0, utils_1.bytesToHex)(hash);
+    const hashHex = (0, utils_2.bytesToHex)(hash);
     const seed = hashHex.slice(0, nBits / 4);
     const n = Number.parseInt(seed, 16) % 15; // number between [0, 14] evenly distributed
     if (n == 0) {
@@ -66,3 +67,29 @@ function computeBOBRouletteResult(sig) {
     }
 }
 exports.computeBOBRouletteResult = computeBOBRouletteResult;
+function computeMineLocations(vxSignature, revealedCells, // tiles we know are safe
+cells, // how many cells in total
+mines // how many mines there are going to be in total
+) {
+    let mineLocations = new Set();
+    for (let m = 0; m < mines; m++) {
+        const cellsLeft = cells - revealedCells.size - m;
+        if (cellsLeft == 0) {
+            console.warn("hmm trying to get mine locations when there's no locations left?");
+            break;
+        }
+        let mineIndex = Number((0, utils_1.bytesToNumberBE)(vxSignature) % BigInt(cellsLeft));
+        for (let i = 0; i < cells; i++) {
+            if (revealedCells.has(i)) {
+                mineIndex++;
+                continue;
+            }
+            if (mineIndex == i) {
+                mineLocations.add(i);
+                break;
+            }
+        }
+    }
+    return mineLocations;
+}
+exports.computeMineLocations = computeMineLocations;
