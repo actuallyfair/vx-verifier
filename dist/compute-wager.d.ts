@@ -12,7 +12,7 @@ export declare function computeFairCoinTossOutcome(sig: Uint8Array, w: FairCoinT
 export declare function computeCrashResult(vxSignature: Uint8Array, gameHash: Uint8Array, // This is the hash of the next from the hash chain
 houseEdge?: number): number;
 export declare function computeCrashDiceResult(sig: Uint8Array, houseEdge: number): number;
-export declare function computeMultiRouletteResult(vxSignature: Uint8Array, bet: MultiRoulette): import("./generated/message-contexts/multi-roulette").MultiRoulette_Outcome | undefined;
+export declare function computeMultiRouletteResult(vxSignature: Uint8Array, bet: MultiRoulette): number | undefined;
 export declare function computeMineLocations(vxSignature: Uint8Array, revealedCells: Set<number>, // tiles we know are safe
 cells: number, // how many cells in total
 mines: number): Set<number>;

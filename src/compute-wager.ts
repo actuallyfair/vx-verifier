@@ -65,6 +65,7 @@ export function computeCrashDiceResult(sig: Uint8Array, houseEdge: number) {
   return doComputeCrashResult(sha256(sig), houseEdge);
 }
 
+// returns the index of which roulette outcome was picked
 export function computeMultiRouletteResult(
   vxSignature: Uint8Array,
   bet: MultiRoulette
@@ -79,10 +80,11 @@ export function computeMultiRouletteResult(
   const v = n / 2 ** nBits; // uniform in [0; 1)
 
   let probabilitySum = 0;
-  for (const outcome of bet.outcomes) {
-    probabilitySum += outcome.probability;
+
+  for (let i = 0; i < bet.outcomes.length; i++) {
+    probabilitySum += bet.outcomes[i].probability;
     if (v < probabilitySum) {
-      return outcome;
+      return i;
     }
   }
 }
