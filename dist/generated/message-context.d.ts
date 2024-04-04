@@ -1,17 +1,17 @@
 import _m0 from "protobufjs/minimal";
-import { BOBRoulette } from "./message-contexts/bob-roulette";
 import { Crash } from "./message-contexts/crash";
 import { CrashDice } from "./message-contexts/crash-dice";
 import { FairCoinToss } from "./message-contexts/fair-coin-toss";
 import { HiLo } from "./message-contexts/hilo";
 import { Mines } from "./message-contexts/mines";
+import { MultiRoulette } from "./message-contexts/multi-roulette";
 import { Tower } from "./message-contexts/tower";
 export interface MessageContext {
     fairCoinToss?: FairCoinToss | undefined;
     crash?: Crash | undefined;
     hilo?: HiLo | undefined;
     crashDice?: CrashDice | undefined;
-    bobRoulette?: BOBRoulette | undefined;
+    multiRoulette?: MultiRoulette | undefined;
     mines?: Mines | undefined;
     tower?: Tower | undefined;
 }
@@ -48,27 +48,17 @@ export declare const MessageContext: {
             target?: number | undefined;
             houseEdge?: number | undefined;
         } | undefined;
-        bobRoulette?: {
-            blackBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] | undefined;
-            orangeBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] | undefined;
-            bonusBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
+        multiRoulette?: {
+            outcomes?: {
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] | undefined;
             }[] | undefined;
         } | undefined;
         mines?: {
@@ -168,114 +158,82 @@ export declare const MessageContext: {
             target?: number | undefined;
             houseEdge?: number | undefined;
         } & { [K_7 in Exclude<keyof I["crashDice"], keyof CrashDice>]: never; }) | undefined;
-        bobRoulette?: ({
-            blackBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] | undefined;
-            orangeBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] | undefined;
-            bonusBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
+        multiRoulette?: ({
+            outcomes?: {
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] | undefined;
             }[] | undefined;
         } & {
-            blackBets?: ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
+            outcomes?: ({
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] | undefined;
             }[] & ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] | undefined;
             } & {
-                uname?: string | undefined;
-                amount?: ({
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: ({
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] & ({
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
                 } & {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } & { [K_8 in Exclude<keyof I["bobRoulette"]["blackBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
-            } & { [K_9 in Exclude<keyof I["bobRoulette"]["blackBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_10 in Exclude<keyof I["bobRoulette"]["blackBets"], keyof {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
+                    uname?: string | undefined;
+                    amount?: ({
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } & {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } & { [K_8 in Exclude<keyof I["multiRoulette"]["outcomes"][number]["bets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
+                } & { [K_9 in Exclude<keyof I["multiRoulette"]["outcomes"][number]["bets"][number], keyof import("./message-contexts/multi-roulette").MultiRoulette_Bet>]: never; })[] & { [K_10 in Exclude<keyof I["multiRoulette"]["outcomes"][number]["bets"], keyof {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_11 in Exclude<keyof I["multiRoulette"]["outcomes"][number], keyof import("./message-contexts/multi-roulette").MultiRoulette_Outcome>]: never; })[] & { [K_12 in Exclude<keyof I["multiRoulette"]["outcomes"], keyof {
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] | undefined;
             }[]>]: never; }) | undefined;
-            orangeBets?: ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] & ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            } & {
-                uname?: string | undefined;
-                amount?: ({
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } & {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } & { [K_11 in Exclude<keyof I["bobRoulette"]["orangeBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
-            } & { [K_12 in Exclude<keyof I["bobRoulette"]["orangeBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_13 in Exclude<keyof I["bobRoulette"]["orangeBets"], keyof {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[]>]: never; }) | undefined;
-            bonusBets?: ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] & ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            } & {
-                uname?: string | undefined;
-                amount?: ({
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } & {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } & { [K_14 in Exclude<keyof I["bobRoulette"]["bonusBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
-            } & { [K_15 in Exclude<keyof I["bobRoulette"]["bonusBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_16 in Exclude<keyof I["bobRoulette"]["bonusBets"], keyof {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[]>]: never; }) | undefined;
-        } & { [K_17 in Exclude<keyof I["bobRoulette"], keyof BOBRoulette>]: never; }) | undefined;
+        } & { [K_13 in Exclude<keyof I["multiRoulette"], "outcomes">]: never; }) | undefined;
         mines?: ({
             start?: {
                 amount?: {
@@ -306,18 +264,18 @@ export declare const MessageContext: {
                 } & {
                     currency?: import("./currency").Currency | undefined;
                     value?: number | undefined;
-                } & { [K_18 in Exclude<keyof I["mines"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
+                } & { [K_14 in Exclude<keyof I["mines"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
                 cells?: number | undefined;
                 mines?: number | undefined;
                 cellLineBreak?: number | undefined;
-            } & { [K_19 in Exclude<keyof I["mines"]["start"], keyof import("./message-contexts/mines").MinesStart>]: never; }) | undefined;
+            } & { [K_15 in Exclude<keyof I["mines"]["start"], keyof import("./message-contexts/mines").MinesStart>]: never; }) | undefined;
             move?: ({
                 cell?: number | undefined;
             } & {
                 cell?: number | undefined;
-            } & { [K_20 in Exclude<keyof I["mines"]["move"], "cell">]: never; }) | undefined;
+            } & { [K_16 in Exclude<keyof I["mines"]["move"], "cell">]: never; }) | undefined;
             cashout?: boolean | undefined;
-        } & { [K_21 in Exclude<keyof I["mines"], keyof Mines>]: never; }) | undefined;
+        } & { [K_17 in Exclude<keyof I["mines"], keyof Mines>]: never; }) | undefined;
         tower?: ({
             start?: {
                 amount?: {
@@ -350,20 +308,20 @@ export declare const MessageContext: {
                 } & {
                     currency?: import("./currency").Currency | undefined;
                     value?: number | undefined;
-                } & { [K_22 in Exclude<keyof I["tower"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
+                } & { [K_18 in Exclude<keyof I["tower"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
                 levels?: number | undefined;
                 choicesPerLevel?: number | undefined;
                 minesPerLevel?: number | undefined;
                 houseEdge?: number | undefined;
-            } & { [K_23 in Exclude<keyof I["tower"]["start"], keyof import("./message-contexts/tower").TowerStart>]: never; }) | undefined;
+            } & { [K_19 in Exclude<keyof I["tower"]["start"], keyof import("./message-contexts/tower").TowerStart>]: never; }) | undefined;
             move?: ({
                 choice?: number | undefined;
             } & {
                 choice?: number | undefined;
-            } & { [K_24 in Exclude<keyof I["tower"]["move"], "choice">]: never; }) | undefined;
+            } & { [K_20 in Exclude<keyof I["tower"]["move"], "choice">]: never; }) | undefined;
             cashout?: boolean | undefined;
-        } & { [K_25 in Exclude<keyof I["tower"], keyof Tower>]: never; }) | undefined;
-    } & { [K_26 in Exclude<keyof I, keyof MessageContext>]: never; }>(base?: I | undefined): MessageContext;
+        } & { [K_21 in Exclude<keyof I["tower"], keyof Tower>]: never; }) | undefined;
+    } & { [K_22 in Exclude<keyof I, keyof MessageContext>]: never; }>(base?: I | undefined): MessageContext;
     fromPartial<I_1 extends {
         fairCoinToss?: {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
@@ -392,27 +350,17 @@ export declare const MessageContext: {
             target?: number | undefined;
             houseEdge?: number | undefined;
         } | undefined;
-        bobRoulette?: {
-            blackBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] | undefined;
-            orangeBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] | undefined;
-            bonusBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
+        multiRoulette?: {
+            outcomes?: {
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] | undefined;
             }[] | undefined;
         } | undefined;
         mines?: {
@@ -451,12 +399,12 @@ export declare const MessageContext: {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
         } & {
             playerChoice?: import("./message-contexts/fair-coin-toss").FairCoinToss_Choice | undefined;
-        } & { [K_27 in Exclude<keyof I_1["fairCoinToss"], "playerChoice">]: never; }) | undefined;
+        } & { [K_23 in Exclude<keyof I_1["fairCoinToss"], "playerChoice">]: never; }) | undefined;
         crash?: ({
             houseEdge?: number | undefined;
         } & {
             houseEdge?: number | undefined;
-        } & { [K_28 in Exclude<keyof I_1["crash"], "houseEdge">]: never; }) | undefined;
+        } & { [K_24 in Exclude<keyof I_1["crash"], "houseEdge">]: never; }) | undefined;
         hilo?: ({
             start?: {
                 amount?: {
@@ -483,17 +431,17 @@ export declare const MessageContext: {
                 } & {
                     currency?: import("./currency").Currency | undefined;
                     value?: number | undefined;
-                } & { [K_29 in Exclude<keyof I_1["hilo"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
+                } & { [K_25 in Exclude<keyof I_1["hilo"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
                 startingCard?: import("./message-contexts/hilo").Card | undefined;
-            } & { [K_30 in Exclude<keyof I_1["hilo"]["start"], keyof import("./message-contexts/hilo").HiLoStart>]: never; }) | undefined;
+            } & { [K_26 in Exclude<keyof I_1["hilo"]["start"], keyof import("./message-contexts/hilo").HiLoStart>]: never; }) | undefined;
             move?: ({
                 playerChoice?: import("./message-contexts/hilo").HiLoMove_Choice | undefined;
                 moveIndex?: number | undefined;
             } & {
                 playerChoice?: import("./message-contexts/hilo").HiLoMove_Choice | undefined;
                 moveIndex?: number | undefined;
-            } & { [K_31 in Exclude<keyof I_1["hilo"]["move"], keyof import("./message-contexts/hilo").HiLoMove>]: never; }) | undefined;
-        } & { [K_32 in Exclude<keyof I_1["hilo"], keyof HiLo>]: never; }) | undefined;
+            } & { [K_27 in Exclude<keyof I_1["hilo"]["move"], keyof import("./message-contexts/hilo").HiLoMove>]: never; }) | undefined;
+        } & { [K_28 in Exclude<keyof I_1["hilo"], keyof HiLo>]: never; }) | undefined;
         crashDice?: ({
             amount?: {
                 currency?: import("./currency").Currency | undefined;
@@ -508,118 +456,86 @@ export declare const MessageContext: {
             } & {
                 currency?: import("./currency").Currency | undefined;
                 value?: number | undefined;
-            } & { [K_33 in Exclude<keyof I_1["crashDice"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
+            } & { [K_29 in Exclude<keyof I_1["crashDice"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
             target?: number | undefined;
             houseEdge?: number | undefined;
-        } & { [K_34 in Exclude<keyof I_1["crashDice"], keyof CrashDice>]: never; }) | undefined;
-        bobRoulette?: ({
-            blackBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] | undefined;
-            orangeBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] | undefined;
-            bonusBets?: {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
+        } & { [K_30 in Exclude<keyof I_1["crashDice"], keyof CrashDice>]: never; }) | undefined;
+        multiRoulette?: ({
+            outcomes?: {
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] | undefined;
             }[] | undefined;
         } & {
-            blackBets?: ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
+            outcomes?: ({
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] | undefined;
             }[] & ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] | undefined;
             } & {
-                uname?: string | undefined;
-                amount?: ({
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: ({
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] & ({
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
                 } & {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } & { [K_35 in Exclude<keyof I_1["bobRoulette"]["blackBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
-            } & { [K_36 in Exclude<keyof I_1["bobRoulette"]["blackBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_37 in Exclude<keyof I_1["bobRoulette"]["blackBets"], keyof {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
+                    uname?: string | undefined;
+                    amount?: ({
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } & {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } & { [K_31 in Exclude<keyof I_1["multiRoulette"]["outcomes"][number]["bets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
+                } & { [K_32 in Exclude<keyof I_1["multiRoulette"]["outcomes"][number]["bets"][number], keyof import("./message-contexts/multi-roulette").MultiRoulette_Bet>]: never; })[] & { [K_33 in Exclude<keyof I_1["multiRoulette"]["outcomes"][number]["bets"], keyof {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_34 in Exclude<keyof I_1["multiRoulette"]["outcomes"][number], keyof import("./message-contexts/multi-roulette").MultiRoulette_Outcome>]: never; })[] & { [K_35 in Exclude<keyof I_1["multiRoulette"]["outcomes"], keyof {
+                multiplier?: number | undefined;
+                probability?: number | undefined;
+                bets?: {
+                    uname?: string | undefined;
+                    amount?: {
+                        currency?: import("./currency").Currency | undefined;
+                        value?: number | undefined;
+                    } | undefined;
+                }[] | undefined;
             }[]>]: never; }) | undefined;
-            orangeBets?: ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] & ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            } & {
-                uname?: string | undefined;
-                amount?: ({
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } & {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } & { [K_38 in Exclude<keyof I_1["bobRoulette"]["orangeBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
-            } & { [K_39 in Exclude<keyof I_1["bobRoulette"]["orangeBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_40 in Exclude<keyof I_1["bobRoulette"]["orangeBets"], keyof {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[]>]: never; }) | undefined;
-            bonusBets?: ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[] & ({
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            } & {
-                uname?: string | undefined;
-                amount?: ({
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } & {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } & { [K_41 in Exclude<keyof I_1["bobRoulette"]["bonusBets"][number]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
-            } & { [K_42 in Exclude<keyof I_1["bobRoulette"]["bonusBets"][number], keyof import("./message-contexts/bob-roulette").BOBRoulette_Bet>]: never; })[] & { [K_43 in Exclude<keyof I_1["bobRoulette"]["bonusBets"], keyof {
-                uname?: string | undefined;
-                amount?: {
-                    currency?: import("./currency").Currency | undefined;
-                    value?: number | undefined;
-                } | undefined;
-            }[]>]: never; }) | undefined;
-        } & { [K_44 in Exclude<keyof I_1["bobRoulette"], keyof BOBRoulette>]: never; }) | undefined;
+        } & { [K_36 in Exclude<keyof I_1["multiRoulette"], "outcomes">]: never; }) | undefined;
         mines?: ({
             start?: {
                 amount?: {
@@ -650,18 +566,18 @@ export declare const MessageContext: {
                 } & {
                     currency?: import("./currency").Currency | undefined;
                     value?: number | undefined;
-                } & { [K_45 in Exclude<keyof I_1["mines"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
+                } & { [K_37 in Exclude<keyof I_1["mines"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
                 cells?: number | undefined;
                 mines?: number | undefined;
                 cellLineBreak?: number | undefined;
-            } & { [K_46 in Exclude<keyof I_1["mines"]["start"], keyof import("./message-contexts/mines").MinesStart>]: never; }) | undefined;
+            } & { [K_38 in Exclude<keyof I_1["mines"]["start"], keyof import("./message-contexts/mines").MinesStart>]: never; }) | undefined;
             move?: ({
                 cell?: number | undefined;
             } & {
                 cell?: number | undefined;
-            } & { [K_47 in Exclude<keyof I_1["mines"]["move"], "cell">]: never; }) | undefined;
+            } & { [K_39 in Exclude<keyof I_1["mines"]["move"], "cell">]: never; }) | undefined;
             cashout?: boolean | undefined;
-        } & { [K_48 in Exclude<keyof I_1["mines"], keyof Mines>]: never; }) | undefined;
+        } & { [K_40 in Exclude<keyof I_1["mines"], keyof Mines>]: never; }) | undefined;
         tower?: ({
             start?: {
                 amount?: {
@@ -694,18 +610,18 @@ export declare const MessageContext: {
                 } & {
                     currency?: import("./currency").Currency | undefined;
                     value?: number | undefined;
-                } & { [K_49 in Exclude<keyof I_1["tower"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
+                } & { [K_41 in Exclude<keyof I_1["tower"]["start"]["amount"], keyof import("./amount").Amount>]: never; }) | undefined;
                 levels?: number | undefined;
                 choicesPerLevel?: number | undefined;
                 minesPerLevel?: number | undefined;
                 houseEdge?: number | undefined;
-            } & { [K_50 in Exclude<keyof I_1["tower"]["start"], keyof import("./message-contexts/tower").TowerStart>]: never; }) | undefined;
+            } & { [K_42 in Exclude<keyof I_1["tower"]["start"], keyof import("./message-contexts/tower").TowerStart>]: never; }) | undefined;
             move?: ({
                 choice?: number | undefined;
             } & {
                 choice?: number | undefined;
-            } & { [K_51 in Exclude<keyof I_1["tower"]["move"], "choice">]: never; }) | undefined;
+            } & { [K_43 in Exclude<keyof I_1["tower"]["move"], "choice">]: never; }) | undefined;
             cashout?: boolean | undefined;
-        } & { [K_52 in Exclude<keyof I_1["tower"], keyof Tower>]: never; }) | undefined;
-    } & { [K_53 in Exclude<keyof I_1, keyof MessageContext>]: never; }>(object: I_1): MessageContext;
+        } & { [K_44 in Exclude<keyof I_1["tower"], keyof Tower>]: never; }) | undefined;
+    } & { [K_45 in Exclude<keyof I_1, keyof MessageContext>]: never; }>(object: I_1): MessageContext;
 };

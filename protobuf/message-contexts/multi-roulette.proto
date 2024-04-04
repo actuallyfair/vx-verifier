@@ -1,0 +1,18 @@
+syntax = "proto3";
+import "amount.proto";
+
+
+message MultiRoulette {
+    message Bet {
+      string uname = 1;
+      Amount amount = 2;
+    }
+
+    message Outcome {
+      double multiplier = 1;
+      double probability = 2;
+      repeated Bet bets = 3;
+    }
+
+    repeated Outcome outcomes = 1;
+} 

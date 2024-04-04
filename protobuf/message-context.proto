@@ -4,9 +4,9 @@ import "message-contexts/fair-coin-toss.proto";
 import "message-contexts/crash.proto";
 import "message-contexts/hilo.proto";
 import "message-contexts/crash-dice.proto";
-import "message-contexts/bob-roulette.proto";
 import "message-contexts/mines.proto";
 import "message-contexts/tower.proto";
+import "message-contexts/multi-roulette.proto";
 
 message MessageContext {
   oneof message_type {
@@ -14,7 +14,7 @@ message MessageContext {
     Crash crash = 2;
     HiLo hilo = 3;
     CrashDice crash_dice = 4;
-    BOBRoulette bob_roulette = 5;
+    MultiRoulette multi_roulette = 5;
     Mines mines = 6;
     Tower tower = 7;
   }

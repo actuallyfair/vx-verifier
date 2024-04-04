@@ -1,11 +1,11 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
-import { BOBRoulette } from "./message-contexts/bob-roulette";
 import { Crash } from "./message-contexts/crash";
 import { CrashDice } from "./message-contexts/crash-dice";
 import { FairCoinToss } from "./message-contexts/fair-coin-toss";
 import { HiLo } from "./message-contexts/hilo";
 import { Mines } from "./message-contexts/mines";
+import { MultiRoulette } from "./message-contexts/multi-roulette";
 import { Tower } from "./message-contexts/tower";
 
 export interface MessageContext {
@@ -13,7 +13,7 @@ export interface MessageContext {
   crash?: Crash | undefined;
   hilo?: HiLo | undefined;
   crashDice?: CrashDice | undefined;
-  bobRoulette?: BOBRoulette | undefined;
+  multiRoulette?: MultiRoulette | undefined;
   mines?: Mines | undefined;
   tower?: Tower | undefined;
 }
@@ -24,7 +24,7 @@ function createBaseMessageContext(): MessageContext {
     crash: undefined,
     hilo: undefined,
     crashDice: undefined,
-    bobRoulette: undefined,
+    multiRoulette: undefined,
     mines: undefined,
     tower: undefined,
   };
@@ -44,8 +44,8 @@ export const MessageContext = {
     if (message.crashDice !== undefined) {
       CrashDice.encode(message.crashDice, writer.uint32(34).fork()).ldelim();
     }
-    if (message.bobRoulette !== undefined) {
-      BOBRoulette.encode(message.bobRoulette, writer.uint32(42).fork()).ldelim();
+    if (message.multiRoulette !== undefined) {
+      MultiRoulette.encode(message.multiRoulette, writer.uint32(42).fork()).ldelim();
     }
     if (message.mines !== undefined) {
       Mines.encode(message.mines, writer.uint32(50).fork()).ldelim();
@@ -96,7 +96,7 @@ export const MessageContext = {
             break;
           }
 
-          message.bobRoulette = BOBRoulette.decode(reader, reader.uint32());
+          message.multiRoulette = MultiRoulette.decode(reader, reader.uint32());
           continue;
         case 6:
           if (tag !== 50) {
@@ -127,7 +127,7 @@ export const MessageContext = {
       crash: isSet(object.crash) ? Crash.fromJSON(object.crash) : undefined,
       hilo: isSet(object.hilo) ? HiLo.fromJSON(object.hilo) : undefined,
       crashDice: isSet(object.crashDice) ? CrashDice.fromJSON(object.crashDice) : undefined,
-      bobRoulette: isSet(object.bobRoulette) ? BOBRoulette.fromJSON(object.bobRoulette) : undefined,
+      multiRoulette: isSet(object.multiRoulette) ? MultiRoulette.fromJSON(object.multiRoulette) : undefined,
       mines: isSet(object.mines) ? Mines.fromJSON(object.mines) : undefined,
       tower: isSet(object.tower) ? Tower.fromJSON(object.tower) : undefined,
     };
@@ -147,8 +147,8 @@ export const MessageContext = {
     if (message.crashDice !== undefined) {
       obj.crashDice = CrashDice.toJSON(message.crashDice);
     }
-    if (message.bobRoulette !== undefined) {
-      obj.bobRoulette = BOBRoulette.toJSON(message.bobRoulette);
+    if (message.multiRoulette !== undefined) {
+      obj.multiRoulette = MultiRoulette.toJSON(message.multiRoulette);
     }
     if (message.mines !== undefined) {
       obj.mines = Mines.toJSON(message.mines);
@@ -172,8 +172,8 @@ export const MessageContext = {
     message.crashDice = (object.crashDice !== undefined && object.crashDice !== null)
       ? CrashDice.fromPartial(object.crashDice)
       : undefined;
-    message.bobRoulette = (object.bobRoulette !== undefined && object.bobRoulette !== null)
-      ? BOBRoulette.fromPartial(object.bobRoulette)
+    message.multiRoulette = (object.multiRoulette !== undefined && object.multiRoulette !== null)
+      ? MultiRoulette.fromPartial(object.multiRoulette)
       : undefined;
     message.mines = (object.mines !== undefined && object.mines !== null) ? Mines.fromPartial(object.mines) : undefined;
     message.tower = (object.tower !== undefined && object.tower !== null) ? Tower.fromPartial(object.tower) : undefined;

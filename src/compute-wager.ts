@@ -8,6 +8,7 @@ import {
   FairCoinToss_Choice,
 } from "./generated/message-contexts/fair-coin-toss";
 import { bytesToHex } from "@noble/hashes/utils";
+import { MultiRoulette } from "./generated/message-contexts/multi-roulette";
 
 export function computeFairCoinTossResult(sig: Uint8Array) {
   // We're going to hash the signature just to really be sure its fairly distributed
@@ -53,33 +54,36 @@ function doComputeCrashResult(hash: Uint8Array, houseEdge: number) {
 }
 
 export function computeCrashResult(
-  sig: Uint8Array,
-  gameHash: Uint8Array, // This is the hash of the message
+  vxSignature: Uint8Array,
+  gameHash: Uint8Array, // This is the hash of the next from the hash chain
   houseEdge: number = 0
 ) {
-  return doComputeCrashResult(hmac(sha256, sig, gameHash), houseEdge);
+  return doComputeCrashResult(hmac(sha256, vxSignature, gameHash), houseEdge);
 }
 
 export function computeCrashDiceResult(sig: Uint8Array, houseEdge: number) {
   return doComputeCrashResult(sha256(sig), houseEdge);
 }
 
-export function computeBOBRouletteResult(
-  sig: Uint8Array
-): "black" | "orange" | "bonus" {
-  const hash = sha256(sig);
+export function computeMultiRouletteResult(
+  vxSignature: Uint8Array,
+  bet: MultiRoulette
+) {
+  const hash = sha256(vxSignature);
 
   const nBits = 52;
   const hashHex = bytesToHex(hash);
-
   const seed = hashHex.slice(0, nBits / 4);
-  const n = Number.parseInt(seed, 16) % 15; // number between [0, 14] evenly distributed
-  if (n == 0) {
-    return "bonus";
-  } else if (n <= 7) {
-    return "orange";
-  } else {
-    return "black";
+  const n = Number.parseInt(seed, 16);
+
+  const v = n / 2 ** nBits; // uniform in [0; 1)
+
+  let probabilitySum = 0;
+  for (const outcome of bet.outcomes) {
+    probabilitySum += outcome.probability;
+    if (v < probabilitySum) {
+      return outcome;
+    }
   }
 }
 

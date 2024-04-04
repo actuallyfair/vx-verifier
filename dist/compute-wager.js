@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.computeMineLocations = exports.computeBOBRouletteResult = exports.computeCrashDiceResult = exports.computeCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
+exports.computeMineLocations = exports.computeMultiRouletteResult = exports.computeCrashDiceResult = exports.computeCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
 const sha256_1 = require("@noble/hashes/sha256");
 const hmac_1 = require("@noble/hashes/hmac");
 const utils_1 = require("@noble/curves/abstract/utils");
@@ -41,32 +41,31 @@ function doComputeCrashResult(hash, houseEdge) {
     result = Math.max(1, result);
     return result;
 }
-function computeCrashResult(sig, gameHash, // This is the hash of the message
+function computeCrashResult(vxSignature, gameHash, // This is the hash of the next from the hash chain
 houseEdge = 0) {
-    return doComputeCrashResult((0, hmac_1.hmac)(sha256_1.sha256, sig, gameHash), houseEdge);
+    return doComputeCrashResult((0, hmac_1.hmac)(sha256_1.sha256, vxSignature, gameHash), houseEdge);
 }
 exports.computeCrashResult = computeCrashResult;
 function computeCrashDiceResult(sig, houseEdge) {
     return doComputeCrashResult((0, sha256_1.sha256)(sig), houseEdge);
 }
 exports.computeCrashDiceResult = computeCrashDiceResult;
-function computeBOBRouletteResult(sig) {
-    const hash = (0, sha256_1.sha256)(sig);
+function computeMultiRouletteResult(vxSignature, bet) {
+    const hash = (0, sha256_1.sha256)(vxSignature);
     const nBits = 52;
     const hashHex = (0, utils_2.bytesToHex)(hash);
     const seed = hashHex.slice(0, nBits / 4);
-    const n = Number.parseInt(seed, 16) % 15; // number between [0, 14] evenly distributed
-    if (n == 0) {
-        return "bonus";
-    }
-    else if (n <= 7) {
-        return "orange";
-    }
-    else {
-        return "black";
+    const n = Number.parseInt(seed, 16);
+    const v = n / 2 ** nBits; // uniform in [0; 1)
+    let probabilitySum = 0;
+    for (const outcome of bet.outcomes) {
+        probabilitySum += outcome.probability;
+        if (v < probabilitySum) {
+            return outcome;
+        }
     }
 }
-exports.computeBOBRouletteResult = computeBOBRouletteResult;
+exports.computeMultiRouletteResult = computeMultiRouletteResult;
 function computeMineLocations(vxSignature, revealedCells, // tiles we know are safe
 cells, // how many cells in total
 mines // how many mines there are going to be in total

@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageContext = void 0;
 /* eslint-disable */
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const bob_roulette_1 = require("./message-contexts/bob-roulette");
 const crash_1 = require("./message-contexts/crash");
 const crash_dice_1 = require("./message-contexts/crash-dice");
 const fair_coin_toss_1 = require("./message-contexts/fair-coin-toss");
 const hilo_1 = require("./message-contexts/hilo");
 const mines_1 = require("./message-contexts/mines");
+const multi_roulette_1 = require("./message-contexts/multi-roulette");
 const tower_1 = require("./message-contexts/tower");
 function createBaseMessageContext() {
     return {
@@ -19,7 +19,7 @@ function createBaseMessageContext() {
         crash: undefined,
         hilo: undefined,
         crashDice: undefined,
-        bobRoulette: undefined,
+        multiRoulette: undefined,
         mines: undefined,
         tower: undefined,
     };
@@ -38,8 +38,8 @@ exports.MessageContext = {
         if (message.crashDice !== undefined) {
             crash_dice_1.CrashDice.encode(message.crashDice, writer.uint32(34).fork()).ldelim();
         }
-        if (message.bobRoulette !== undefined) {
-            bob_roulette_1.BOBRoulette.encode(message.bobRoulette, writer.uint32(42).fork()).ldelim();
+        if (message.multiRoulette !== undefined) {
+            multi_roulette_1.MultiRoulette.encode(message.multiRoulette, writer.uint32(42).fork()).ldelim();
         }
         if (message.mines !== undefined) {
             mines_1.Mines.encode(message.mines, writer.uint32(50).fork()).ldelim();
@@ -84,7 +84,7 @@ exports.MessageContext = {
                     if (tag !== 42) {
                         break;
                     }
-                    message.bobRoulette = bob_roulette_1.BOBRoulette.decode(reader, reader.uint32());
+                    message.multiRoulette = multi_roulette_1.MultiRoulette.decode(reader, reader.uint32());
                     continue;
                 case 6:
                     if (tag !== 50) {
@@ -112,7 +112,7 @@ exports.MessageContext = {
             crash: isSet(object.crash) ? crash_1.Crash.fromJSON(object.crash) : undefined,
             hilo: isSet(object.hilo) ? hilo_1.HiLo.fromJSON(object.hilo) : undefined,
             crashDice: isSet(object.crashDice) ? crash_dice_1.CrashDice.fromJSON(object.crashDice) : undefined,
-            bobRoulette: isSet(object.bobRoulette) ? bob_roulette_1.BOBRoulette.fromJSON(object.bobRoulette) : undefined,
+            multiRoulette: isSet(object.multiRoulette) ? multi_roulette_1.MultiRoulette.fromJSON(object.multiRoulette) : undefined,
             mines: isSet(object.mines) ? mines_1.Mines.fromJSON(object.mines) : undefined,
             tower: isSet(object.tower) ? tower_1.Tower.fromJSON(object.tower) : undefined,
         };
@@ -131,8 +131,8 @@ exports.MessageContext = {
         if (message.crashDice !== undefined) {
             obj.crashDice = crash_dice_1.CrashDice.toJSON(message.crashDice);
         }
-        if (message.bobRoulette !== undefined) {
-            obj.bobRoulette = bob_roulette_1.BOBRoulette.toJSON(message.bobRoulette);
+        if (message.multiRoulette !== undefined) {
+            obj.multiRoulette = multi_roulette_1.MultiRoulette.toJSON(message.multiRoulette);
         }
         if (message.mines !== undefined) {
             obj.mines = mines_1.Mines.toJSON(message.mines);
@@ -155,8 +155,8 @@ exports.MessageContext = {
         message.crashDice = (object.crashDice !== undefined && object.crashDice !== null)
             ? crash_dice_1.CrashDice.fromPartial(object.crashDice)
             : undefined;
-        message.bobRoulette = (object.bobRoulette !== undefined && object.bobRoulette !== null)
-            ? bob_roulette_1.BOBRoulette.fromPartial(object.bobRoulette)
+        message.multiRoulette = (object.multiRoulette !== undefined && object.multiRoulette !== null)
+            ? multi_roulette_1.MultiRoulette.fromPartial(object.multiRoulette)
             : undefined;
         message.mines = (object.mines !== undefined && object.mines !== null) ? mines_1.Mines.fromPartial(object.mines) : undefined;
         message.tower = (object.tower !== undefined && object.tower !== null) ? tower_1.Tower.fromPartial(object.tower) : undefined;
