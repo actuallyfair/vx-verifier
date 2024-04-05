@@ -98,26 +98,26 @@ export function computeMineLocations(
   let mineLocations = new Set<number>();
 
   for (let m = 0; m < mines; m++) {
-    const cellsLeft = cells - revealedCells.size - m;
+    const cellsLeft = cells - revealedCells.size - mineLocations.size;
 
-    if (cellsLeft == 0) {
+    if (cellsLeft <= 0) {
       console.warn(
-        "hmm trying to get mine locations when there's no locations left?"
+        "Trying to place more mines than there are available locations."
       );
       break;
     }
 
     let mineIndex = Number(bytesToNumberBE(vxSignature) % BigInt(cellsLeft));
+    let adjustedIndex = 0;
 
     for (let i = 0; i < cells; i++) {
-      if (revealedCells.has(i)) {
-        mineIndex++;
-        continue;
-      }
-      if (mineIndex == i) {
+      if (revealedCells.has(i) || mineLocations.has(i)) continue;
+
+      if (adjustedIndex === mineIndex) {
         mineLocations.add(i);
         break;
       }
+      adjustedIndex++;
     }
   }
 
