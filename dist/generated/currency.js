@@ -11,6 +11,8 @@ var Currency;
     Currency[Currency["TBTC"] = 2] = "TBTC";
     /** ETH - Ethereum. The base unit is gwei. All amounts must be provided in gwei */
     Currency[Currency["ETH"] = 3] = "ETH";
+    /** HOUSE - The currency that is specific and internal to an individual casino */
+    Currency[Currency["HOUSE"] = 4] = "HOUSE";
     Currency[Currency["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
 })(Currency || (exports.Currency = Currency = {}));
 function currencyFromJSON(object) {
@@ -27,6 +29,9 @@ function currencyFromJSON(object) {
         case 3:
         case "ETH":
             return Currency.ETH;
+        case 4:
+        case "HOUSE":
+            return Currency.HOUSE;
         case -1:
         case "UNRECOGNIZED":
         default:
@@ -44,6 +49,8 @@ function currencyToJSON(object) {
             return "TBTC";
         case Currency.ETH:
             return "ETH";
+        case Currency.HOUSE:
+            return "HOUSE";
         case Currency.UNRECOGNIZED:
         default:
             return "UNRECOGNIZED";

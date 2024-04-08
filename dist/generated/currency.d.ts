@@ -6,6 +6,8 @@ export declare enum Currency {
     TBTC = 2,
     /** ETH - Ethereum. The base unit is gwei. All amounts must be provided in gwei */
     ETH = 3,
+    /** HOUSE - The currency that is specific and internal to an individual casino */
+    HOUSE = 4,
     UNRECOGNIZED = -1
 }
 export declare function currencyFromJSON(object: any): Currency;

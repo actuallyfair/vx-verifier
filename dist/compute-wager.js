@@ -73,21 +73,21 @@ mines // how many mines there are going to be in total
 ) {
     let mineLocations = new Set();
     for (let m = 0; m < mines; m++) {
-        const cellsLeft = cells - revealedCells.size - m;
-        if (cellsLeft == 0) {
-            console.warn("hmm trying to get mine locations when there's no locations left?");
+        const cellsLeft = cells - revealedCells.size - mineLocations.size;
+        if (cellsLeft <= 0) {
+            console.warn("Trying to place more mines than there are available locations.");
             break;
         }
         let mineIndex = Number((0, utils_1.bytesToNumberBE)(vxSignature) % BigInt(cellsLeft));
+        let adjustedIndex = 0;
         for (let i = 0; i < cells; i++) {
-            if (revealedCells.has(i)) {
-                mineIndex++;
+            if (revealedCells.has(i) || mineLocations.has(i))
                 continue;
-            }
-            if (mineIndex == i) {
+            if (adjustedIndex === mineIndex) {
                 mineLocations.add(i);
                 break;
             }
+            adjustedIndex++;
         }
     }
     return mineLocations;

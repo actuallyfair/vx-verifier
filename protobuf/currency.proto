@@ -5,4 +5,5 @@ enum Currency {
   BTC = 1;  // Bitcoin. The base unit of bitcoin is satoshis. All amounts must be provided in this
   TBTC = 2; // Test bitcoin. he base unit of bitcoin is satoshis.
   ETH = 3; // Ethereum. The base unit is gwei. All amounts must be provided in gwei
+  HOUSE = 4; // The currency that is specific and internal to an individual casino
 }
