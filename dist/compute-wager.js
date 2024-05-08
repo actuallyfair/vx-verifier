@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.computeMineLocations = exports.computeMultiRouletteResult = exports.computeCrashDiceResult = exports.computeCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
+exports.computeMinesResult = exports.computeMineLocations = exports.computeMultiRouletteResult = exports.computeCrashDiceResult = exports.computeCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
 const sha256_1 = require("@noble/hashes/sha256");
 const hmac_1 = require("@noble/hashes/hmac");
 const utils_1 = require("@noble/curves/abstract/utils");
@@ -93,3 +93,28 @@ mines // how many mines there are going to be in total
     return mineLocations;
 }
 exports.computeMineLocations = computeMineLocations;
+function computeMinesResult(mines, // how many mines in the game
+cells, // how many cells in total in the game
+turn, // which turn they have finished
+houseEdge = 0.01) {
+    if (!Number.isSafeInteger(turn) || turn < 0) {
+        throw new Error("Turn must be an integer >= 0");
+    }
+    // On the 0th bet, they have made:
+    let accum = 1 - houseEdge;
+    // all the turns  are effectively 0 edge
+    for (let t = 1; t <= turn; t++) {
+        const loseProb = mines / (cells - t + 1);
+        const winProb = 1 - loseProb;
+        // EV formula tells us [for betting 1 unit]
+        // as it's 0 house edge
+        // 0 == winProb * profit - loseProb
+        // rearranged:
+        const profit = loseProb / winProb;
+        const multplier = 1 + profit;
+        // and we need to stack it on top of their last bet:
+        accum *= multplier;
+    }
+    return Math.floor(accum * 100) / 100;
+}
+exports.computeMinesResult = computeMinesResult;

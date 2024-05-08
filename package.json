@@ -22,9 +22,9 @@
   "devDependencies": {
     "@types/pg": "^8.6.3",
     "nodemon": "^2.0.15",
-    "ts-node": "^10.4.0",
     "ts-proto": "^1.148.1",
     "tsafe": "^1.6.4",
+    "tsx": "^4.9.3",
     "typescript": "^5.0.4"
   },
   "dependencies": {

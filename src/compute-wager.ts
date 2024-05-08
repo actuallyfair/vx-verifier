@@ -123,3 +123,37 @@ export function computeMineLocations(
 
   return mineLocations;
 }
+
+export function computeMinesResult(
+  mines: number, // how many mines in the game
+  cells: number, // how many cells in total in the game
+  turn: number, // which turn they have finished
+  houseEdge: number = 0.01
+): number {
+  if (!Number.isSafeInteger(turn) || turn < 0) {
+    throw new Error("Turn must be an integer >= 0");
+  }
+
+  // On the 0th bet, they have made:
+  let accum = 1 - houseEdge;
+
+  // all the turns  are effectively 0 edge
+  for (let t = 1; t <= turn; t++) {
+    const loseProb = mines / (cells - t + 1);
+    const winProb = 1 - loseProb;
+
+    // EV formula tells us [for betting 1 unit]
+    // as it's 0 house edge
+    // 0 == winProb * profit - loseProb
+
+    // rearranged:
+    const profit = loseProb / winProb;
+    const multplier = 1 + profit;
+
+    // and we need to stack it on top of their last bet:
+
+    accum *= multplier;
+  }
+
+  return Math.floor(accum * 100) / 100;
+}

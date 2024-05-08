@@ -16,3 +16,7 @@ export declare function computeMultiRouletteResult(vxSignature: Uint8Array, bet:
 export declare function computeMineLocations(vxSignature: Uint8Array, revealedCells: Set<number>, // tiles we know are safe
 cells: number, // how many cells in total
 mines: number): Set<number>;
+export declare function computeMinesResult(mines: number, // how many mines in the game
+cells: number, // how many cells in total in the game
+turn: number, // which turn they have finished
+houseEdge?: number): number;
