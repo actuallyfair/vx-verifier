@@ -8,6 +8,7 @@ export interface MinesStart {
   mines: number;
   /** this is simply how to display the game in rows/comlumns, but has no effect on the game results */
   cellLineBreak: number;
+  houseEdge: number;
 }
 
 export interface MinesMove {
@@ -22,7 +23,7 @@ export interface Mines {
 }
 
 function createBaseMinesStart(): MinesStart {
-  return { amount: undefined, cells: 0, mines: 0, cellLineBreak: 0 };
+  return { amount: undefined, cells: 0, mines: 0, cellLineBreak: 0, houseEdge: 0 };
 }
 
 export const MinesStart = {
@@ -38,6 +39,9 @@ export const MinesStart = {
     }
     if (message.cellLineBreak !== 0) {
       writer.uint32(32).int32(message.cellLineBreak);
+    }
+    if (message.houseEdge !== 0) {
+      writer.uint32(41).double(message.houseEdge);
     }
     return writer;
   },
@@ -77,6 +81,13 @@ export const MinesStart = {
 
           message.cellLineBreak = reader.int32();
           continue;
+        case 5:
+          if (tag !== 41) {
+            break;
+          }
+
+          message.houseEdge = reader.double();
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -92,6 +103,7 @@ export const MinesStart = {
       cells: isSet(object.cells) ? globalThis.Number(object.cells) : 0,
       mines: isSet(object.mines) ? globalThis.Number(object.mines) : 0,
       cellLineBreak: isSet(object.cellLineBreak) ? globalThis.Number(object.cellLineBreak) : 0,
+      houseEdge: isSet(object.houseEdge) ? globalThis.Number(object.houseEdge) : 0,
     };
   },
 
@@ -109,6 +121,9 @@ export const MinesStart = {
     if (message.cellLineBreak !== 0) {
       obj.cellLineBreak = Math.round(message.cellLineBreak);
     }
+    if (message.houseEdge !== 0) {
+      obj.houseEdge = message.houseEdge;
+    }
     return obj;
   },
 
@@ -123,6 +138,7 @@ export const MinesStart = {
     message.cells = object.cells ?? 0;
     message.mines = object.mines ?? 0;
     message.cellLineBreak = object.cellLineBreak ?? 0;
+    message.houseEdge = object.houseEdge ?? 0;
     return message;
   },
 };

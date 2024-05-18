@@ -70,6 +70,7 @@ export declare const MessageContext: {
                 cells?: number | undefined;
                 mines?: number | undefined;
                 cellLineBreak?: number | undefined;
+                houseEdge?: number | undefined;
             } | undefined;
             move?: {
                 cell?: number | undefined;
@@ -243,6 +244,7 @@ export declare const MessageContext: {
                 cells?: number | undefined;
                 mines?: number | undefined;
                 cellLineBreak?: number | undefined;
+                houseEdge?: number | undefined;
             } | undefined;
             move?: {
                 cell?: number | undefined;
@@ -257,6 +259,7 @@ export declare const MessageContext: {
                 cells?: number | undefined;
                 mines?: number | undefined;
                 cellLineBreak?: number | undefined;
+                houseEdge?: number | undefined;
             } & {
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
@@ -268,6 +271,7 @@ export declare const MessageContext: {
                 cells?: number | undefined;
                 mines?: number | undefined;
                 cellLineBreak?: number | undefined;
+                houseEdge?: number | undefined;
             } & { [K_15 in Exclude<keyof I["mines"]["start"], keyof import("./message-contexts/mines").MinesStart>]: never; }) | undefined;
             move?: ({
                 cell?: number | undefined;
@@ -372,6 +376,7 @@ export declare const MessageContext: {
                 cells?: number | undefined;
                 mines?: number | undefined;
                 cellLineBreak?: number | undefined;
+                houseEdge?: number | undefined;
             } | undefined;
             move?: {
                 cell?: number | undefined;
@@ -545,6 +550,7 @@ export declare const MessageContext: {
                 cells?: number | undefined;
                 mines?: number | undefined;
                 cellLineBreak?: number | undefined;
+                houseEdge?: number | undefined;
             } | undefined;
             move?: {
                 cell?: number | undefined;
@@ -559,6 +565,7 @@ export declare const MessageContext: {
                 cells?: number | undefined;
                 mines?: number | undefined;
                 cellLineBreak?: number | undefined;
+                houseEdge?: number | undefined;
             } & {
                 amount?: ({
                     currency?: import("./currency").Currency | undefined;
@@ -570,6 +577,7 @@ export declare const MessageContext: {
                 cells?: number | undefined;
                 mines?: number | undefined;
                 cellLineBreak?: number | undefined;
+                houseEdge?: number | undefined;
             } & { [K_38 in Exclude<keyof I_1["mines"]["start"], keyof import("./message-contexts/mines").MinesStart>]: never; }) | undefined;
             move?: ({
                 cell?: number | undefined;

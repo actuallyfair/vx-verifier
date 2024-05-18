@@ -7,7 +7,7 @@ message MinesStart {
   int32 cells = 2;
   int32 mines = 3;
   int32 cellLineBreak = 4; // this is simply how to display the game in rows/comlumns, but has no effect on the game results 
-
+  double houseEdge = 5;
 }
 
 message MinesMove {

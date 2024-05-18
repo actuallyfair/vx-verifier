@@ -6,6 +6,7 @@ export interface MinesStart {
     mines: number;
     /** this is simply how to display the game in rows/comlumns, but has no effect on the game results */
     cellLineBreak: number;
+    houseEdge: number;
 }
 export interface MinesMove {
     /** Note, this is 0 index'd */
@@ -29,6 +30,7 @@ export declare const MinesStart: {
         cells?: number | undefined;
         mines?: number | undefined;
         cellLineBreak?: number | undefined;
+        houseEdge?: number | undefined;
     } & {
         amount?: ({
             currency?: import("../currency").Currency | undefined;
@@ -40,6 +42,7 @@ export declare const MinesStart: {
         cells?: number | undefined;
         mines?: number | undefined;
         cellLineBreak?: number | undefined;
+        houseEdge?: number | undefined;
     } & { [K_1 in Exclude<keyof I, keyof MinesStart>]: never; }>(base?: I | undefined): MinesStart;
     fromPartial<I_1 extends {
         amount?: {
@@ -49,6 +52,7 @@ export declare const MinesStart: {
         cells?: number | undefined;
         mines?: number | undefined;
         cellLineBreak?: number | undefined;
+        houseEdge?: number | undefined;
     } & {
         amount?: ({
             currency?: import("../currency").Currency | undefined;
@@ -60,6 +64,7 @@ export declare const MinesStart: {
         cells?: number | undefined;
         mines?: number | undefined;
         cellLineBreak?: number | undefined;
+        houseEdge?: number | undefined;
     } & { [K_3 in Exclude<keyof I_1, keyof MinesStart>]: never; }>(object: I_1): MinesStart;
 };
 export declare const MinesMove: {
@@ -92,6 +97,7 @@ export declare const Mines: {
             cells?: number | undefined;
             mines?: number | undefined;
             cellLineBreak?: number | undefined;
+            houseEdge?: number | undefined;
         } | undefined;
         move?: {
             cell?: number | undefined;
@@ -106,6 +112,7 @@ export declare const Mines: {
             cells?: number | undefined;
             mines?: number | undefined;
             cellLineBreak?: number | undefined;
+            houseEdge?: number | undefined;
         } & {
             amount?: ({
                 currency?: import("../currency").Currency | undefined;
@@ -117,6 +124,7 @@ export declare const Mines: {
             cells?: number | undefined;
             mines?: number | undefined;
             cellLineBreak?: number | undefined;
+            houseEdge?: number | undefined;
         } & { [K_1 in Exclude<keyof I["start"], keyof MinesStart>]: never; }) | undefined;
         move?: ({
             cell?: number | undefined;
@@ -134,6 +142,7 @@ export declare const Mines: {
             cells?: number | undefined;
             mines?: number | undefined;
             cellLineBreak?: number | undefined;
+            houseEdge?: number | undefined;
         } | undefined;
         move?: {
             cell?: number | undefined;
@@ -148,6 +157,7 @@ export declare const Mines: {
             cells?: number | undefined;
             mines?: number | undefined;
             cellLineBreak?: number | undefined;
+            houseEdge?: number | undefined;
         } & {
             amount?: ({
                 currency?: import("../currency").Currency | undefined;
@@ -159,6 +169,7 @@ export declare const Mines: {
             cells?: number | undefined;
             mines?: number | undefined;
             cellLineBreak?: number | undefined;
+            houseEdge?: number | undefined;
         } & { [K_5 in Exclude<keyof I_1["start"], keyof MinesStart>]: never; }) | undefined;
         move?: ({
             cell?: number | undefined;
