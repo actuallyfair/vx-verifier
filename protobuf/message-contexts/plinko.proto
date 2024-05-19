@@ -1,0 +1,7 @@
+syntax = "proto3";
+import "amount.proto";
+
+message Plinko {
+  Amount amount = 1;
+  repeated double possibilities = 2;
+}

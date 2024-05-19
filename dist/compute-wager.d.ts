@@ -16,7 +16,13 @@ export declare function computeMultiRouletteResult(vxSignature: Uint8Array, bet:
 export declare function computeMineLocations(vxSignature: Uint8Array, revealedCells: Set<number>, // tiles we know are safe
 cells: number, // how many cells in total
 mines: number): Set<number>;
-export declare function computeMinesResult(mines: number, // how many mines in the game
+export declare function computeMinesMultiplier(mines: number, // how many mines in the game
 cells: number, // how many cells in total in the game
 turn: number, // which turn they have finished
 houseEdge?: number): number;
+type PlinkoPath = ("L" | "R")[];
+export declare function computePinkoPossibilityIndexFromPath(path: PlinkoPath): number;
+export declare function computePlinkoPath(vxSignature: Uint8Array, possibilities: number): PlinkoPath;
+export declare function computePlinkoPascalsProbabilities(rowNumber: number): number[];
+export declare function computePlinkoHouseEdge(possibilities: number[]): number;
+export {};

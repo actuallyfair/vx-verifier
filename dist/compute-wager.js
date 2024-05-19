@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.computeMinesResult = exports.computeMineLocations = exports.computeMultiRouletteResult = exports.computeCrashDiceResult = exports.computeCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
+exports.computePlinkoHouseEdge = exports.computePlinkoPascalsProbabilities = exports.computePlinkoPath = exports.computePinkoPossibilityIndexFromPath = exports.computeMinesMultiplier = exports.computeMineLocations = exports.computeMultiRouletteResult = exports.computeCrashDiceResult = exports.computeCrashResult = exports.computeFairCoinTossOutcome = exports.computeFairCoinTossResult = void 0;
 const sha256_1 = require("@noble/hashes/sha256");
 const hmac_1 = require("@noble/hashes/hmac");
 const utils_1 = require("@noble/curves/abstract/utils");
@@ -93,7 +93,8 @@ mines // how many mines there are going to be in total
     return mineLocations;
 }
 exports.computeMineLocations = computeMineLocations;
-function computeMinesResult(mines, // how many mines in the game
+// This tell the multiplier if they were alive on turn move
+function computeMinesMultiplier(mines, // how many mines in the game
 cells, // how many cells in total in the game
 turn, // which turn they have finished
 houseEdge = 0.01) {
@@ -117,4 +118,75 @@ houseEdge = 0.01) {
     }
     return Math.floor(accum * 100) / 100;
 }
-exports.computeMinesResult = computeMinesResult;
+exports.computeMinesMultiplier = computeMinesMultiplier;
+// Return the index of the possibility that was picked by this path
+// note that for a path of N, there should always be N+1 possibilities
+function computePinkoPossibilityIndexFromPath(path) {
+    let index = path.length / 2;
+    for (const direction of path) {
+        if (direction === "L") {
+            index -= 0.5;
+        }
+        else if (direction === "R") {
+            index += 0.5;
+        }
+        else {
+            const _ = direction;
+            throw new Error("unrecognized direction: ", direction);
+        }
+    }
+    return index;
+}
+exports.computePinkoPossibilityIndexFromPath = computePinkoPossibilityIndexFromPath;
+// return a path (saying 'L' or 'R', where 'L' means go left, and 'R' means going right)
+//  of possibilities-1 length
+function computePlinkoPath(vxSignature, possibilities) {
+    if (!Number.isSafeInteger(possibilities) ||
+        possibilities < 2 ||
+        possibilities > 256) {
+        throw new Error("invalid possibilities ");
+    }
+    const hash = (0, sha256_1.sha256)(vxSignature);
+    let n = (0, utils_1.bytesToNumberBE)(hash);
+    let ret = [];
+    for (let i = 0; i < possibilities - 1; i++) {
+        ret.push(n % 2n == 0n ? "R" : "L");
+        n >>= 1n;
+    }
+    return ret;
+}
+exports.computePlinkoPath = computePlinkoPath;
+function computePlinkoPascalsProbabilities(rowNumber) {
+    if (rowNumber === 0)
+        return [];
+    if (rowNumber === 1)
+        return [1];
+    let lastRow = [];
+    for (let row = 1; row <= rowNumber; row++) {
+        let arr = [];
+        for (let col = 0; col < row; col++) {
+            if (col === 0 || col === row - 1) {
+                arr.push(1);
+            }
+            else {
+                arr.push(lastRow[col - 1] + lastRow[col]);
+            }
+        }
+        lastRow = arr;
+    }
+    let sum = 0;
+    for (const v of lastRow) {
+        sum += v;
+    }
+    return lastRow.map((v) => v / sum);
+}
+exports.computePlinkoPascalsProbabilities = computePlinkoPascalsProbabilities;
+function computePlinkoHouseEdge(possibilities) {
+    const odds = computePlinkoPascalsProbabilities(possibilities.length);
+    let ev = 1; // you start off by betting everything
+    for (let i = 0; i < possibilities.length; i++) {
+        ev -= possibilities[i] * odds[i];
+    }
+    return ev;
+}
+exports.computePlinkoHouseEdge = computePlinkoHouseEdge;

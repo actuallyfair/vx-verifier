@@ -1,6 +1,10 @@
 import { sha256 } from "@noble/hashes/sha256";
 import { hmac } from "@noble/hashes/hmac";
-import { bytesToNumberBE } from "@noble/curves/abstract/utils";
+import {
+  bytesToNumberBE,
+  bytesToNumberLE,
+  numberToHexUnpadded,
+} from "@noble/curves/abstract/utils";
 
 import { Currency } from "./generated/currency";
 import {
@@ -124,7 +128,8 @@ export function computeMineLocations(
   return mineLocations;
 }
 
-export function computeMinesResult(
+// This tell the multiplier if they were alive on turn move
+export function computeMinesMultiplier(
   mines: number, // how many mines in the game
   cells: number, // how many cells in total in the game
   turn: number, // which turn they have finished
@@ -156,4 +161,85 @@ export function computeMinesResult(
   }
 
   return Math.floor(accum * 100) / 100;
+}
+
+type PlinkoPath = ("L" | "R")[];
+
+// Return the index of the possibility that was picked by this path
+// note that for a path of N, there should always be N+1 possibilities
+
+export function computePinkoPossibilityIndexFromPath(path: PlinkoPath) {
+  let index = path.length / 2;
+  for (const direction of path) {
+    if (direction === "L") {
+      index -= 0.5;
+    } else if (direction === "R") {
+      index += 0.5;
+    } else {
+      const _: never = direction;
+      throw new Error("unrecognized direction: ", direction);
+    }
+  }
+  return index;
+}
+
+// return a path (saying 'L' or 'R', where 'L' means go left, and 'R' means going right)
+//  of possibilities-1 length
+export function computePlinkoPath(
+  vxSignature: Uint8Array,
+  possibilities: number
+): PlinkoPath {
+  if (
+    !Number.isSafeInteger(possibilities) ||
+    possibilities < 2 ||
+    possibilities > 256
+  ) {
+    throw new Error("invalid possibilities ");
+  }
+  const hash = sha256(vxSignature);
+
+  let n = bytesToNumberBE(hash);
+
+  let ret: ("L" | "R")[] = [];
+  for (let i = 0; i < possibilities - 1; i++) {
+    ret.push(n % 2n == 0n ? "R" : "L");
+    n >>= 1n;
+  }
+  return ret;
+}
+
+export function computePlinkoPascalsProbabilities(rowNumber: number) {
+  if (rowNumber === 0) return [];
+  if (rowNumber === 1) return [1];
+
+  let lastRow: number[] = [];
+
+  for (let row = 1; row <= rowNumber; row++) {
+    let arr: number[] = [];
+    for (let col = 0; col < row; col++) {
+      if (col === 0 || col === row - 1) {
+        arr.push(1);
+      } else {
+        arr.push(lastRow[col - 1] + lastRow[col]);
+      }
+    }
+    lastRow = arr;
+  }
+
+  let sum = 0;
+  for (const v of lastRow) {
+    sum += v;
+  }
+
+  return lastRow.map((v) => v / sum);
+}
+
+export function computePlinkoHouseEdge(possibilities: number[]) {
+  const odds = computePlinkoPascalsProbabilities(possibilities.length);
+
+  let ev = 1; // you start off by betting everything
+  for (let i = 0; i < possibilities.length; i++) {
+    ev -= possibilities[i] * odds[i];
+  }
+  return ev;
 }

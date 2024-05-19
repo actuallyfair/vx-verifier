@@ -12,6 +12,7 @@ const fair_coin_toss_1 = require("./message-contexts/fair-coin-toss");
 const hilo_1 = require("./message-contexts/hilo");
 const mines_1 = require("./message-contexts/mines");
 const multi_roulette_1 = require("./message-contexts/multi-roulette");
+const plinko_1 = require("./message-contexts/plinko");
 const tower_1 = require("./message-contexts/tower");
 function createBaseMessageContext() {
     return {
@@ -22,6 +23,7 @@ function createBaseMessageContext() {
         multiRoulette: undefined,
         mines: undefined,
         tower: undefined,
+        plinko: undefined,
     };
 }
 exports.MessageContext = {
@@ -46,6 +48,9 @@ exports.MessageContext = {
         }
         if (message.tower !== undefined) {
             tower_1.Tower.encode(message.tower, writer.uint32(58).fork()).ldelim();
+        }
+        if (message.plinko !== undefined) {
+            plinko_1.Plinko.encode(message.plinko, writer.uint32(66).fork()).ldelim();
         }
         return writer;
     },
@@ -98,6 +103,12 @@ exports.MessageContext = {
                     }
                     message.tower = tower_1.Tower.decode(reader, reader.uint32());
                     continue;
+                case 8:
+                    if (tag !== 66) {
+                        break;
+                    }
+                    message.plinko = plinko_1.Plinko.decode(reader, reader.uint32());
+                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -115,6 +126,7 @@ exports.MessageContext = {
             multiRoulette: isSet(object.multiRoulette) ? multi_roulette_1.MultiRoulette.fromJSON(object.multiRoulette) : undefined,
             mines: isSet(object.mines) ? mines_1.Mines.fromJSON(object.mines) : undefined,
             tower: isSet(object.tower) ? tower_1.Tower.fromJSON(object.tower) : undefined,
+            plinko: isSet(object.plinko) ? plinko_1.Plinko.fromJSON(object.plinko) : undefined,
         };
     },
     toJSON(message) {
@@ -140,6 +152,9 @@ exports.MessageContext = {
         if (message.tower !== undefined) {
             obj.tower = tower_1.Tower.toJSON(message.tower);
         }
+        if (message.plinko !== undefined) {
+            obj.plinko = plinko_1.Plinko.toJSON(message.plinko);
+        }
         return obj;
     },
     create(base) {
@@ -160,6 +175,9 @@ exports.MessageContext = {
             : undefined;
         message.mines = (object.mines !== undefined && object.mines !== null) ? mines_1.Mines.fromPartial(object.mines) : undefined;
         message.tower = (object.tower !== undefined && object.tower !== null) ? tower_1.Tower.fromPartial(object.tower) : undefined;
+        message.plinko = (object.plinko !== undefined && object.plinko !== null)
+            ? plinko_1.Plinko.fromPartial(object.plinko)
+            : undefined;
         return message;
     },
 };

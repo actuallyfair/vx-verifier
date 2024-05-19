@@ -6,6 +6,7 @@ import { FairCoinToss } from "./message-contexts/fair-coin-toss";
 import { HiLo } from "./message-contexts/hilo";
 import { Mines } from "./message-contexts/mines";
 import { MultiRoulette } from "./message-contexts/multi-roulette";
+import { Plinko } from "./message-contexts/plinko";
 import { Tower } from "./message-contexts/tower";
 
 export interface MessageContext {
@@ -16,6 +17,7 @@ export interface MessageContext {
   multiRoulette?: MultiRoulette | undefined;
   mines?: Mines | undefined;
   tower?: Tower | undefined;
+  plinko?: Plinko | undefined;
 }
 
 function createBaseMessageContext(): MessageContext {
@@ -27,6 +29,7 @@ function createBaseMessageContext(): MessageContext {
     multiRoulette: undefined,
     mines: undefined,
     tower: undefined,
+    plinko: undefined,
   };
 }
 
@@ -52,6 +55,9 @@ export const MessageContext = {
     }
     if (message.tower !== undefined) {
       Tower.encode(message.tower, writer.uint32(58).fork()).ldelim();
+    }
+    if (message.plinko !== undefined) {
+      Plinko.encode(message.plinko, writer.uint32(66).fork()).ldelim();
     }
     return writer;
   },
@@ -112,6 +118,13 @@ export const MessageContext = {
 
           message.tower = Tower.decode(reader, reader.uint32());
           continue;
+        case 8:
+          if (tag !== 66) {
+            break;
+          }
+
+          message.plinko = Plinko.decode(reader, reader.uint32());
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -130,6 +143,7 @@ export const MessageContext = {
       multiRoulette: isSet(object.multiRoulette) ? MultiRoulette.fromJSON(object.multiRoulette) : undefined,
       mines: isSet(object.mines) ? Mines.fromJSON(object.mines) : undefined,
       tower: isSet(object.tower) ? Tower.fromJSON(object.tower) : undefined,
+      plinko: isSet(object.plinko) ? Plinko.fromJSON(object.plinko) : undefined,
     };
   },
 
@@ -156,6 +170,9 @@ export const MessageContext = {
     if (message.tower !== undefined) {
       obj.tower = Tower.toJSON(message.tower);
     }
+    if (message.plinko !== undefined) {
+      obj.plinko = Plinko.toJSON(message.plinko);
+    }
     return obj;
   },
 
@@ -177,6 +194,9 @@ export const MessageContext = {
       : undefined;
     message.mines = (object.mines !== undefined && object.mines !== null) ? Mines.fromPartial(object.mines) : undefined;
     message.tower = (object.tower !== undefined && object.tower !== null) ? Tower.fromPartial(object.tower) : undefined;
+    message.plinko = (object.plinko !== undefined && object.plinko !== null)
+      ? Plinko.fromPartial(object.plinko)
+      : undefined;
     return message;
   },
 };

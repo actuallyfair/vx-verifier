@@ -7,6 +7,7 @@ import "message-contexts/crash-dice.proto";
 import "message-contexts/mines.proto";
 import "message-contexts/tower.proto";
 import "message-contexts/multi-roulette.proto";
+import "message-contexts/plinko.proto";
 
 message MessageContext {
   oneof message_type {
@@ -17,5 +18,6 @@ message MessageContext {
     MultiRoulette multi_roulette = 5;
     Mines mines = 6;
     Tower tower = 7;
+    Plinko plinko = 8;
   }
 }
