@@ -8,6 +8,8 @@ export declare enum Currency {
     ETH = 3,
     /** HOUSE - The currency that is specific and internal to an individual casino */
     HOUSE = 4,
+    /** USD - United States Dollars. Base unit is cents (i.e. 100 is 1 USD) */
+    USD = 5,
     UNRECOGNIZED = -1
 }
 export declare function currencyFromJSON(object: any): Currency;

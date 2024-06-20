@@ -13,6 +13,8 @@ var Currency;
     Currency[Currency["ETH"] = 3] = "ETH";
     /** HOUSE - The currency that is specific and internal to an individual casino */
     Currency[Currency["HOUSE"] = 4] = "HOUSE";
+    /** USD - United States Dollars. Base unit is cents (i.e. 100 is 1 USD) */
+    Currency[Currency["USD"] = 5] = "USD";
     Currency[Currency["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
 })(Currency || (exports.Currency = Currency = {}));
 function currencyFromJSON(object) {
@@ -32,6 +34,9 @@ function currencyFromJSON(object) {
         case 4:
         case "HOUSE":
             return Currency.HOUSE;
+        case 5:
+        case "USD":
+            return Currency.USD;
         case -1:
         case "UNRECOGNIZED":
         default:
@@ -51,6 +56,8 @@ function currencyToJSON(object) {
             return "ETH";
         case Currency.HOUSE:
             return "HOUSE";
+        case Currency.USD:
+            return "USD";
         case Currency.UNRECOGNIZED:
         default:
             return "UNRECOGNIZED";
