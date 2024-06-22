@@ -11,6 +11,8 @@ export interface MultiRoulette_Outcome {
     multiplier: number;
     probability: number;
     bets: MultiRoulette_Bet[];
+    /** This is purely for display/UI purposes */
+    name?: string | undefined;
 }
 export declare const MultiRoulette: {
     encode(message: MultiRoulette, writer?: _m0.Writer): _m0.Writer;
@@ -28,6 +30,7 @@ export declare const MultiRoulette: {
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
+            name?: string | undefined;
         }[] | undefined;
     } & {
         outcomes?: ({
@@ -40,6 +43,7 @@ export declare const MultiRoulette: {
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
+            name?: string | undefined;
         }[] & ({
             multiplier?: number | undefined;
             probability?: number | undefined;
@@ -50,6 +54,7 @@ export declare const MultiRoulette: {
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
+            name?: string | undefined;
         } & {
             multiplier?: number | undefined;
             probability?: number | undefined;
@@ -81,6 +86,7 @@ export declare const MultiRoulette: {
                     value?: number | undefined;
                 } | undefined;
             }[]>]: never; }) | undefined;
+            name?: string | undefined;
         } & { [K_3 in Exclude<keyof I["outcomes"][number], keyof MultiRoulette_Outcome>]: never; })[] & { [K_4 in Exclude<keyof I["outcomes"], keyof {
             multiplier?: number | undefined;
             probability?: number | undefined;
@@ -91,6 +97,7 @@ export declare const MultiRoulette: {
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
+            name?: string | undefined;
         }[]>]: never; }) | undefined;
     } & { [K_5 in Exclude<keyof I, "outcomes">]: never; }>(base?: I | undefined): MultiRoulette;
     fromPartial<I_1 extends {
@@ -104,6 +111,7 @@ export declare const MultiRoulette: {
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
+            name?: string | undefined;
         }[] | undefined;
     } & {
         outcomes?: ({
@@ -116,6 +124,7 @@ export declare const MultiRoulette: {
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
+            name?: string | undefined;
         }[] & ({
             multiplier?: number | undefined;
             probability?: number | undefined;
@@ -126,6 +135,7 @@ export declare const MultiRoulette: {
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
+            name?: string | undefined;
         } & {
             multiplier?: number | undefined;
             probability?: number | undefined;
@@ -157,6 +167,7 @@ export declare const MultiRoulette: {
                     value?: number | undefined;
                 } | undefined;
             }[]>]: never; }) | undefined;
+            name?: string | undefined;
         } & { [K_9 in Exclude<keyof I_1["outcomes"][number], keyof MultiRoulette_Outcome>]: never; })[] & { [K_10 in Exclude<keyof I_1["outcomes"], keyof {
             multiplier?: number | undefined;
             probability?: number | undefined;
@@ -167,6 +178,7 @@ export declare const MultiRoulette: {
                     value?: number | undefined;
                 } | undefined;
             }[] | undefined;
+            name?: string | undefined;
         }[]>]: never; }) | undefined;
     } & { [K_11 in Exclude<keyof I_1, "outcomes">]: never; }>(object: I_1): MultiRoulette;
 };
@@ -223,6 +235,7 @@ export declare const MultiRoulette_Outcome: {
                 value?: number | undefined;
             } | undefined;
         }[] | undefined;
+        name?: string | undefined;
     } & {
         multiplier?: number | undefined;
         probability?: number | undefined;
@@ -254,6 +267,7 @@ export declare const MultiRoulette_Outcome: {
                 value?: number | undefined;
             } | undefined;
         }[]>]: never; }) | undefined;
+        name?: string | undefined;
     } & { [K_3 in Exclude<keyof I, keyof MultiRoulette_Outcome>]: never; }>(base?: I | undefined): MultiRoulette_Outcome;
     fromPartial<I_1 extends {
         multiplier?: number | undefined;
@@ -265,6 +279,7 @@ export declare const MultiRoulette_Outcome: {
                 value?: number | undefined;
             } | undefined;
         }[] | undefined;
+        name?: string | undefined;
     } & {
         multiplier?: number | undefined;
         probability?: number | undefined;
@@ -296,5 +311,6 @@ export declare const MultiRoulette_Outcome: {
                 value?: number | undefined;
             } | undefined;
         }[]>]: never; }) | undefined;
+        name?: string | undefined;
     } & { [K_7 in Exclude<keyof I_1, keyof MultiRoulette_Outcome>]: never; }>(object: I_1): MultiRoulette_Outcome;
 };

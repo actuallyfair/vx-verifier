@@ -130,7 +130,7 @@ exports.MultiRoulette_Bet = {
     },
 };
 function createBaseMultiRoulette_Outcome() {
-    return { multiplier: 0, probability: 0, bets: [] };
+    return { multiplier: 0, probability: 0, bets: [], name: undefined };
 }
 exports.MultiRoulette_Outcome = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -142,6 +142,9 @@ exports.MultiRoulette_Outcome = {
         }
         for (const v of message.bets) {
             exports.MultiRoulette_Bet.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        if (message.name !== undefined) {
+            writer.uint32(34).string(message.name);
         }
         return writer;
     },
@@ -170,6 +173,12 @@ exports.MultiRoulette_Outcome = {
                     }
                     message.bets.push(exports.MultiRoulette_Bet.decode(reader, reader.uint32()));
                     continue;
+                case 4:
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.name = reader.string();
+                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -183,6 +192,7 @@ exports.MultiRoulette_Outcome = {
             multiplier: isSet(object.multiplier) ? globalThis.Number(object.multiplier) : 0,
             probability: isSet(object.probability) ? globalThis.Number(object.probability) : 0,
             bets: globalThis.Array.isArray(object?.bets) ? object.bets.map((e) => exports.MultiRoulette_Bet.fromJSON(e)) : [],
+            name: isSet(object.name) ? globalThis.String(object.name) : undefined,
         };
     },
     toJSON(message) {
@@ -196,6 +206,9 @@ exports.MultiRoulette_Outcome = {
         if (message.bets?.length) {
             obj.bets = message.bets.map((e) => exports.MultiRoulette_Bet.toJSON(e));
         }
+        if (message.name !== undefined) {
+            obj.name = message.name;
+        }
         return obj;
     },
     create(base) {
@@ -206,6 +219,7 @@ exports.MultiRoulette_Outcome = {
         message.multiplier = object.multiplier ?? 0;
         message.probability = object.probability ?? 0;
         message.bets = object.bets?.map((e) => exports.MultiRoulette_Bet.fromPartial(e)) || [];
+        message.name = object.name ?? undefined;
         return message;
     },
 };

@@ -12,6 +12,7 @@ message MultiRoulette {
       double multiplier = 1;
       double probability = 2;
       repeated Bet bets = 3;
+      optional string name = 4; // This is purely for display/UI purposes
     }
 
     repeated Outcome outcomes = 1;

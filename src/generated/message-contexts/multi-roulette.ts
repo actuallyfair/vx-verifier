@@ -15,6 +15,8 @@ export interface MultiRoulette_Outcome {
   multiplier: number;
   probability: number;
   bets: MultiRoulette_Bet[];
+  /** This is purely for display/UI purposes */
+  name?: string | undefined;
 }
 
 function createBaseMultiRoulette(): MultiRoulette {
@@ -155,7 +157,7 @@ export const MultiRoulette_Bet = {
 };
 
 function createBaseMultiRoulette_Outcome(): MultiRoulette_Outcome {
-  return { multiplier: 0, probability: 0, bets: [] };
+  return { multiplier: 0, probability: 0, bets: [], name: undefined };
 }
 
 export const MultiRoulette_Outcome = {
@@ -168,6 +170,9 @@ export const MultiRoulette_Outcome = {
     }
     for (const v of message.bets) {
       MultiRoulette_Bet.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.name !== undefined) {
+      writer.uint32(34).string(message.name);
     }
     return writer;
   },
@@ -200,6 +205,13 @@ export const MultiRoulette_Outcome = {
 
           message.bets.push(MultiRoulette_Bet.decode(reader, reader.uint32()));
           continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -214,6 +226,7 @@ export const MultiRoulette_Outcome = {
       multiplier: isSet(object.multiplier) ? globalThis.Number(object.multiplier) : 0,
       probability: isSet(object.probability) ? globalThis.Number(object.probability) : 0,
       bets: globalThis.Array.isArray(object?.bets) ? object.bets.map((e: any) => MultiRoulette_Bet.fromJSON(e)) : [],
+      name: isSet(object.name) ? globalThis.String(object.name) : undefined,
     };
   },
 
@@ -228,6 +241,9 @@ export const MultiRoulette_Outcome = {
     if (message.bets?.length) {
       obj.bets = message.bets.map((e) => MultiRoulette_Bet.toJSON(e));
     }
+    if (message.name !== undefined) {
+      obj.name = message.name;
+    }
     return obj;
   },
 
@@ -239,6 +255,7 @@ export const MultiRoulette_Outcome = {
     message.multiplier = object.multiplier ?? 0;
     message.probability = object.probability ?? 0;
     message.bets = object.bets?.map((e) => MultiRoulette_Bet.fromPartial(e)) || [];
+    message.name = object.name ?? undefined;
     return message;
   },
 };

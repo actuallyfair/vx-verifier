@@ -61,6 +61,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[] | undefined;
+                name?: string | undefined;
             }[] | undefined;
         } | undefined;
         mines?: {
@@ -179,6 +180,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[] | undefined;
+                name?: string | undefined;
             }[] | undefined;
         } & {
             outcomes?: ({
@@ -191,6 +193,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[] | undefined;
+                name?: string | undefined;
             }[] & ({
                 multiplier?: number | undefined;
                 probability?: number | undefined;
@@ -201,6 +204,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[] | undefined;
+                name?: string | undefined;
             } & {
                 multiplier?: number | undefined;
                 probability?: number | undefined;
@@ -232,6 +236,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[]>]: never; }) | undefined;
+                name?: string | undefined;
             } & { [K_11 in Exclude<keyof I["multiRoulette"]["outcomes"][number], keyof import("./message-contexts/multi-roulette").MultiRoulette_Outcome>]: never; })[] & { [K_12 in Exclude<keyof I["multiRoulette"]["outcomes"], keyof {
                 multiplier?: number | undefined;
                 probability?: number | undefined;
@@ -242,6 +247,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[] | undefined;
+                name?: string | undefined;
             }[]>]: never; }) | undefined;
         } & { [K_13 in Exclude<keyof I["multiRoulette"], "outcomes">]: never; }) | undefined;
         mines?: ({
@@ -390,6 +396,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[] | undefined;
+                name?: string | undefined;
             }[] | undefined;
         } | undefined;
         mines?: {
@@ -508,6 +515,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[] | undefined;
+                name?: string | undefined;
             }[] | undefined;
         } & {
             outcomes?: ({
@@ -520,6 +528,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[] | undefined;
+                name?: string | undefined;
             }[] & ({
                 multiplier?: number | undefined;
                 probability?: number | undefined;
@@ -530,6 +539,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[] | undefined;
+                name?: string | undefined;
             } & {
                 multiplier?: number | undefined;
                 probability?: number | undefined;
@@ -561,6 +571,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[]>]: never; }) | undefined;
+                name?: string | undefined;
             } & { [K_37 in Exclude<keyof I_1["multiRoulette"]["outcomes"][number], keyof import("./message-contexts/multi-roulette").MultiRoulette_Outcome>]: never; })[] & { [K_38 in Exclude<keyof I_1["multiRoulette"]["outcomes"], keyof {
                 multiplier?: number | undefined;
                 probability?: number | undefined;
@@ -571,6 +582,7 @@ export declare const MessageContext: {
                         value?: number | undefined;
                     } | undefined;
                 }[] | undefined;
+                name?: string | undefined;
             }[]>]: never; }) | undefined;
         } & { [K_39 in Exclude<keyof I_1["multiRoulette"], "outcomes">]: never; }) | undefined;
         mines?: ({
