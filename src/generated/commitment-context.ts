@@ -9,16 +9,16 @@ export interface Sha256Commitment {
 export interface Sha256Chain {
 }
 
-/** This allows you to use the same prefix for different groups of commitments, so each commitment will have the same .startsWith */
-export interface PrefixPartioned {
-  prefix: Uint8Array;
+/** This means the commitment starts with arbitrary bytes that are ignore (just used for partioning) */
+export interface ArbitraryPrefix {
+  prefixLength: number;
   commitment: CommitmentContext | undefined;
 }
 
 export interface CommitmentContext {
   sha256Commitment?: Sha256Commitment | undefined;
   sha256Chain?: Sha256Chain | undefined;
-  prefixPartioned?: PrefixPartioned | undefined;
+  arbitraryPrefix?: ArbitraryPrefix | undefined;
 }
 
 function createBaseSha256Commitment(): Sha256Commitment {
@@ -107,14 +107,14 @@ export const Sha256Chain = {
   },
 };
 
-function createBasePrefixPartioned(): PrefixPartioned {
-  return { prefix: new Uint8Array(0), commitment: undefined };
+function createBaseArbitraryPrefix(): ArbitraryPrefix {
+  return { prefixLength: 0, commitment: undefined };
 }
 
-export const PrefixPartioned = {
-  encode(message: PrefixPartioned, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.prefix.length !== 0) {
-      writer.uint32(10).bytes(message.prefix);
+export const ArbitraryPrefix = {
+  encode(message: ArbitraryPrefix, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.prefixLength !== 0) {
+      writer.uint32(8).int32(message.prefixLength);
     }
     if (message.commitment !== undefined) {
       CommitmentContext.encode(message.commitment, writer.uint32(18).fork()).ldelim();
@@ -122,19 +122,19 @@ export const PrefixPartioned = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): PrefixPartioned {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ArbitraryPrefix {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePrefixPartioned();
+    const message = createBaseArbitraryPrefix();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag !== 10) {
+          if (tag !== 8) {
             break;
           }
 
-          message.prefix = reader.bytes();
+          message.prefixLength = reader.int32();
           continue;
         case 2:
           if (tag !== 18) {
@@ -152,17 +152,17 @@ export const PrefixPartioned = {
     return message;
   },
 
-  fromJSON(object: any): PrefixPartioned {
+  fromJSON(object: any): ArbitraryPrefix {
     return {
-      prefix: isSet(object.prefix) ? bytesFromBase64(object.prefix) : new Uint8Array(0),
+      prefixLength: isSet(object.prefixLength) ? globalThis.Number(object.prefixLength) : 0,
       commitment: isSet(object.commitment) ? CommitmentContext.fromJSON(object.commitment) : undefined,
     };
   },
 
-  toJSON(message: PrefixPartioned): unknown {
+  toJSON(message: ArbitraryPrefix): unknown {
     const obj: any = {};
-    if (message.prefix.length !== 0) {
-      obj.prefix = base64FromBytes(message.prefix);
+    if (message.prefixLength !== 0) {
+      obj.prefixLength = Math.round(message.prefixLength);
     }
     if (message.commitment !== undefined) {
       obj.commitment = CommitmentContext.toJSON(message.commitment);
@@ -170,12 +170,12 @@ export const PrefixPartioned = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<PrefixPartioned>, I>>(base?: I): PrefixPartioned {
-    return PrefixPartioned.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ArbitraryPrefix>, I>>(base?: I): ArbitraryPrefix {
+    return ArbitraryPrefix.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<PrefixPartioned>, I>>(object: I): PrefixPartioned {
-    const message = createBasePrefixPartioned();
-    message.prefix = object.prefix ?? new Uint8Array(0);
+  fromPartial<I extends Exact<DeepPartial<ArbitraryPrefix>, I>>(object: I): ArbitraryPrefix {
+    const message = createBaseArbitraryPrefix();
+    message.prefixLength = object.prefixLength ?? 0;
     message.commitment = (object.commitment !== undefined && object.commitment !== null)
       ? CommitmentContext.fromPartial(object.commitment)
       : undefined;
@@ -184,7 +184,7 @@ export const PrefixPartioned = {
 };
 
 function createBaseCommitmentContext(): CommitmentContext {
-  return { sha256Commitment: undefined, sha256Chain: undefined, prefixPartioned: undefined };
+  return { sha256Commitment: undefined, sha256Chain: undefined, arbitraryPrefix: undefined };
 }
 
 export const CommitmentContext = {
@@ -195,8 +195,8 @@ export const CommitmentContext = {
     if (message.sha256Chain !== undefined) {
       Sha256Chain.encode(message.sha256Chain, writer.uint32(18).fork()).ldelim();
     }
-    if (message.prefixPartioned !== undefined) {
-      PrefixPartioned.encode(message.prefixPartioned, writer.uint32(26).fork()).ldelim();
+    if (message.arbitraryPrefix !== undefined) {
+      ArbitraryPrefix.encode(message.arbitraryPrefix, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -227,7 +227,7 @@ export const CommitmentContext = {
             break;
           }
 
-          message.prefixPartioned = PrefixPartioned.decode(reader, reader.uint32());
+          message.arbitraryPrefix = ArbitraryPrefix.decode(reader, reader.uint32());
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -242,7 +242,7 @@ export const CommitmentContext = {
     return {
       sha256Commitment: isSet(object.sha256Commitment) ? Sha256Commitment.fromJSON(object.sha256Commitment) : undefined,
       sha256Chain: isSet(object.sha256Chain) ? Sha256Chain.fromJSON(object.sha256Chain) : undefined,
-      prefixPartioned: isSet(object.prefixPartioned) ? PrefixPartioned.fromJSON(object.prefixPartioned) : undefined,
+      arbitraryPrefix: isSet(object.arbitraryPrefix) ? ArbitraryPrefix.fromJSON(object.arbitraryPrefix) : undefined,
     };
   },
 
@@ -254,8 +254,8 @@ export const CommitmentContext = {
     if (message.sha256Chain !== undefined) {
       obj.sha256Chain = Sha256Chain.toJSON(message.sha256Chain);
     }
-    if (message.prefixPartioned !== undefined) {
-      obj.prefixPartioned = PrefixPartioned.toJSON(message.prefixPartioned);
+    if (message.arbitraryPrefix !== undefined) {
+      obj.arbitraryPrefix = ArbitraryPrefix.toJSON(message.arbitraryPrefix);
     }
     return obj;
   },
@@ -271,37 +271,12 @@ export const CommitmentContext = {
     message.sha256Chain = (object.sha256Chain !== undefined && object.sha256Chain !== null)
       ? Sha256Chain.fromPartial(object.sha256Chain)
       : undefined;
-    message.prefixPartioned = (object.prefixPartioned !== undefined && object.prefixPartioned !== null)
-      ? PrefixPartioned.fromPartial(object.prefixPartioned)
+    message.arbitraryPrefix = (object.arbitraryPrefix !== undefined && object.arbitraryPrefix !== null)
+      ? ArbitraryPrefix.fromPartial(object.arbitraryPrefix)
       : undefined;
     return message;
   },
 };
-
-function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
-  }
-}
-
-function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
-}
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

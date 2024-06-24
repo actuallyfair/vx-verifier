@@ -9,9 +9,9 @@ message Sha256Commitment {
 message Sha256Chain {
 }
 
-// This allows you to use the same prefix for different groups of commitments, so each commitment will have the same .startsWith
-message PrefixPartioned {
-  bytes prefix = 1;
+// This means the commitment starts with arbitrary bytes that are ignore (just used for partioning)
+message ArbitraryPrefix {
+  int32 prefixLength = 1;
   CommitmentContext commitment = 2;
 }
 
@@ -19,6 +19,6 @@ message CommitmentContext {
   oneof derivation_type {
     Sha256Commitment sha256_commitment = 1;
     Sha256Chain sha256_chain = 2;
-    PrefixPartioned prefix_partioned = 3;
+    ArbitraryPrefix arbitrary_prefix = 3;
   }
 }
