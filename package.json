@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actuallyfair/verifier.git"
+    "url": "git+https://github.com/actuallyfair/vx-verifier.git"
   },
   "author": "",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/actuallyfair/verifier/issues"
+    "url": "https://github.com/actuallyfair/vx-verifier/issues"
   },
-  "homepage": "https://github.com/actuallyfair/verifier#readme",
+  "homepage": "https://github.com/actuallyfair/vx-verifier#readme",
   "devDependencies": {
     "@types/pg": "^8.6.3",
     "ts-proto": "^1.148.1",
