@@ -7,4 +7,8 @@ enum Currency {
   ETH = 3; // Ethereum. The base unit is gwei. All amounts must be provided in gwei
   HOUSE = 4; // The currency that is specific and internal to an individual casino
   USD = 5; // United States Dollars. Base unit is cents (i.e. 100 is 1 USD)
+  USDT = 6;  // United States Dollars (tether). Base unit is cents (i.e. 100 is 1 USD)
+  USDC = 7; // United States Dollars (circle). Base unit is cents (i.e. 100 is 1 USD)
+  BCH = 8; // The base unit of bitcoin is satoshis. All amounts must be provided in this
+  LTC = 9; // litecoin, the base unit is litoshi.  All amounts must be provided in this
 }

@@ -9,16 +9,10 @@ message Sha256Commitment {
 message Sha256Chain {
 }
 
-// This means the commitment starts with arbitrary bytes that are ignore (just used for partioning)
-message ArbitraryPrefix {
-  int32 prefixLength = 1;
-  CommitmentContext commitment = 2;
-}
 
 message CommitmentContext {
   oneof derivation_type {
     Sha256Commitment sha256_commitment = 1;
     Sha256Chain sha256_chain = 2;
-    ArbitraryPrefix arbitrary_prefix = 3;
   }
 }

@@ -9,16 +9,9 @@ export interface Sha256Commitment {
 export interface Sha256Chain {
 }
 
-/** This means the commitment starts with arbitrary bytes that are ignore (just used for partioning) */
-export interface ArbitraryPrefix {
-  prefixLength: number;
-  commitment: CommitmentContext | undefined;
-}
-
 export interface CommitmentContext {
   sha256Commitment?: Sha256Commitment | undefined;
   sha256Chain?: Sha256Chain | undefined;
-  arbitraryPrefix?: ArbitraryPrefix | undefined;
 }
 
 function createBaseSha256Commitment(): Sha256Commitment {
@@ -107,84 +100,8 @@ export const Sha256Chain = {
   },
 };
 
-function createBaseArbitraryPrefix(): ArbitraryPrefix {
-  return { prefixLength: 0, commitment: undefined };
-}
-
-export const ArbitraryPrefix = {
-  encode(message: ArbitraryPrefix, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.prefixLength !== 0) {
-      writer.uint32(8).int32(message.prefixLength);
-    }
-    if (message.commitment !== undefined) {
-      CommitmentContext.encode(message.commitment, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): ArbitraryPrefix {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseArbitraryPrefix();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if (tag !== 8) {
-            break;
-          }
-
-          message.prefixLength = reader.int32();
-          continue;
-        case 2:
-          if (tag !== 18) {
-            break;
-          }
-
-          message.commitment = CommitmentContext.decode(reader, reader.uint32());
-          continue;
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): ArbitraryPrefix {
-    return {
-      prefixLength: isSet(object.prefixLength) ? globalThis.Number(object.prefixLength) : 0,
-      commitment: isSet(object.commitment) ? CommitmentContext.fromJSON(object.commitment) : undefined,
-    };
-  },
-
-  toJSON(message: ArbitraryPrefix): unknown {
-    const obj: any = {};
-    if (message.prefixLength !== 0) {
-      obj.prefixLength = Math.round(message.prefixLength);
-    }
-    if (message.commitment !== undefined) {
-      obj.commitment = CommitmentContext.toJSON(message.commitment);
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<ArbitraryPrefix>, I>>(base?: I): ArbitraryPrefix {
-    return ArbitraryPrefix.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<ArbitraryPrefix>, I>>(object: I): ArbitraryPrefix {
-    const message = createBaseArbitraryPrefix();
-    message.prefixLength = object.prefixLength ?? 0;
-    message.commitment = (object.commitment !== undefined && object.commitment !== null)
-      ? CommitmentContext.fromPartial(object.commitment)
-      : undefined;
-    return message;
-  },
-};
-
 function createBaseCommitmentContext(): CommitmentContext {
-  return { sha256Commitment: undefined, sha256Chain: undefined, arbitraryPrefix: undefined };
+  return { sha256Commitment: undefined, sha256Chain: undefined };
 }
 
 export const CommitmentContext = {
@@ -194,9 +111,6 @@ export const CommitmentContext = {
     }
     if (message.sha256Chain !== undefined) {
       Sha256Chain.encode(message.sha256Chain, writer.uint32(18).fork()).ldelim();
-    }
-    if (message.arbitraryPrefix !== undefined) {
-      ArbitraryPrefix.encode(message.arbitraryPrefix, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -222,13 +136,6 @@ export const CommitmentContext = {
 
           message.sha256Chain = Sha256Chain.decode(reader, reader.uint32());
           continue;
-        case 3:
-          if (tag !== 26) {
-            break;
-          }
-
-          message.arbitraryPrefix = ArbitraryPrefix.decode(reader, reader.uint32());
-          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -242,7 +149,6 @@ export const CommitmentContext = {
     return {
       sha256Commitment: isSet(object.sha256Commitment) ? Sha256Commitment.fromJSON(object.sha256Commitment) : undefined,
       sha256Chain: isSet(object.sha256Chain) ? Sha256Chain.fromJSON(object.sha256Chain) : undefined,
-      arbitraryPrefix: isSet(object.arbitraryPrefix) ? ArbitraryPrefix.fromJSON(object.arbitraryPrefix) : undefined,
     };
   },
 
@@ -253,9 +159,6 @@ export const CommitmentContext = {
     }
     if (message.sha256Chain !== undefined) {
       obj.sha256Chain = Sha256Chain.toJSON(message.sha256Chain);
-    }
-    if (message.arbitraryPrefix !== undefined) {
-      obj.arbitraryPrefix = ArbitraryPrefix.toJSON(message.arbitraryPrefix);
     }
     return obj;
   },
@@ -270,9 +173,6 @@ export const CommitmentContext = {
       : undefined;
     message.sha256Chain = (object.sha256Chain !== undefined && object.sha256Chain !== null)
       ? Sha256Chain.fromPartial(object.sha256Chain)
-      : undefined;
-    message.arbitraryPrefix = (object.arbitraryPrefix !== undefined && object.arbitraryPrefix !== null)
-      ? ArbitraryPrefix.fromPartial(object.arbitraryPrefix)
       : undefined;
     return message;
   },
